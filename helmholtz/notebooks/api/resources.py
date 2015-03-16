@@ -41,7 +41,7 @@ class TimelineResource( ModelResource ) :
     class Meta:
         queryset = Timeline.objects.all()
         resource_name = 'timeline' # optional, if not present it will be generated from classname
-        events = fields.ForeignKey( EventResource, 'events' )
+        #events = fields.ForeignKey( EventResource, 'events' )
         #excludes = ['id']
         # filtering = {
         #     'scientific_name': ALL,
