@@ -5,29 +5,21 @@ from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields
 
-from helmholtz.notebooks.models import Event
 from helmholtz.notebooks.models import Timeline
+from helmholtz.notebooks.models import Event
 
 
 # Resources
 
-class EventResource( ModelResource ) :
-
+class TimelineResource( ModelResource ) :
     class Meta:
-        queryset = Event.objects.all()
-        resource_name = 'event'
-        # excludes = ['id']
-        # filtering = {
-        #     'nomenclature' : ALL,
-        #     'label' : ALL,
-        #     'species' : ALL_WITH_RELATIONS,
-        # }
+        queryset = Timeline.objects.all()
+        resource_name = 'timeline' # optional, if not present it will be generated from classname
         excludes = ['id']
         filtering = {
             'date': ALL,
             'color': ALL,
             'name': ALL,
-            'events': ALL,
             'height': ALL,
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
@@ -36,22 +28,17 @@ class EventResource( ModelResource ) :
         authorization = DjangoAuthorization()
 
 
-class TimelineResource( ModelResource ) :
-    events = fields.ToManyField( EventResource, 'event_set' )
+class EventResource( ModelResource ) :
+    timeline = fields.ForeignKey(TimelineResource, 'timeline' ) #resource_name of TimelineRessource
     class Meta:
-        queryset = Timeline.objects.all()
-        resource_name = 'timeline' # optional, if not present it will be generated from classname
-        #events = fields.ForeignKey( EventResource, 'events' )
-        #excludes = ['id']
-        # filtering = {
-        #     'scientific_name': ALL,
-        #     'english_name': ALL,
-        # }
+        queryset = Event.objects.all()
+        resource_name = 'event'
         excludes = ['idEvent']
         filtering = {
+            'timeline': ALL_WITH_RELATIONS,
             'text': ALL,
             'date': ALL,
-            'type': ['type1', 'type2', 'type3', 'type4', 'type5'],
+            'type': ['Type 1', 'Type 2', 'Type 3', 'Type 4', 'Type 5'],
             'color': ALL,
             'vPlacement': ALL,
         }
@@ -59,4 +46,3 @@ class TimelineResource( ModelResource ) :
         always_return_data = True
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
-
