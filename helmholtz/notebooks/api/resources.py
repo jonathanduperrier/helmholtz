@@ -15,8 +15,9 @@ class TimelineResource( ModelResource ) :
     class Meta:
         queryset = Timeline.objects.all()
         resource_name = 'timeline' # optional, if not present it will be generated from classname
-        excludes = ['id']
+        #excludes = ['id']
         filtering = {
+            'id': ALL,
             'date': ALL,
             'color': ALL,
             'name': ALL,
@@ -24,9 +25,8 @@ class TimelineResource( ModelResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
-        authentication = BasicAuthentication()
-        authorization = DjangoAuthorization()
-
+        authentication = Authentication()
+        authorization = Authorization()
 
 class EventResource( ModelResource ) :
     timeline = fields.ForeignKey(TimelineResource, 'timeline' ) #resource_name of TimelineRessource
@@ -35,6 +35,7 @@ class EventResource( ModelResource ) :
         resource_name = 'event'
         excludes = ['idEvent']
         filtering = {
+            #'id': ALL,
             'timeline': ALL_WITH_RELATIONS,
             'text': ALL,
             'date': ALL,
@@ -44,5 +45,5 @@ class EventResource( ModelResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
-        authentication = BasicAuthentication()
-        authorization = DjangoAuthorization()
+        authentication = Authentication()
+        authorization = Authorization()
