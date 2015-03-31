@@ -19,10 +19,10 @@ class Block( models.Model ) :
     notes = models.TextField( null=True, blank=True )
     
     def __unicode__(self):
-        st = "Recording block %s" % self.pk
-        if self.name :
-            st += " called '%s'" % self.name
-        return st
+        return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     
 
 class Recording( models.Model ) :
@@ -39,8 +39,11 @@ class Recording( models.Model ) :
     stimulus = models.ForeignKey( Stimulus, null=True, blank=True )
     
     def __unicode__(self):
-        return "Recording '%s'" % (self.name)
-    
+        return self.name
+
+    def __str__(self):
+        return self.__unicode__()
+
     class Meta:
         permissions = (
             ( 'view_recording', 'Can view recording' ),
@@ -110,6 +113,7 @@ class RecordingChannel( models.Model ) :
     description = models.TextField( null=True, blank=True )
     file = models.ForeignKey( File, null=True, blank=True )
     continuous_signals = models.ManyToManyField( ContinuousSignal, null=True )
+    # discrete_signals = models.ManyToManyField( DiscreteSignal, null=True )
     configuration = models.ForeignKey( ItemProperties, null=True )
 
     def __unicode__(self):
