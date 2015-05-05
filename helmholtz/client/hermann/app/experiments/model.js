@@ -34,6 +34,7 @@ angular.module( 'hermann.experiments', ['ngResource'] )
 .factory( 
     'Experiment', // Object model
     function( $resource ){ // , $filter can be added if ngFilter is injected above
+        //return $resource( base_url + 'experiment/:id/', { id:'@eId' },
         return $resource( base_url + 'experiment/:id/', { id:'@eId' },
         {
             get: { method: 'GET', params:{ format:'json' }, isArray: false },

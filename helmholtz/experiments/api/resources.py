@@ -22,15 +22,18 @@ class ExperimentResource( ModelResource ) :
     class Meta:
         queryset = Experiment.objects.all()
         resource_name = 'experiment'
-        excludes = ['id']
+        #excludes = ['id']
         filtering = {
-            'label': ALL,
+            'id': ALL,
+	    'label': ALL,
             'type': ALL,
             'start': ALL,
             'end': ALL,
             'researchers': ALL_WITH_RELATIONS,
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
+	always_return_data = True #Added JD
         authentication = BasicAuthentication()
-        #authorization = DjangoAuthorization()
-        authorization = GuardianAuthorization()
+        authorization = DjangoAuthorization() #Added JD
+        #authorization = GuardianAuthorization()
+

@@ -14,7 +14,8 @@ class TimelineAdmin( GuardedModelAdmin ) :
         'date',
         'color',
         'name',
-        'height'
+        'height',
+        'experiment'
     ]
 
 class EventAdmin( GuardedModelAdmin ) :
@@ -23,8 +24,7 @@ class EventAdmin( GuardedModelAdmin ) :
     	'text',
     	'date',
     	'type',
-    	'color',
-    	'vPlacement'
+    	'color'
     ]
 
 # registration
