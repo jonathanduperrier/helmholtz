@@ -6,6 +6,7 @@ from guardian.admin import GuardedModelAdmin
 
 from helmholtz.notebooks.models import Timeline
 from helmholtz.notebooks.models import Event
+from helmholtz.notebooks.models import Epoch
 
 # overriding
 
@@ -26,8 +27,19 @@ class EventAdmin( GuardedModelAdmin ) :
     	'type',
     	'color'
     ]
+class EpochAdmin( GuardedModelAdmin ) :
+    fields = [
+        'timeline',
+	'epoch',
+    	'text',
+    	'start',
+	'end',
+    	'type',
+    	'color'
+    ]
 
 # registration
 admin.site.register( Timeline, TimelineAdmin )
 admin.site.register( Event, EventAdmin )
+admin.site.register( Epoch, EpochAdmin )
 

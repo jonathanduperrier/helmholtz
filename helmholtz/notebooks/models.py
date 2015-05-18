@@ -31,3 +31,18 @@ class Event(models.Model):
     def __unicode__(self):
         return unicode(self.date)
 
+class Epoch(models.Model):
+    """."""
+    idEpoch = models.AutoField( primary_key=True )
+
+    timeline = models.ForeignKey( Timeline, null=False, blank=False )
+    epoch = models.IntegerField( );
+    text = models.TextField( )
+    start = models.DateTimeField( auto_now=False, auto_now_add=False )
+    end = models.DateTimeField( auto_now=False, auto_now_add=False )
+    type = models.CharField( max_length=50, null=False, blank=False )
+    color = models.CharField( max_length=7, null=False, blank=False )
+    
+    def __unicode__(self):
+        return unicode(self.date)
+
