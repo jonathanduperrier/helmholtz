@@ -4,13 +4,17 @@ from django.conf.urls.defaults import url
 
 # tastypie resource exposition
 from helmholtz.notebooks.api.resources import TimelineResource
+
 from helmholtz.notebooks.api.resources import EventResource
+from helmholtz.notebooks.api.resources import EpochResource
+
 # instance
 timeline_resource = TimelineResource()
 event_resource = EventResource()
+epoch_resource = EpochResource()
 
 urlpatterns = patterns('',
-
     url( r'^', include( timeline_resource.urls ) ),
     url( r'^', include( event_resource.urls ) ),
+    url( r'^', include( epoch_resource.urls ) ),
 )

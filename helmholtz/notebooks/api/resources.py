@@ -8,6 +8,7 @@ from helmholtz.core.api.authorization import GuardianAuthorization
 
 from helmholtz.notebooks.models import Timeline
 from helmholtz.notebooks.models import Event
+from helmholtz.notebooks.models import Epoch
 #from helmholtz.experiments.models import Experiment
 from helmholtz.experiments.api.resources import ExperimentResource
 
@@ -54,7 +55,7 @@ class EventResource( ModelResource ) :
 class EpochResource( ModelResource ) : 
     timeline = fields.ForeignKey(TimelineResource, 'timeline' ) #resource_name of TimelineRessource
     class Meta:
-	queryset = Event.objects.all()
+	queryset = Epoch.objects.all()
 	resource_name = 'epoch'
 	excludes = ['idEpoch']
 	filtering = {
