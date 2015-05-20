@@ -34,15 +34,15 @@ class Event(models.Model):
 class Epoch(models.Model):
     """."""
     idEpoch = models.AutoField( primary_key=True )
-
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
-    epoch = models.IntegerField( );
-    text = models.TextField( )
+    #epoch = models.IntegerField( null=True, blank=True )
+    id_epoch = models.ForeignKey( 'self', null=True, blank=True )
+    text = models.TextField( null=True, blank=True )
     start = models.DateTimeField( auto_now=False, auto_now_add=False )
-    end = models.DateTimeField( auto_now=False, auto_now_add=False )
-    type = models.CharField( max_length=50, null=False, blank=False )
-    color = models.CharField( max_length=7, null=False, blank=False )
+    end = models.DateTimeField( auto_now=False, null=True, blank=True, auto_now_add=False )
+    type = models.CharField( max_length=50, null=True, blank=True )
+    color = models.CharField( max_length=7, null=True, blank=True )
     
     def __unicode__(self):
-        return unicode(self.date)
+        return unicode(self.start)
 

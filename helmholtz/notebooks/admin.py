@@ -30,7 +30,7 @@ class EventAdmin( GuardedModelAdmin ) :
 class EpochAdmin( GuardedModelAdmin ) :
     fields = [
         'timeline',
-	'epoch',
+	'id_epoch',
     	'text',
     	'start',
 	'end',

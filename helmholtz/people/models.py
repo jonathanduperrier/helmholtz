@@ -54,7 +54,7 @@ class Researcher( models.Model ):
     Anybody working in a :class:`Organization`.
     Used as a profile for a database :class:`django.contrib.auth.models.User`.
     """
-    user = models.OneToOneField( User, null=True, blank=True, verbose_name="database user" )
+    user = models.OneToOneField( User, null=False, blank=False, verbose_name="database user" )
     phone = models.CharField( max_length=16 )
     website = models.URLField( max_length=256 )
     street_address = models.CharField( max_length=256 )

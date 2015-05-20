@@ -61,7 +61,7 @@ class EpochResource( ModelResource ) :
 	filtering = {
             #'id': ALL,
             'timeline': ALL_WITH_RELATIONS,
-	    'epoch': ALL,
+	    'id_epoch': ALL,
             'text': ALL,
             'start': ALL,
 	    'end': ALL,
