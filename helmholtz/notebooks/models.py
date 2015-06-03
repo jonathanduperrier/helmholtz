@@ -33,16 +33,31 @@ class Event(models.Model):
 
 class Epoch(models.Model):
     """."""
-    idEpoch = models.AutoField( primary_key=True )
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
-    #epoch = models.IntegerField( null=True, blank=True )
-    id_epoch = models.ForeignKey( 'self', null=True, blank=True )
     text = models.TextField( null=True, blank=True )
     start = models.DateTimeField( auto_now=False, auto_now_add=False )
     end = models.DateTimeField( auto_now=False, null=True, blank=True, auto_now_add=False )
     type = models.CharField( max_length=50, null=True, blank=True )
     color = models.CharField( max_length=7, null=True, blank=True )
     
+    class Meta:
+        abstract = True
+
     def __unicode__(self):
         return unicode(self.start)
+
+class Electrode(Epoch):
+    """."""
+    idElectrode = models.AutoField( primary_key=True )
+
+class Neuron(Epoch):
+    """."""
+    idNeuron = models.AutoField( primary_key=True )
+    electrode = models.ForeignKey( Electrode, null=True, blank=True )
+
+class Protocol(Epoch):
+    """."""
+    idProtocol = models.AutoField( primary_key=True )
+    neuron = models.ForeignKey( Neuron, null=True, blank=True )
+
 
