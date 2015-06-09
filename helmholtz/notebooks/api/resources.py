@@ -35,6 +35,8 @@ class TimelineResource( ModelResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
+	limit = 0
+	max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
@@ -54,6 +56,8 @@ class EventResource( ModelResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
+	limit = 0
+	max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
@@ -74,6 +78,8 @@ class EpochResource( ModelResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
+	limit = 0
+	max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
@@ -87,6 +93,8 @@ class ElectrodeResource( EpochResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
+	limit = 0
+	max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
@@ -102,6 +110,8 @@ class NeuronResource( EpochResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
+	limit = 0
+	max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
@@ -117,6 +127,8 @@ class ProtocolResource( EpochResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
+	limit = 0
+	max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
