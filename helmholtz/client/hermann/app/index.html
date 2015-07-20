@@ -1,59 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Experiments</title>
+        <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.spin.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/angular.js"></script>
+        <script type="text/javascript" src="js/angular-resource.js"></script>
+        <script type="text/javascript" src="js/angular-route.js"></script>
+        <script type="text/javascript" src="js/angular-cookies.js"></script>
+        <script type="text/javascript" src="js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+        <script type="text/javascript" src="js/angular-modal-service.js"></script>
+        <script type="text/javascript" src="js/bootbox.min.js"></script>
+        <script type="text/javascript" src="js/date.format.js"></script>
+        <script type="text/javascript" src="js/moment.js"></script>
+        <script type="text/javascript" src="js/fr.js"></script>
+        <script type="text/javascript" src="js/en-gb.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 
-<html lang="en" ng-app="hermann">
+        <script type="text/javascript" src="people/model.js"></script>
+        <script type="text/javascript" src="login/controllers.js"></script>
+        <script type="text/javascript" src="login/model.js"></script>
+        <script type="text/javascript" src="experiments/controllers.js"></script>
+        <script type="text/javascript" src="experiments/model.js"></script>
 
-<head>
-    <meta charset="utf-8">
-    <title>Hermann</title>
+        <script type="text/javascript" src="timeline/model.js"></script>
+        <script type="text/javascript" src="timeline/controllers.js"></script>
+        <script type="text/javascript" src="timeline/dict/display_epoch_btn.js"></script>
+        
+        <script type="text/javascript" src="app.js"></script>
 
-    <link rel="stylesheet" href="common/css/bootstrap.css">
-    <link rel="stylesheet" href="common/css/app.css">
-    <style> body {padding-top:60px;} </style>
-    <script src="common/lib/angular/angular.js"></script>
-    <script src="common/lib/angular/angular-resource.js"></script>
-    <script src="common/lib/angular/angular-cookies.js"></script>
-    <script src="common/lib/angular/ui-bootstrap-tpls-0.4.0.min.js"></script>
-    <script src="app.js"></script>
-    <script src="common/directives.js"></script>
-    <script src="login/model.js"></script>
-    <script src="login/controllers.js"></script>
-    <script src="experiments/model.js"></script>
-    <script src="experiments/controllers.js"></script>
-    <script src="people/model.js"></script>
-    <script src="preparations/model.js"></script>
-    <script src="preparations/controllers.js"></script>
-</head>
-
-<body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="#">Hermann</a>
-                <div class="nav-collapse collapse" ng-show="showLogout">
-                    <ul class="nav">
-                        <li><a href="#/experiment">Experiments</a></li>
-                        <li><a href="#/preparations/animal">Animals</a></li>
-                        <!--<li><a href="#/devices">Device</a></li> ... -->
-                    </ul>
-                    <div class="pull-right" ng-show="showLogout">
-                        <button class="btn btn-mini btn-inverse" ng-click="removeAuthorization()">Logout {{username}}</a>
-                    </div>
-                    <div class="navbar-search pull-right">
-                        <input type="text" class="search-query" placeholder="Filter" ng-model="query">
-                    </div>
-                </div><!--/.nav-collapse -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/timeline_visual.css">
+        <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
+    </head>
+    <body ng-app="mainApp">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <span class="navbar-brand" href="#">Hermann</span>
+            <ul class="nav navbar-nav" ng-show="showLogout">
+                <li><a ng-click="" href="#/experiment">Experiments</a></li>
+            </ul>
+            <div ng-show="showLogout" class="nav navbar-form navbar-right form-group">
+                <div class="input-group">
+                    <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+                    <input type="search" class="form-control" placeholder="Filter" ng-model="query">
+                </div>
+            </div>
+            <div ng-show="showLogout" class="nav navbar-right">
+                <button class="btn btn-primary navbar-btn" ng-click="removeAuthorization()"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout {{username}}</button>
             </div>
         </div>
-    </div>
-
-    <div ng-view></div>
-
-    <div modal="showSpin" options="opts"><i class="icon-edit"></i></div>
-<!--
-<div class="span12">
-<pre>showSpin = {{showSpin}}</pre>
-</div>
--->
-</body>
+        <!--<div class="container">-->
+            <div ng-view></div>
+        <!--</div>-->
+    </body>
 </html>

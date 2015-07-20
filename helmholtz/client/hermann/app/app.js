@@ -1,56 +1,58 @@
-'use strict';
-
-/**
- * This is our main app configuration file. 
- * It kickstarts the whole process by requiring all the modules from src/app that we need. 
- * We must load these now to ensure the routes are loaded. 
- * We only require the top-level module and allow the submodules to require their own submodules.
- */
-
 var base_url = 'http://helm1/';
+var app_url = 'http://127.0.0.1:8080/';
 //var base_url = 'https://www.dbunic.cnrs-gif.fr/visiondb/';
 
-/* Main App Module */
-angular.module( 'hermann', [ 
-    'ui.bootstrap',
-    'hermann.directives',
-    //'hermann.filters', 
-    //'hermann.services',
-    'hermann.login', 
-    'hermann.experiments',
-    'hermann.people',
-    'hermann.preparations',
-])
 
-.config(  
-    function( $httpProvider, $routeProvider, $locationProvider ) {
-        // http defaults
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-requested-With'];
+var mainApp = angular.module('mainApp', [
+	'ngRoute',
+	'mod_tlv',
+	'hermann.experiments',
+	'hermann.login',
+	'hermann.people'
+]);
 
-        // defualt routing
-        $routeProvider.otherwise({redirectTo: '/experiment'});
-
-        // Login
-        // intercept http 401 error and redirect to login page
-        var HttpErrorInterceptor = ['$location', function( $location ) {
-            function success( response ) {
-                return response;
-            }
-            function error( response ) {
-                // show login
-                if (response.status === 401 ) {
-                    alert("Authentication Failure");
-                    $location.path( '/login' );
+mainApp.factory('errorHttpInterceptor', ['$q', function ($q) {
+        return {
+            responseError: function responseError(rejection) {
+                if (rejection.status === 401 ) {
+                    angular.element(location).attr('href','/#/login');
                 }
-                return response;
+                return $q.reject(rejection);
             }
-            return function( promise ) {
-                return promise.then( success, error );
-            }
-        }];
-        $httpProvider.responseInterceptors.push( HttpErrorInterceptor );
-    }
-)
+        };
+    }]);
 
-;
+/**
+ * Module Routes
+ * AngularJS will handle the merging
+ * Controller for each route are managed in the corresponding <module>/controllers.js
+ */
+mainApp.config(['$routeProvider', '$httpProvider',
+      function ($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('errorHttpInterceptor');
+
+        $routeProvider.
+          when('/login', {
+            templateUrl: 'login/form.tpl.html',
+            controller: 'LoginForm'
+          }).
+          when('/experiment', {
+            templateUrl: 'experiments/list.tpl.html',
+            controller: 'ListExperiment'
+          }).
+          when('/experiment/:eId', {
+             templateUrl: 'experiments/detail.tpl.html', 
+             controller: 'DetailExperiment'
+      	  }).
+      	  when('/experiment/:eId/edit', {
+      	     templateUrl: 'experiments/edit.tpl.html', 
+      	     controller: 'EditExperiment'
+      	  }).
+          when('/timeline/experiment/:eID', {
+            templateUrl: 'timeline/timeline_visual.tpl.html',
+            controller: 'timeLineVisualController'
+          }).
+          otherwise({
+            redirectTo: '/experiment'
+          });
+  }]);
