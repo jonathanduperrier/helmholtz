@@ -51,7 +51,7 @@ class EventResource( ModelResource ) :
             'timeline': ALL_WITH_RELATIONS,
             'text': ALL,
             'date': ALL,
-            'type': ['Type 1', 'Type 2', 'Type 3', 'Type 4', 'Type 5'],
+            'type': ALL,
             'color': ALL
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
@@ -73,7 +73,7 @@ class EpochResource( ModelResource ) :
             'text': ALL,
             'start': ALL,
 	    'end': ALL,
-            'type': ['Type 1', 'Type 2', 'Type 3', 'Type 4', 'Type 5'],
+            'type': ALL,
             'color': ALL
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
