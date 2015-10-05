@@ -10,12 +10,15 @@ from helmholtz.notebooks.models import Timeline
 from helmholtz.notebooks.models import Event
 from helmholtz.notebooks.models import Epoch
 from helmholtz.notebooks.models import Electrode
+from helmholtz.devices.models import Item
 from helmholtz.notebooks.models import Neuron
+from helmholtz.neuralstructures.models import Cell
 from helmholtz.notebooks.models import Protocol
-
 
 #from helmholtz.experiments.models import Experiment
 from helmholtz.experiments.api.resources import ExperimentResource
+from helmholtz.devices.api.resources import ItemResource
+from helmholtz.neuralstructures.api.resources import CellResource
 
 # Resources
 
@@ -70,10 +73,10 @@ class EpochResource( ModelResource ) :
 	filtering = {
             'id': ALL,
             'timeline': ALL_WITH_RELATIONS,
-            'text': ALL,
+            #'text': ALL,
             'start': ALL,
 	    'end': ALL,
-            'type': ALL,
+            #'type': ALL,
             'color': ALL
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
@@ -83,7 +86,7 @@ class EpochResource( ModelResource ) :
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
-class ElectrodeResource( EpochResource ) :
+class ElectrodeResource( EpochResource, ItemResource ) :
     class Meta:
 	queryset = Electrode.objects.all()
 	resource_name = 'electrode'
@@ -98,7 +101,7 @@ class ElectrodeResource( EpochResource ) :
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
-class NeuronResource( EpochResource ) :
+class NeuronResource( EpochResource, CellResource ) :
     electrode = fields.ForeignKey(ElectrodeResource, attribute='electrode' ) #resource_name of ElectrodeResource
     class Meta:
 	queryset = Neuron.objects.all()

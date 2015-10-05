@@ -2,6 +2,8 @@
 from django.db import models
 from datetime import datetime
 from helmholtz.experiments.models import Experiment
+from helmholtz.devices.models import Item
+from helmholtz.neuralstructures.models import Cell
 
 class Timeline(models.Model):
     """.""" 
@@ -34,10 +36,10 @@ class Event(models.Model):
 class Epoch(models.Model):
     """."""
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
-    text = models.TextField( null=True, blank=True )
+    #text = models.TextField( null=True, blank=True )
     start = models.DateTimeField( auto_now=False, auto_now_add=False )
     end = models.DateTimeField( auto_now=False, null=True, blank=True, auto_now_add=False )
-    type = models.CharField( max_length=50, null=True, blank=True )
+    #type = models.CharField( max_length=50, null=True, blank=True )
     color = models.CharField( max_length=7, null=True, blank=True )
     
     class Meta:
@@ -46,18 +48,19 @@ class Epoch(models.Model):
     def __unicode__(self):
         return unicode(self.start)
 
-class Electrode(Epoch):
+class Electrode(Epoch, Item):
     """."""
     idElectrode = models.AutoField( primary_key=True )
 
-class Neuron(Epoch):
+class Neuron(Epoch, Cell):
     """."""
     idNeuron = models.AutoField( primary_key=True )
-    electrode = models.ForeignKey( Electrode, null=True, blank=True )
+    electrode = models.ForeignKey( Electrode, null=True )
 
 class Protocol(Epoch):
     """."""
     idProtocol = models.AutoField( primary_key=True )
     neuron = models.ForeignKey( Neuron, null=True, blank=True )
-
+    text = models.TextField( null=True, blank=True )
+    type = models.CharField( max_length=50, null=True, blank=True )
 

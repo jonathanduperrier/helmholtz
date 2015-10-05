@@ -34,22 +34,37 @@ class EventAdmin( GuardedModelAdmin ) :
 class ElectrodeAdmin(GuardedModelAdmin) :
     fields = [
         'timeline',
-    	'text',
+    	#'text',
+	'label',
+    	'type',
     	'start',
 	'end',
-    	'type',
-    	'color'
+    	'color',
+	'model',
+	'version',
+	'serial_or_id',
+	'manufacturer',
+	'notes',
+	'impedance',
+	'internal_diameter',
+	'rows',
+	'columns',
+	'step',
     ]
 
 class NeuronAdmin(GuardedModelAdmin) :
     fields = [
         'timeline',
+	#'idcell',
         'electrode',
-    	'text',
+    	#'text',
     	'start',
 	'end',
-    	'type',
+    	#'type',
     	'color',
+	'label',
+	'type',
+	'properties',
     ]
 class ProtocolAdmin(GuardedModelAdmin) :
     fields = [
