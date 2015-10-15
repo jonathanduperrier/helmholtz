@@ -34,47 +34,43 @@ class EventAdmin( GuardedModelAdmin ) :
 class ElectrodeAdmin(GuardedModelAdmin) :
     fields = [
         'timeline',
-    	#'text',
-	'label',
-    	'type',
-    	'start',
-	'end',
-    	'color',
-	'model',
-	'version',
-	'serial_or_id',
-	'manufacturer',
-	'notes',
-	'impedance',
-	'internal_diameter',
-	'rows',
-	'columns',
-	'step',
+    	'label',
+        'type',
+        'start',
+    	'end',
+        'color',
+    	'model',
+    	'version',
+    	'serial_or_id',
+    	'manufacturer',
+    	'notes',
+    	'impedance',
+    	'internal_diameter',
+    	'rows',
+    	'columns',
+    	'step',
     ]
 
 class NeuronAdmin(GuardedModelAdmin) :
     fields = [
         'timeline',
-	#'idcell',
         'electrode',
-    	#'text',
-    	'start',
-	'end',
-    	#'type',
-    	'color',
-	'label',
-	'type',
-	'properties',
+        'start',
+    	'end',
+        'color',
+    	'label',
+    	'type',
+    	'properties',
     ]
 class ProtocolAdmin(GuardedModelAdmin) :
     fields = [
         'timeline',
         'neuron',
-    	'text',
-    	'start',
-	'end',
-    	'type',
-    	'color'
+        'text',
+        'start',
+    	'end',
+        'type',
+        'color'
     ]
 
 # registration

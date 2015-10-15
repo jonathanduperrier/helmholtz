@@ -1,0 +1,33 @@
+# nginx configuration
+
+upstream django {
+    server unix:/home/docker/site/deployment/app.sock;
+}
+
+server {
+    listen 80;
+
+    server_name visiondb;
+    charset     utf-8;
+    client_max_body_size 75M;
+    keepalive_timeout 70;
+    #location /app {
+	#alias /home/docker/site/helmholtz/client/hermann/app;
+	#autoindex on;
+    #    allow 127.0.0.1;
+    #}
+    location /media  {
+        alias /home/docker/site/media;
+    }
+    location /static {
+        alias /home/docker/site/static;
+    }
+    location /app {
+        alias /home/docker/site/helmholtz/client/hermann/app;
+    }
+    location / {
+        uwsgi_pass  django;
+        include     /home/docker/site/deployment/uwsgi_params;
+    }
+}
+

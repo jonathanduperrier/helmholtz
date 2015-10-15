@@ -1,0 +1,490 @@
+# DOCKER
+
+# remove previous sessions pid:
+$ sudo rm /var/run/docker.pid
+
+# start the server
+$ sudo docker -d
+[b7a97529] +job initserver()
+[b7a97529.initserver()] Creating server
+2015/01/09 10:55:32 docker daemon: 1.0.1 990021a; execdriver: native; graphdriver: 
+[b7a97529] +job serveapi(unix:///var/run/docker.sock)
+2015/01/09 10:55:32 Listening for HTTP on unix (/var/run/docker.sock)
+[b7a97529] +job init_networkdriver()
+[b7a97529] -job init_networkdriver() = OK (0)
+2015/01/09 10:55:32 WARNING: Your kernel does not support cgroup swap limit.
+2015/01/09 10:55:32 Local (127.0.0.1) DNS resolver found in resolv.conf and containers can't use it. Using default external servers : [8.8.8.8 8.8.4.4]
+Loading containers: ..............................................................: done.
+[b7a97529.initserver()] Creating pidfile
+[b7a97529.initserver()] Setting up signal traps
+[b7a97529] -job initserver() = OK (0)
+[b7a97529] +job acceptconnections()
+[b7a97529] -job acceptconnections() = OK (0)
+
+
+
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# DEPLOYMENT STEPS
+
+
+# --------------
+# DEVELOPMENT 
+
+# 1. Create a new image containing postgres, from the folder containing the postgres Dockerfile:
+$ sudo docker build -t postgresql_nmpi .
+
+# 2. Create the django server (with certificates)
+$ sudo docker build -t visiondb_server .
+
+# 3. Start db image with the DB already ON
+$ sudo docker run -d --name nmpi_postgres_server postgresql_nmpi /usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf
+
+# 4. To link the postgres docker image to the nmpi server:
+$ sudo docker run -d --link nmpi_postgres_server:postgresql_nmpi nmpi_queue_server
+
+# 4b. ALTERNATIVE: Just nmpi_queue_server
+$ sudo docker run -d nmpi_queue_server
+
+# 5. Test (see below for firther details)
+$ sudo docker ps -notrunc
+CONTAINER ID ...
+585a9b73a354 ...
+$ sudo docker inspect 585
+...
+  "IPAddress": "172.17.0.92",
+...
+# access a remote db engine (from inside another container)
+root@7ef98b1b7243:/$ psql -h postgresql_nmpi -p 5432 -d nmpi -U nmpi_dbadmin --password
+
+# 5b. LOCAL DEV: redirect communications to local docker (on /etc/hosts) add:
+172.17.0.92  www.hbpneuromorphic.eu
+
+# 6. Push the images to tutum
+$ sudo docker login tutum.co
+Username: apdavison
+Password: 
+Email: andrew.davison@unic.cnrs-gif.fr
+Login Succeeded
+$ sudo docker tag visiondb_server tutum.co/apdavison/visiondb_server
+...
+$ sudo docker push tutum.co/apdavison/visiondb_server
+
+
+# --------------
+# PRODUCTION
+
+# 7. Remove (or move) previous images
+# Delete all containers
+$ sudo docker rm -f $(sudo docker ps -a -q)
+# Delete all images
+$ sudo docker rmi -f $(sudo docker images -q)
+
+
+# 8. Retrieve new tutum images
+$ sudo docker pull tutum.co/apdavison/visiondb_server
+
+
+# 9. Start new images with port forwarding only for the queue server (check IPTables)
+
+$ sudo docker run -d -p 49153:80 tutum.co/apdavison/visiondb_server
+
+
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# CHECKS
+
+# logs
+$ sudo docker logs -f -t <container>
+
+$ sudo tail /var/lib/docker/containers/589ff11c170f80fc14c4770b6ca0cb55f80b538ea96ba8d1d61729abbfb0e1ab/589ff11c170f80fc14c4770b6ca0cb55f80b538ea96ba8d1d61729abbfb0e1ab-json.log
+
+
+
+
+
+# --------------------------
+# CLEANING
+# check which is running
+
+$ sudo docker ps
+CONTAINER ID  ...
+af2ac71fb735
+
+$ sudo docker stop af2a
+af2a
+
+$ sudo docker rm af2a
+af2a
+
+$ sudo docker images 
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+postgresql_nmpi     latest              a1435ab386b0        19 hours ago        315.3 MB
+
+$ sudo docker rmi postgresql_nmpi
+Untagged: postgresql_nmpi:latest
+Deleted: a1435ab386b0ca9144e9bb6d047782f7659371054a0329bf55e25c161c61f1e3
+...
+
+
+# Delete all containers
+$ sudo docker rm -f $(docker ps -a -q)
+$ sudo docker rm -f $(sudo docker ps -a -q)
+# Delete all images
+$ docker rmi $(docker images -q)
+$ sudo docker rmi -f $(sudo docker images -q)
+
+
+
+
+# --------------------------
+# Dockerizing PostgreSQL
+
+# The Dockerfile will download the db engine and install, configure it.
+
+# Create a new image containing postgres, from the folder containing the Dockerfile:
+$ sudo docker build -t postgresql_nmpi .
+...
+Successfully built 5044728f5547
+
+
+$ sudo docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+postgresql_nmpi     latest              a1435ab386b0        About a minute ago   315.3 MB
+
+
+# start it
+$ sudo docker run -d --name nmpi_postgres_server postgresql_nmpi /usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf
+af2ac71fb7359accac19f11fa5c43c427168e38c5a24c461484aeae1af5b1233
+
+
+$ sudo docker ps
+CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS               NAMES
+a1435ab386b0        postgresql_nmpi:latest   /usr/lib/postgresql/   19 seconds ago      Up 19 seconds       5432/tcp            nmpi_postgres_server   
+
+
+
+
+# --------------------------------------------------
+# MANAGING DB
+
+# From another shell, we access the postgres image
+$ sudo docker run -i -t postgresql_nmpi /bin/bash 
+
+$ vi /etc/postgresql/9.1/main/pg_hba.conf
+
+# start postgres server
+postgres@6aff525e8700:/$ /usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf &
+
+
+# access the db
+postgres@6aff525e8700:/$ psql -h localhost -p 5432 -d nmpi -U nmpi_dbadmin --password
+
+
+# verify db creation
+nmpi=# \d
+                   List of relations
+ Schema |            Name            | Type  |  Owner   
+--------+----------------------------+-------+----------
+ public | auth_group                 | table | postgres
+ public | auth_group_permissions     | table | postgres
+ public | auth_permission            | table | postgres
+ public | auth_user                  | table | postgres
+ public | auth_user_groups           | table | postgres
+ public | auth_user_user_permissions | table | postgres
+ public | django_admin_log           | table | postgres
+ public | django_content_type        | table | postgres
+ public | django_session             | table | postgres
+ public | simqueue_dataitem          | table | postgres
+ public | simqueue_job               | table | postgres
+ public | simqueue_job_input_data    | table | postgres
+ public | simqueue_job_output_data   | table | postgres
+ public | simqueue_project           | table | postgres
+ public | simqueue_project_members   | table | postgres
+ public | tastypie_apiaccess         | table | postgres
+ public | tastypie_apikey            | table | postgres
+(17 rows)
+
+nmpi=# \q
+postgres@6aff525e8700:/$ exit
+
+
+# START the image with the DB already ON
+$ sudo docker run -d --name nmpi_postgres_server postgresql_nmpi /usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf
+
+
+# CONNECT from a REMOTE HOST
+$ sudo docker ps 
+CONTAINER ID        IMAGE                      COMMAND                CREATED              STATUS              PORTS  
+13a7bd780959        postgresql_nmpi:latest     /usr/lib/postgresql/   About a minute ago   Up About a minute   5432/tcp
+
+
+$ sudo docker inspect 13a
+[{
+	...
+        "IPAddress": "172.17.0.171",
+    ...
+}
+
+
+# from the remote host
+$ psql -h 172.17.0.171 -p 5432 -U nmpi_dbadmin -W nmpi
+Password for user nmpi_dbadmin: 
+psql (9.3.5, server 9.1.14)
+Type "help" for help.
+
+nmpi=> 
+
+
+
+# --------------------------------------------------
+# QUEUE SERVER
+
+# modify Dockerfile
+RUN apt-get -y -q install ... python-psycopg2
+...
+#RUN python manage.py syncdb --noinput
+#RUN python manage.py loaddata neuromorphic_platform_interface/initial_data.json
+
+
+# modify settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'nmpi',
+        'USER': 'nmpi_dbadmin',
+        'PASSWORD': 'Gahvail0',
+        'HOST': "postgresql_nmpi",
+        'PORT': "5432",
+    }
+
+    'sqlite': {...}
+}
+
+
+# build the server 
+$ sudo docker build -t nmpi_queue_server .
+
+
+
+# --------------------------------------------------
+# LINK TWO CONTAINERS
+# https://docs.docker.com/userguide/dockerlinks/
+# http://stackoverflow.com/questions/26295061/linking-django-and-postgresql-with-docker
+
+# To link the postgres docker image to the nmpi server:
+$ sudo docker run -d --link nmpi_postgres_server:postgresql_nmpi nmpi_queue_server
+
+# on the production server, with right mapping and name
+$ sudo docker run -d -p 49153:443 --link nmpi_postgres_server:postgresql_nmpi tutum.co/apdavison/nmpi_queue_server
+
+# with no link
+$ sudo docker run -d -p 49153:443 tutum.co/apdavison/nmpi_queue_server
+$ sudo docker run -d nmpi_queue_server
+
+# --------------------------------------------------
+# CHECK
+$ sudo docker ps -notrunc
+CONTAINER ID        IMAGE                      COMMAND                CREATED              STATUS              PORTS               NAMES
+585a9b73a354        nmpi_queue_server:latest   supervisord -n         9 seconds ago        Up 8 seconds        80/tcp              agitated_mclean
+13a7bd780959        postgresql_nmpi:latest     /usr/lib/postgresql/   About a minute ago   Up About a minute   5432/tcp            agitated_mclean/postgresql_nmpi,nmpi_postgres_server
+
+
+$ sudo docker inspect 585
+[{
+    "Args": [
+        "-n"
+    ],
+    "Config": {
+        "AttachStderr": false,
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "Cmd": [
+            "supervisord",
+            "-n"
+        ],
+        "CpuShares": 0,
+        "Cpuset": "",
+        "Domainname": "",
+        "Entrypoint": null,
+        "Env": [
+            "HOME=/",
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "DEBIAN_FRONTEND=noninteractive",
+            "PYTHONPATH=/usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages",
+            "EMAIL_PASSWORD=foo"
+        ],
+        "ExposedPorts": {
+            "80/tcp": {}
+        },
+        "Hostname": "585a9b73a354",
+        "Image": "nmpi_queue_server",
+        "Memory": 0,
+        "MemorySwap": 0,
+        "NetworkDisabled": false,
+        "OnBuild": null,
+        "OpenStdin": true,
+        "PortSpecs": null,
+        "StdinOnce": false,
+        "Tty": true,
+        "User": "",
+        "Volumes": null,
+        "WorkingDir": "/home/docker/site"
+    },
+    "Created": "2015-01-12T15:20:12.820851176Z",
+    "Driver": "aufs",
+    "ExecDriver": "native-0.2",
+    "HostConfig": {
+        "Binds": null,
+        "ContainerIDFile": "",
+        "Dns": null,
+        "DnsSearch": null,
+        "Links": null,
+        "LxcConf": [],
+        "NetworkMode": "bridge",
+        "PortBindings": {
+            "80/tcp": null
+        },
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "VolumesFrom": null
+    },
+    "HostnamePath": "/var/lib/docker/containers/585a9b73a3544e8ced821dcdef8e3806d03149f1f4c866dd3c0924e548830d79/hostname",
+    "HostsPath": "/var/lib/docker/containers/585a9b73a3544e8ced821dcdef8e3806d03149f1f4c866dd3c0924e548830d79/hosts",
+    "Id": "585a9b73a3544e8ced821dcdef8e3806d03149f1f4c866dd3c0924e548830d79",
+    "Image": "1fbdd93b3278a37d7f296276aaa736f6a01a81ba32f96a3b150f24fbcda7d9e9",
+    "MountLabel": "",
+    "Name": "/agitated_mclean",
+    "NetworkSettings": {
+        "Bridge": "docker0",
+        "Gateway": "172.17.42.1",
+        "IPAddress": "172.17.0.92",
+        "IPPrefixLen": 16,
+        "PortMapping": null,
+        "Ports": {
+            "80/tcp": null
+        }
+    },
+    "Path": "supervisord",
+    "ProcessLabel": "",
+    "ResolvConfPath": "/var/lib/docker/containers/585a9b73a3544e8ced821dcdef8e3806d03149f1f4c866dd3c0924e548830d79/resolv.conf",
+    "State": {
+        "ExitCode": 0,
+        "FinishedAt": "0001-01-01T00:00:00Z",
+        "Paused": false,
+        "Pid": 1041,
+        "Running": true,
+        "StartedAt": "2015-01-12T15:20:12.944578788Z"
+    },
+    "Volumes": {},
+    "VolumesRW": {}
+}
+
+
+# access a remote db engine (from inside another container)
+root@7ef98b1b7243:/$ psql -h postgresql_nmpi -p 5432 -d nmpi -U nmpi_dbadmin --password
+
+
+
+
+# --------------------------------------------------
+# TUTUM
+
+$ sudo docker login tutum.co
+Username: apdavison
+Password: 
+Email: andrew.davison@unic.cnrs-gif.fr
+Login Succeeded
+$ sudo docker tag nmpi_queue_server tutum.co/apdavison/nmpi_queue_server
+$ sudo docker tag postgresql_nmpi tutum.co/apdavison/postgresql_nmpi
+
+$ sudo docker push tutum.co/apdavison/postgresql_nmpi
+The push refers to a repository [tutum.co/apdavison/postgresql_nmpi] (len: 1)
+Sending image list
+Pushing repository tutum.co/apdavison/postgresql_nmpi (1 tags)
+Image 511136ea3c5a already pushed, skipping
+Image 1aeada447715 already pushed, skipping
+Image 479215127fa7 already pushed, skipping
+095b4f655262: Image successfully pushed 
+25916e672e77: Image successfully pushed 
+1c0023da7f7d: Image successfully pushed 
+e90597700ddc: Image successfully pushed 
+...
+
+# retrieve images
+# ...
+
+
+
+
+
+# --------------------------------------------------
+# DUMP AND RESTORE
+# http://www.postgresql.org/docs/9.1/static/backup-dump.html
+
+# DUMP:
+# we ask pg_dump (and 'dumpall' to have also roles in it) to:
+# - drop all tables before recreating them
+# - add the sql commands to create the db
+# - add the sql insert commands for the data
+# - do not ask for password during the dump
+# - dump at specific host and port
+# - do it for the username (owner of db)
+
+$ pg_dump --clean --create --insert --no-password --host=172.17.0.2 --port=5432 --username=nmpi_dbadmin --dbname=nmpi --file=nmpi_dump_`date +%Y%m%d%H%M`.sql
+
+$ pg_dumpall --clean --create --insert --no-password --host=172.17.0.2 --port=5432 --username=nmpi_dbadmin --dbname=nmpi --file=nmpi_dumpall_`date +%Y%m%d%H%M`.sql
+
+# as a CRON JOB
+# remember to change the IP!!!
+# add to /etc/cron.d :
+# m  h  dom mon dow user         command
+  0  *  *   *   *   nmpi_dbadmin pg_dump --clean --create --insert --no-password --host=IP --port=5432 --username=nmpi_dbadmin --dbname=nmpi --file=nmpi_dump_`date +%Y%m%d%H%M`.sql
+
+# m  h  dom mon dow user         command
+  0  *  *   *   *   nmpi_dbadmin pg_dumpall --clean --create --insert --no-password --host=172.17.0.2 --port=5432 --username=nmpi_dbadmin --dbname=nmpi --file=nmpi_dumpall_`date +%Y%m%d%H%M`.sql
+  
+# RESTORE:
+# we ask pg_restore to:
+# - do not ask for password during the restore
+# - do it in a single transaction (if something fails, nothing is restored)
+# - restore at specific host and port
+# - do it for the username (owner of db, already created by docker)
+
+$ pg_restore --no-password --single-transaction --host=<IP> --port=5432 --username=nmpi_dbadmin --file=<nmpi_dump_filename>
+
+APD: pg_restore doesn't seem to work with plain text dumps
+     also, --single-transaction does not seem to be compatible with the --create option to pg_dump.
+
+This works for me (postgres password can be obtained from the container log on Tutum):
+
+$ psql --host=postgresql-nmpi.apdavison.svc.tutum.io --port=5432 --username=postgres < <nmpi_dump_filename>
+
+
+
+# --------------------------------------------------
+# or dump file:
+
+#! /bin/bash
+
+# backup-postgresql.sh
+# by Domenico Guarino (based on Craig Sanders' http://serverfault.com/questions/59838/whats-the-best-way-to-automate-backing-up-of-postgresql-databases)
+# this script is public domain.  feel free to use or modify as you like.
+
+# directory to save backups in, must be rwx by postgres user
+PG_HOST="172.17.0.2"
+PG_PORT="5432"
+FILENAME=$(nmpi_dump_`date +%Y%m%d%H%M`.sql)
+BASE_DIR="/var/backups/postgres/"
+mkdir $BASE_DIR
+cd $BASE_DIR
+
+# now save the db
+pg_dump --clean --create --insert --no-password --host=$PG_HOST --port=$PG_PORT --username=nmpi_dbadmin --dbname=nmpi --file=$FILENAME
+
+# delete backup files older than 30 days
+OLD=$(find $BASE_DIR -type d -mtime +30)
+if [ -n "$OLD" ] ; then
+        echo deleting old backup files: $OLD
+        echo $OLD | xargs rm -rfv
+fi
