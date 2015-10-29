@@ -20,6 +20,7 @@ class Animal( models.Model ) :
     strain = models.ForeignKey( Strain, null=True )
     identifier = models.CharField( max_length=15, null=True, blank=True )
     nickname = models.CharField( max_length=15, null=True, blank=True )
+    weight = models.FloatField( null=True, blank=True )
     sex = models.CharField( max_length=1, choices=(('M', 'male'), ('F', 'female')), null=True, blank=True )
     birth = models.DateField( help_text="(approximate)", null=True, blank=True )
     sacrifice = models.DateField( null=True, blank=True )
@@ -46,8 +47,9 @@ class Animal( models.Model ) :
 
 
 preparations = (
-    ( 'IN-VIVO-SHARP', 'in vivo sharp' ),
-    ( 'IN-VIVO-PATCH', 'in vivo patch' ),
+    ( 'IN-VIVO-INTRA', 'in vivo intracellular' ),
+    ( 'IN-VIVO-EXTRA', 'in vivo extracellular' ),
+    ( 'IN-VIVO-VSD', 'in vivo VSD' ),
     ( 'IN-VITRO-CULTURE', 'in vitro culture' ),
     ( 'IN-VITRO-SLICE', 'in vitro slice' ),
     ( 'IN-SILICO', 'in silico' )
