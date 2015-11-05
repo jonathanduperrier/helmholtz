@@ -61,15 +61,15 @@ class EventResource( ModelResource ) :
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True
-	limit = 0
-	max_limit = 0
+        limit = 0
+        max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
 
 
 class EpochResource( ModelResource ) : 
-    timeline = fields.ForeignKey(TimelineResource, attribute='timeline' )
-    depend = fields.ForeignKey('self', attribute='depend', null = True)
+    timeline = fields.ForeignKey( TimelineResource, attribute='timeline' )
+    depend = fields.ForeignKey( 'self', attribute='depend', null=True )
 
     class Meta:
         queryset = Epoch.objects.all()
@@ -80,6 +80,7 @@ class EpochResource( ModelResource ) :
                 'timeline': ALL_WITH_RELATIONS,
                 'depend': ALL_WITH_RELATIONS,
                 'start': ALL,
+                'text': ALL,
                 'end': ALL,
                 'type': ALL,
                 'color': ALL
