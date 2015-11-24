@@ -6,11 +6,13 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          'hermann.experiments',
                                          'CellTypeService',
                                          'DeviceTypeService',
-                                         'SupplierService'
+                                         'SupplierService',
+                                         'ngRoute',
                                          ]);
 
 mod_tlv.controller('timeLineVisualController', 
-function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment) {
+function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route) {
+    $scope.$route = $route;
 
     $scope.idExp = 0;
     $scope.dateStartExp = "";
@@ -20,8 +22,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     $scope.margin_bottom_timeline = 150;
     $scope.scale_coef = 60;
-
-    $scope.TLExp_id = [];
 
     $scope.config_defaults = {
         'CAT VISUAL INVIVO INTRA': {
@@ -151,6 +151,18 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         ],
     };
 
+    $scope.depend_choices = {
+        '6 Neuron': {
+            timeline: '5 Electrode',
+            timeline_key: null,
+            option_epochs: []
+        },
+        '7 Protocol': {
+            timeline: '6 Neuron',
+            timeline_key: null,
+            option_epochs: [] // {text:<parent.epoch.text>,resource_uri:<parent.epoch.uri>,closed}, {}
+        },
+    }
 
     $scope.stopSpin = function() {
       if($rootScope.spin == 1){
@@ -159,25 +171,45 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
       $rootScope.spin = 0;
     };
 
+    //$scope.stopSpin();
 
     // get the current experiment
     $scope.experiment = Experiment.get(
         {id:$routeParams.eID},
-        function(data){ 
+        function(data){
+            angular.element(window).spin();
+            $rootScope.spin = 1;
 
+            //format of date of end experiment
+            $dateEndExp = new Date($scope.experiment.end);
+            if($scope.experiment.end != null){
+              $scope.dateEndExp = $dateEndExp.format('dd/mm/yyyy - HH:MM');
+            }
+            //$scope.stopSpin();
             // get timelines for this experiment only
             $scope.TLExp = timeLine.get(
                 {experiment__id: $scope.experiment.id}, 
                 function(data){
+                    angular.element(window).spin();
+                    $rootScope.spin = 1;
                     angular.forEach( $scope.TLExp.objects, function(value, key) {
-                        $scope.TLExp_id[key] = $scope.TLExp.objects[key].id;
                         $scope.TLExp.objects[key].height = $scope.margin_bottom_timeline;
+                        $scope.TLExp.objects[key].key = key;
+                        // get dependency keys
+                        angular.forEach( $scope.depend_choices, function(dep, k) {
+                            if( dep.timeline == value.name ){
+                                $scope.depend_choices[k].timeline_key = key;
+                            };
+                        });
 
                         // get events
                         $scope.TLExp.objects[key].events = events.get(
                             {timeline__id: $scope.TLExp.objects[key].id}, 
                             function(data){
+                                angular.element(window).spin();
+                                $rootScope.spin = 1;
                                 angular.forEach( $scope.TLExp.objects[key].events.objects, function(value2, key2) {
+                                    angular.element(".resetstarthour").remove();
                                     //calculation of event placement on timeline
                                     timeStampStartExp = $scope.experiment.start.valueOf();
                                     timeStampEvt = $scope.TLExp.objects[key].events.objects[key2].date.valueOf();
@@ -192,13 +224,20 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
                         // get epochs
                         $scope.TLExp.objects[key].epochs = epochs.get(
-                            {timeline__id: $scope.TLExp.objects[key].id}, 
+                            {timeline__id: $scope.TLExp.objects[key].id},
                             function(data){
+                                angular.element(window).spin();
+                                $rootScope.spin = 1;
                                 angular.forEach( $scope.TLExp.objects[key].epochs.objects, function(value2, key2) {
+                                    angular.element(".resetstarthour").remove();
                                     //calculation of event placement on timeline
                                     timeStampStartExp = $scope.experiment.start.valueOf();
                                     timeStampEpoch = $scope.TLExp.objects[key].epochs.objects[key2].start.valueOf();
+                                    timeStampEpochEnd = $scope.TLExp.objects[key].epochs.objects[key2].end.valueOf();
+
                                     $scope.TLExp.objects[key].epochs.objects[key2].vPlacement = ((new Date(timeStampEpoch)/1e3|0) - (new Date(timeStampStartExp)/1e3|0)) / $scope.scale_coef;
+                                    
+                                    $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = ((new Date(timeStampEpochEnd)/1e3|0) - (new Date(timeStampEpoch)/1e3|0)) / $scope.scale_coef;
                                     // check whether event placement is higher than current value
                                     if( $scope.TLExp.objects[key].epochs.objects[key2].vPlacement > $scope.TLExp.objects[key].height){
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].epochs.objects[key2].vPlacement + $scope.margin_bottom_timeline;
@@ -206,18 +245,26 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 });
                             }
                         );
-
                     });
                 }
             );
+            //chronometer
+            var currentDate = new Date();
+            var pastDate  = new Date($scope.experiment.start);
+            var diff = currentDate.getTime() / 1000 - pastDate.getTime() / 1000;
+            var clock = $('.clock').FlipClock(diff, {
+                clockFace: 'DailyCounter',
+                countdown: false
+            });
+            //end of chronometer
         }
     );
 
     //show dialog add event
     $scope.showDlgEvent = function( timeline, event ){
-        // ADD
         // if we are creating an event, we initialize it here
         if( event == null ){
+            // ADD
             dateStartExp = $scope.experiment.start.valueOf();
             dateEvent = new Date();
             event = {
@@ -225,108 +272,228 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 timeline : "/notebooks/timeline/" + timeline.id,
                 text : "",
                 date : dateEvent,
-                dateFormat : dateEvent.format('dd/mm/yyyy - HH:MM'),
+                dateFormat : dateEvent.format('yyyy/mm/dd HH:MM'),
                 type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
                 color : "#FFFFFF",
                 vPlacement : (((new Date(dateEvent)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
             };
             // template add
-        }else{
-            //EDIT
+            edition = false;
+        } else {
+            // EDIT
+            edition = true;
         }
 
         ModalService.showModal({
-            templateUrl: "timeline/modal_dlg_add_event.tpl.html",
+            templateUrl: "timeline/modal_dlg_event.tpl.html",
             controller: "ManageEventController",
             inputs: {
                 title: "Event information",
+                config_defaults: $scope.config_defaults,
                 config_choices: $scope.config_choices,
-                experiment_type: $scope.experiment.type,
                 timeline_name: timeline.name,
+                edition: edition,
                 event: event,
             }
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then( function(result) {
-                $scope.manageEvent( timeline, result );
+                if(result.del_evt == true){
+                    $scope.showConfirmRemoveEvent(result.event);
+                } else{
+                    $scope.manageEvent( timeline, result.event, edition );                    
+                }
             });
         });
     };
 
-
     //create event: display it in the timaline and insert it in the database
-    $scope.manageEvent = function( timeline, event ){
+    $scope.manageEvent = function( timeline, event, edition ){
         angular.element(window).spin();
+        //hide reset start hour of experiment
+        angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
 
-        TLExp_key = $scope.TLExp_id.indexOf(timeline.id);
-
         // if event.id is null: POST
-        events.post(event, function(data){
-            $scope.TLExp.objects[TLExp_key].events.objects.push(event);
-            $scope.TLExp.objects[TLExp_key].height = event.vPlacement + $scope.margin_bottom_timeline;
-            $scope.stopSpin();
-        });
-        // if event.id is not null: PUT
+        if(edition == false){
+            events.post(event, function(data){
+                $scope.TLExp.objects[timeline.key].events.objects.push(event);
+                $scope.TLExp.objects[timeline.key].height = event.vPlacement + $scope.margin_bottom_timeline;
+                $scope.stopSpin();
+            });
+        } else {
+            event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
+            events.put({id:event.id}, angular.toJson(event), function(){
+                $scope.stopSpin();
+            });
+        }
     };
 
+    $scope.showConfirmRemoveEvent = function(event) {
+        ModalService.showModal({
+            templateUrl: 'timeline/modal_confirm_remove_event.tpl.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                if (result=="Yes") {
+                    $scope.removeEvent(event);
+                }
+            });
+        });
+    };
+
+    $scope.removeEvent = function(event){
+        angular.element('#event_' + event.id).remove(); 
+        events.del({id:event.id});
+    };
 
     //show dialog add epoch
     $scope.showDlgEpoch = function(timeline, epoch){
+        // check new epoch
         if( epoch == null ){
+            // ADD
             dateStartExp = $scope.experiment.start.valueOf();
             dateStartEpoch = new Date();
             epoch = {
                 id : null,
                 timeline : "/notebooks/timeline/" + timeline.id,
                 start : dateStartEpoch,
-                dateFormat : dateStartEpoch.format('dd/mm/yyyy - HH:MM'),
+                dateFormat : dateStartEpoch.format('dd/mm/yyyy HH:MM'),
                 end : null,
                 type : $scope.config_defaults[$scope.experiment.type][timeline.name]['epoch'],
                 text : "",
-                color : "#FFF600",//
+                color : "#FFF600",
                 vPlacement : (((new Date(dateStartEpoch)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
                 depend : null,
             }
+            edition = false;
+        } else {
+            // EDIT
+            edition = true;
+        }
+
+        // set dependencies
+        //console.log(timeline.name +" "+timeline.id)
+        if( $scope.depend_choices[timeline.name] != undefined ){
+            //console.log( "my parent is: "+$scope.TLExp.objects[ $scope.depend_choices[timeline.name].timeline_key ].name )
+            //console.log( $scope.TLExp.objects.indexOf( $scope.depend_choices[timeline.name].timeline ) )
+            // get all epochs in parent timeline
+            $scope.depend_choices[timeline.name].option_epochs = [];
+            angular.forEach( $scope.TLExp.objects[ $scope.depend_choices[timeline.name].timeline_key ].epochs.objects, 
+                function(epc, k) {
+                    opt = {
+                        text: epc.text,
+                        resource_uri: "/notebooks/epoch/"+epc.id,
+                        closed: epc.end==null ? false : true // if the epoch end date is null, it is an open epoch
+                    }
+                    $scope.depend_choices[timeline.name].option_epochs.push(opt)
+                }
+            );
         }
 
         ModalService.showModal({
-            templateUrl: "timeline/modal_dlg_add_epoch.tpl.html",
+            templateUrl: "timeline/modal_dlg_epoch.tpl.html",
             controller: "ManageEpochController",
             inputs: {
                 title: "Epoch information",
-                config_defaults: $scope.config_defaults,
+                depend_choices: $scope.depend_choices,
                 config_choices: $scope.config_choices,
-                experiment_type: $scope.experiment.type,
                 timeline_name: timeline.name,
+                edition: edition,
                 epoch: epoch,
             }
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(result) {
-                $scope.manageEpoch( timeline, result.epoch );
+                if(result.del_epoch == true){
+                    $scope.showConfirmRemoveEpoch(result.epoch);
+                } else {
+                    $scope.manageEpoch( timeline, result.epoch, edition );
+                }
             });
         });
     };
 
     //create epoch: display it in the timaline and insert it in the database
-    $scope.manageEpoch = function(timeline, epoch){
+    $scope.manageEpoch = function(timeline, epoch, edition){
         angular.element(window).spin();
+        angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
+        if(edition == false){
+            epochs.post(epoch, function(data){
+                //console.log(data);
+                epoch.id = data.id;
+                $scope.TLExp.objects[timeline.key].epochs.objects.push(epoch);
+                $scope.TLExp.objects[timeline.key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
+                $scope.stopSpin();
+            });
+        } else {
+            epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
+                $scope.stopSpin();
+            });
+        }
+    };
 
-        TLExp_key = $scope.TLExp_id.indexOf(timeline.id);
-
-        epochs.post(epoch, function(data){
-            $scope.TLExp.objects[TLExp_key].epochs.objects.push(epoch);
-            $scope.TLExp.objects[TLExp_key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
-            $scope.stopSpin();
+    $scope.showConfirmRemoveEpoch = function(epoch) {
+        ModalService.showModal({
+            templateUrl: 'timeline/modal_confirm_remove_epoch.tpl.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                if (result=="Yes") {
+                    $scope.removeEpoch(epoch);
+                }
+            });
         });
     };
 
+    $scope.removeEpoch = function(epoch){
+        angular.element('#epoch_' + epoch.id).remove(); 
+        epochs.del({id:epoch.id});
+    };
+
+    $scope.displayZoomEvent = function(scale_coef){
+        $scope.scale_coef = scale_coef;
+        $scope.$route.reload();
+    };
+
+    $scope.stopExperiment = function() {
+        $scope.experiment.end = new Date();
+        $scope.jsonContentExp = angular.toJson($scope.experiment);
+        Experiment.put({id:$scope.experiment.id}, $scope.jsonContentExp, function(){
+            angular.element(".btnAddEvtEpoch button").remove();
+            angular.element(".glyphicon-stop").remove();
+            angular.element(".resetstarthour").remove();
+        });
+    };
+
+    $scope.showConfirmResetStartHour = function() {
+        ModalService.showModal({
+            templateUrl: 'timeline/modal_confirm_reset_start.tpl.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                if (result=="Yes") {
+                    $scope.resetStartHour();
+                }
+            });
+        });
+    };
+
+    $scope.resetStartHour = function() {
+        $scope.experiment.start = new Date();
+        $scope.jsonContentExp = angular.toJson($scope.experiment);
+        Experiment.put({id:$scope.experiment.id}, $scope.jsonContentExp, function(){});
+        //renitialisation of the timer
+        var clock = $('.clock').FlipClock({
+            clockFace: 'DailyCounter',
+            countdown: false
+        });
+    };
 });
-
-
-
 
 mod_tlv.directive('timeLineDir', function(){
   return {
@@ -349,91 +516,103 @@ mod_tlv.directive('epochDir', function(){
   };
 });
 
-
-
-
-
 mod_tlv.controller('ManageEventController', [
-  '$scope', '$element', 'title', 'close', 'config_choices', 'experiment_type', 'timeline_name', 'event',
-  function($scope, $element, title, close, config_choices, experiment_type, timeline_name, event) {
+    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
 
-  //$scope.event = event;
-  $scope.text = event.text;
-  $scope.type = event.type;
-  $scope.date = event.date;
-  $scope.timeline = event.timeline;
-  $scope.color = event.color;
-  $scope.vPlacement = event.vPlacement;
-  $scope.title = title;
-  $scope.list_selection = config_choices[timeline_name];
-
-  //  This close function doesn't need to use jQuery or bootstrap, because
-  //  the button has the 'data-dismiss' attribute.
-
-  $scope.beforeClose = function() {
-    if($scope.type == null){
-      $scope.msgAlert = "Please choose type to create event !";
-    } else {
-      $scope.close();
-    }
-  };
-
-  $scope.close = function() {
-    close({
-      text: $scope.text,
-      date: $scope.date,
-      type: $scope.type,
-      timeline: $scope.timeline,
-      color: $scope.color,
-      vPlacement: $scope.vPlacement,
-    }, 100); // close, but give 500ms for bootstrap to animate
-  };
-
-  //  This cancel function must use the bootstrap, 'modal' function because
-  //  the doesn't have the 'data-dismiss' attribute.
-  $scope.cancel = function() {
-    //  Manually hide the modal.
-    $element.modal('hide');
-    //  Now call close, returning control to the caller.
-    close({
-      text: $scope.text,
-      date: $scope.date,
-      type: $scope.type,
-      timeline: $scope.timeline,
-      color: $scope.color,
-      vPlacement: $scope.vPlacement,
-    }, 100); // close, but give 500ms for bootstrap to animate
-  };
-}]);
-
-
-
-mod_tlv.controller('ManageEpochController', [
-  '$scope', '$element', 'title', 'close', 'config_choices', 'experiment_type', 'timeline_name', 'epoch',
-  function($scope, $element, title, close, config_choices, experiment_type, timeline_name, epoch) {
-
-  $scope.epoch = epoch;
-  $scope.title = title;
-  $scope.list_selection = config_choices[timeline_name];
+    $scope.event = event;
+    $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
+    $scope.title = title;
+    $scope.list_selection = config_choices[timeline_name];
+    $scope.edition = edition;
+    $scope.del_evt = false;
 
     $scope.beforeClose = function() {
+        //console.log($scope.dateFormat);
+        event.date = new Date($scope.event.date);
+        if($scope.event.text == ""){
+            $scope.msgAlert = "Text field is required";
+        } else {
+            $scope.close();
+        }
+    };
+
+    $scope.delete = function(){
+        $scope.del_evt = true;
         $scope.close();
     };
 
-  $scope.close = function() {
-    close({
-      epoch: $scope.epoch,
-   }, 100); // close, but give 500ms for bootstrap to animate
-  };
+    $scope.close = function() {
+        close({
+            event: $scope.event,
+            del_evt: $scope.del_evt,
+        }, 100); // close, but give 500ms for bootstrap to animate
+    };
+
+    //  This cancel function must use the bootstrap, 'modal' function because
+    //  the doesn't have the 'data-dismiss' attribute.
+    $scope.cancel = function() {
+        //  Manually hide the modal.
+        $element.modal('hide');
+        //  Now call close, returning control to the caller.
+        close({
+            event: $scope.event,
+        }, 100); // close, but give 500ms for bootstrap to animate
+    };
+}]);
+
+mod_tlv.controller('ManageEpochController', [
+    '$scope', '$element', 'title', 'close', 'depend_choices', 'config_choices', 'timeline_name', 'edition', 'epoch',
+    function($scope, $element, title, close, depend_choices, config_choices, timeline_name, edition, epoch) {
+
+    $scope.epoch = epoch;
+    $scope.title = title;
+    $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = depend_choices[timeline_name];
+    $scope.edition = edition;
+    $scope.del_epoch = false;
+
+    $scope.beforeClose = function() {
+        if($scope.epoch.text == ""){
+            $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
+            $scope.msgAlert = "Parent field is required";
+        } else {
+            $scope.close();
+        }
+    };
+
+    $scope.delete = function(){
+        $scope.del_epoch = true;
+        $scope.close();
+    };
+
+    $scope.close = function() {
+        close({
+            epoch: $scope.epoch,
+            del_epoch: $scope.del_epoch,
+        }, 100); // close, but give 500ms for bootstrap to animate
+    };
+
+    $scope.stop = function(){
+        $scope.epoch.end = new Date();
+        $scope.close();
+    };
 
   //  This cancel function must use the bootstrap, 'modal' function because
   //  the doesn't have the 'data-dismiss' attribute.
-  $scope.cancel = function() {
+    $scope.cancel = function() {
     //  Manually hide the modal.
     $element.modal('hide');
     //  Now call close, returning control to the caller.
-    close({
-      epoch: $scope.epoch,
-    }, 100); // close, but give 500ms for bootstrap to animate
-  };
+        close({
+            epoch: $scope.epoch,
+        }, 100); // close, but give 500ms for bootstrap to animate
+    };
 }]);
+
+mod_tlv.controller('ModalController', function($scope, close) {
+  $scope.close = function(result) {
+    close(result, 100); // close, but give 500ms for bootstrap to animate
+  };
+});

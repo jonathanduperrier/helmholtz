@@ -25,10 +25,10 @@ class TimelineAdmin( GuardedModelAdmin ) :
 class EventAdmin( GuardedModelAdmin ) :
     fields = [
         'timeline',
-    	'text',
-    	'date',
-    	'type',
-    	'color'
+        'text',
+        'date',
+        'type',
+        'color'
     ]
 
 class EpochAdmin( GuardedModelAdmin ) :

@@ -25,7 +25,6 @@ class Timeline(models.Model):
 
 class Event(models.Model):
     """."""
-    idEvent = models.AutoField( primary_key=True )
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
     text = models.TextField( )
     date = models.DateTimeField( auto_now=False, auto_now_add=False )
@@ -39,9 +38,8 @@ class Event(models.Model):
 
 class Epoch(models.Model):
     """."""
-    idEpoch = models.AutoField( primary_key=True )
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
-    text = models.TextField( null=True, blank=True )
+    text = models.TextField( )
     start = models.DateTimeField( auto_now=False, auto_now_add=False )
     end = models.DateTimeField( auto_now=False, null=True, blank=True, auto_now_add=False )
     type = models.CharField( max_length=50, null=True, blank=True )

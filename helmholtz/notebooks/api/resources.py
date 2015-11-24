@@ -50,7 +50,6 @@ class EventResource( ModelResource ) :
     class Meta:
         queryset = Event.objects.all()
         resource_name = 'event'
-        excludes = ['idEvent']
         filtering = {
             #'id': ALL,
             'timeline': ALL_WITH_RELATIONS,
@@ -74,7 +73,6 @@ class EpochResource( ModelResource ) :
     class Meta:
         queryset = Epoch.objects.all()
         resource_name = 'epoch'
-        excludes = ['idEpoch']
         filtering = {
                 'id': ALL,
                 'timeline': ALL_WITH_RELATIONS,

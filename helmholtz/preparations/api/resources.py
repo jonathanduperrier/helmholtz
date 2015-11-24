@@ -25,8 +25,9 @@ class AnimalResource( ModelResource ) :
     class Meta:
         queryset = Animal.objects.all()
         resource_name = 'animal'
-        excludes = ['id']
+        #excludes = ['id']
         filtering = {
+            'id': ALL,
             'identifier': ALL,
             'nickname': ALL,
             'strain': ALL_WITH_RELATIONS,
@@ -46,8 +47,9 @@ class PreparationResource( ModelResource ) :
     class Meta:
         queryset = Preparation.objects.all()
         resource_name = 'preparation'
-        excludes = ['id']
+        #excludes = ['id']
         filtering = {
+            'id': ALL,
             'type': ALL,
             'protocol': ALL,
             'animal': ALL_WITH_RELATIONS,
