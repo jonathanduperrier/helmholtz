@@ -17,6 +17,7 @@
         <script type="text/javascript" src="js/fr.js"></script>
         <script type="text/javascript" src="js/en-gb.js"></script>
         <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
         <script type="text/javascript" src="js/flipclock.min.js"></script>
 
         <script type="text/javascript" src="people/model.js"></script>
@@ -51,18 +52,24 @@
         <link rel="stylesheet" href="css/bootstrap-theme.css">
         <link rel="stylesheet" href="css/timeline_visual.css">
         <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
         <link rel="stylesheet" href="css/flipclock.css">
     </head>
     <body ng-app="mainApp">
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <span class="navbar-brand" href="#">Hermann</span>
+            <span class="navbar-brand" href="#">H</span>
             <ul class="nav navbar-nav" ng-show="showLogout">
                 <li><a ng-click="" href="#/animal_list">Animals</a></li>
                 <li><a ng-click="" href="#/preparation_list">Preparations</a></li>
                 <li><a ng-click="" href="#/experiment">Experiments</a></li>
-                <li><a ng-click="" href="#/electrode_list">Electrode</a></li>
-                <li><a ng-click="" href="#/neuron_list">Cells</a></li>
-                <li><a ng-click="" href="#/protocol_list">Protocol</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Resources <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="" href="#/electrode_list">Electrode</a></li>
+                        <li><a ng-click="" href="#/neuron_list">Cells</a></li>
+                        <li><a ng-click="" href="#/protocol_list">Protocol</a></li>
+                    </ul>
+                </li>
             </ul>
             <div ng-show="showLogout" class="nav navbar-form navbar-right form-group">
                 <div class="input-group">
@@ -71,7 +78,7 @@
                 </div>
             </div>
             <div ng-show="showLogout" class="nav navbar-right">
-                <button class="btn btn-primary navbar-btn" ng-click="removeAuthorization()"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout {{username}}</button>
+                <button class="btn btn-primary navbar-btn" ng-click="removeAuthorization()"><span class="glyphicon glyphicon-log-out"></span> &nbsp; {{username}}</button>
             </div>
         </div>
         <!--<div class="container">-->

@@ -22,7 +22,6 @@ class Timeline(models.Model):
         verbose_name_plural = "timeline"
 
 
-
 class Event(models.Model):
     """."""
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
@@ -33,8 +32,6 @@ class Event(models.Model):
     
     def __unicode__(self):
         return unicode(self.date)
-
-
 
 class Epoch(models.Model):
     """."""

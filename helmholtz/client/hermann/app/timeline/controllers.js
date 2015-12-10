@@ -217,6 +217,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     // check whether event placement is higher than current value
                                     if( $scope.TLExp.objects[key].events.objects[key2].vPlacement > $scope.TLExp.objects[key].height){
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].events.objects[key2].vPlacement + $scope.margin_bottom_timeline;
+                                        //$scope.TLExp.objects[key].height = $( document ).height();
                                     }
                                 });
                             }
@@ -246,6 +247,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     // check whether event placement is higher than current value
                                     if( $scope.TLExp.objects[key].epochs.objects[key2].vPlacement > $scope.TLExp.objects[key].height){
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].epochs.objects[key2].vPlacement + $scope.margin_bottom_timeline;
+                                        //$scope.TLExp.objects[key].height = $( document ).height();
                                     }
                                 });
                             }
@@ -520,6 +522,22 @@ mod_tlv.directive('epochDir', function(){
     templateUrl: 'timeline/epoch.tpl.html'
   };
 });
+
+mod_tlv.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    var global_height = $(document).height() - ($(".navbar-fixed-top").height() + $("#fixed_bar").height());
+                    angular.element("#graduation").remove();
+                    angular.element(".timeline-column").height(global_height);
+                });
+            }
+        }
+    }
+});
+
 
 mod_tlv.controller('ManageEventController', [
     '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',

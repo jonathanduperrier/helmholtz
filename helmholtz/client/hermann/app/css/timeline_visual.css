@@ -22,8 +22,9 @@
 	content: '\25bc';
 }
 #buttons_zoom_stop_bar {
-	position: absolute;
-	top: 65px;
+	position: relative;
+	top: 5px;
+	left: 5px;
 	/*width: 200px;*/
 }
 .group_line {
@@ -104,10 +105,22 @@
 }
 .clock {
 	float:left;
-	zoom: 0.5;
-	-moz-transform: scale(0.5);
-	padding:0 0 0 500px;
+	zoom: 0.3;
+	-moz-transform: scale(0.3);
+	/*padding:0 0 0 700px;*/
+	position: relative;
+	top:-75px;
+	left:750px;
 }
 .clock .flip-clock-label {
-	font-size: 200%;
+	/*font-size: 200%;*/
+	display:none;
+}
+#fixed_bar {
+	background-color: #ffffff;
+	position: fixed;
+	height: 40px;
+	top:50px;
+	width: 100%;
+	z-index: 1000;
 }

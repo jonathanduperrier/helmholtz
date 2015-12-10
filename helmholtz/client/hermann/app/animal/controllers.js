@@ -37,8 +37,8 @@ mod_animal.controller('ListAnimal', [
           nickname: "",
           weight: "",
           sex: "",
-          birth: new Date(),
-          sacrifice: new Date(),
+          birth: new Date().format("yyyy-mm-dd"),
+          sacrifice: new Date().format("yyyy-mm-dd"),
           supplier: null,
         };
         var edition = false;
@@ -57,7 +57,7 @@ mod_animal.controller('ListAnimal', [
       }).then(function(modal) {
         modal.element.modal();
             modal.close.then( function(result) {
-              if(result.del_evt == true){
+              if(result.del_animal == true){
                   $scope.showConfirmRemoveAnimal(result.animal);
               } else{
                   $scope.manageAnimal( result.animal, edition );                    
@@ -112,10 +112,10 @@ mod_animal.controller('ManageAnimalController', [
         else if($scope.animal.sex == ""){
           $scope.msgAlert = "Sex field is required";
         }
-        else if($scope.animal.birth  == ""){
+        else if($scope.animal.birth == ""){
           $scope.msgAlert = "Birth field is required";
         }
-        else if($scope.animal.sacrifice  == ""){
+        else if($scope.animal.sacrifice == ""){
           $scope.msgAlert = "Sacrifice field is required";
         }
         else {
@@ -124,14 +124,14 @@ mod_animal.controller('ManageAnimalController', [
       };
 
       $scope.delete = function(){
-          $scope.del_evt = true;
+          $scope.del_animal = true;
           $scope.close();
       };
 
       $scope.close = function() {
           close({
               animal: $scope.animal,
-              del_evt: $scope.del_evt,
+              del_animal: $scope.del_animal,
           }, 100); // close, but give 500ms for bootstrap to animate
       };
 
