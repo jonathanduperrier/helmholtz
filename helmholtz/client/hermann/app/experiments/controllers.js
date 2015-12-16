@@ -6,7 +6,7 @@ var mod_exp = angular.module( 'hermann.experiments', [
     'ngResource',
     'ngRoute',
     'hermann.people',
-    'ui.bootstrap', 
+    'ui.bootstrap',
     'angularModalService',
     'preparationServices',
     'mod_tlv'
@@ -40,7 +40,17 @@ mod_exp.controller('ListExperiment', [
 
     var default_lab_week = $scope.getWeekNumber(default_lab_date);
 
-    $scope.experiment = Experiment.get();
+    $scope.experiment = Experiment.get({}, function(data){
+      $scope.experiment.objects.forEach( function( experiment ){
+      });
+    });
+    $scope.predicate = 'start';
+    $scope.reverse = false;
+    $scope.order = function(predicate) {
+      $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+      $scope.predicate = predicate;
+    };
+
     $scope.showDlgAddExperiment = function($http, $q){
       ModalService.showModal({
         templateUrl: "experiments/modal_dlg_add_experiment.tpl.html",
@@ -55,7 +65,7 @@ mod_exp.controller('ListExperiment', [
           if(result.type == null){
             bootbox.alert("Please choose type to create experiment !");
           } else {
-            $scope.createExp(result.label, result.type, result.notes, result.setup, result.preparation);
+            $scope.createExp(result.label, result.type, result.notes, result.setup, result.preparation, result.researchers);
             Experiment.save($scope.expSend, function(value){
               var $dateTL = new Date();
               var $i=0;
@@ -77,7 +87,6 @@ mod_exp.controller('ListExperiment', [
                 .$promise.then(function(val) {
                   if($i==nb_create_timeline){
                     $scope.experiment = Experiment.get();//reload experiments
-                    //angular.element('a[href$="#/timeline"]:first').attr("href", app_url + '#/timeline' + $scope.resource_uri);
                   }
                 });
                 setTimeout(function(){ angular.element(window).spin(); }, 3500);
@@ -89,7 +98,7 @@ mod_exp.controller('ListExperiment', [
       });
     };
 
-    $scope.createExp = function($label, $type, $notes, $setup, $preparation){
+    $scope.createExp = function($label, $type, $notes, $setup, $preparation, $researchers){
       var $date = new Date();
       var $expSend = {
           label: $label,
@@ -98,7 +107,7 @@ mod_exp.controller('ListExperiment', [
           notes: $notes,
           setup: $setup,
           preparation: $preparation,
-          researchers: [$scope.researcher_uri] // à corriger par l'utilisateur courant
+          researchers: $researchers,
       };
       $scope.expSend = $expSend;
       $scope.experiment.objects.push(
@@ -109,7 +118,7 @@ mod_exp.controller('ListExperiment', [
           notes: $notes,
           setup: $setup,
           preparation: $preparation,
-          researchers: [$scope.researcher_uri], // à corriger par l'utilisateur courant
+          researchers: $researchers,
         }
       );
     };
@@ -128,18 +137,18 @@ mod_exp.controller('ListExperiment', [
           if(result.type == null){
             bootbox.alert("Please choose type to save experiment !");
           } else {
-            $scope.editExperiment($exp_uri, result.label, result.type, result.notes, result.setup, result.preparation);
+            $scope.editExperiment($exp_uri, result.label, result.type, result.notes, result.setup, result.preparation, result.researchers);
 
             var $nCol = $exp_uri.split('/');
             var id_exp = $nCol[2];
-            $scope.jsonNewLabel = '{ "label" : "'+result.label+'", "type": "'+result.type+'", "notes": "'+result.notes+'", "setup": "'+result.setup+'", "preparation": "'+result.preparation+'"}';
+            $scope.jsonNewLabel = '{ "label" : "'+result.label+'", "type": "'+result.type+'", "notes": "'+result.notes+'", "setup": "'+result.setup+'", "preparation": "'+result.preparation+'", "researchers": '+JSON.stringify(result.researchers)+' }';
             Experiment.patch({id:id_exp}, $scope.jsonNewLabel, function(value){});
           }
         });
       });
     };
 
-    $scope.editExperiment = function($exp_uri, $label, $type, $notes, $setup, $preparation){
+    $scope.editExperiment = function($exp_uri, $label, $type, $notes, $setup, $preparation, $researchers){
       angular.forEach($scope.experiment.objects, function(value, key) {
         if(value.resource_uri == $exp_uri){
           $scope.experiment.objects[key].label = $label;
@@ -147,24 +156,26 @@ mod_exp.controller('ListExperiment', [
           $scope.experiment.objects[key].notes = $notes;
           $scope.experiment.objects[key].setup = $setup;
           $scope.experiment.objects[key].preparation = $preparation;
+          $scope.experiment.objects[key].researchers = $researchers;
         }
       });
     };
 }]);
 
 mod_exp.controller('AddExperimentController', [
-  '$scope', '$element', 'title', 'default_label', 'close', 'Setup', 'preparations',
-  function($scope, $element, title, default_label, close, Setup, preparations) {
+  '$scope', '$element', 'title', 'default_label', 'close', 'Setup', 'preparations', 'Researcher',
+  function($scope, $element, title, default_label, close, Setup, preparations, Researcher) {
 
   $scope.lstSetup = Setup.get();
   $scope.lstPrep = preparations.get();
+  $scope.lstResearcher = Researcher.get();
 
   $scope.label = default_label;
   $scope.type = null;
   $scope.notes = null;
   $scope.setup = null;
   $scope.title = title;
-  
+
   //  This close function doesn't need to use jQuery or bootstrap, because
   //  the button has the 'data-dismiss' attribute.
   $scope.beforeClose = function() {
@@ -187,6 +198,7 @@ mod_exp.controller('AddExperimentController', [
       type: $scope.type,
       notes: $scope.notes,
       setup: $scope.setup,
+      researchers: $scope.selectedResearchers,
       preparation: $scope.preparation
     }, 100); // close, but give 500ms for bootstrap to animate
   };
@@ -197,23 +209,26 @@ mod_exp.controller('AddExperimentController', [
 
     //  Manually hide the modal.
     $element.modal('hide');
-    
+
     //  Now call close, returning control to the caller.
     close({
       label: $scope.label,
       type: $scope.type,
       notes: $scope.notes,
       setup: $scope.setup,
-      preparation: $scope.preparation
+      researchers: $scope.selectedResearchers,
+      preparation: $scope.preparation,
     }, 100); // close, but give 500ms for bootstrap to animate
   };
 }]);
 
 mod_exp.controller('EditExperimentController', [
-  '$scope', '$routeParams', 'Experiment', 'Setup', 'preparations', '$element', 'exp_uri', 'title', 'close',
-  function($scope, $routeParams, Experiment, Setup, preparations, $element, exp_uri, title, close) {
+  '$scope', '$routeParams', 'Experiment', 'Setup', 'preparations', '$element', 'exp_uri', 'title', 'close', 'Researcher',
+  function($scope, $routeParams, Experiment, Setup, preparations, $element, exp_uri, title, close, Researcher) {
     $scope.lstSetup = Setup.get();
     $scope.lstPrep = preparations.get();
+    $scope.lstResearcher = Researcher.get();
+
     $scope.experiment = Experiment.get( {id: $routeParams.eId}, function(data){
       angular.forEach($scope.experiment.objects, function(value, key) {
         if(value.resource_uri == exp_uri){
@@ -221,12 +236,12 @@ mod_exp.controller('EditExperimentController', [
           $scope.type = value.type;
           $scope.notes = value.notes;
           $scope.setup = value.setup;
+          $scope.selectedResearchers = value.researchers;
           $scope.preparation = value.preparation;
         }
       });
       $scope.title = title;
     });
-
 
   $scope.beforeClose = function() {
     if(($scope.label == "") | ($scope.label == null)) {
@@ -249,6 +264,7 @@ mod_exp.controller('EditExperimentController', [
       type: $scope.type,
       notes: $scope.notes,
       setup: $scope.setup,
+      researchers: $scope.selectedResearchers,
       preparation: $scope.preparation
     }, 100); // close, but give 500ms for bootstrap to animate
   };
@@ -259,13 +275,14 @@ mod_exp.controller('EditExperimentController', [
 
     //  Manually hide the modal.
     $element.modal('hide');
-    
+
     //  Now call close, returning control to the caller.
     close({
       label: $scope.label,
       type: $scope.type,
       notes: $scope.notes,
       setup: $scope.setup,
+      researchers: $scope.selectedResearchers,
       preparation: $scope.preparation
     }, 100); // close, but give 500ms for bootstrap to animate
   };
