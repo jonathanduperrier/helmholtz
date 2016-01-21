@@ -19,7 +19,7 @@ MAINTAINER Andrew Davison <andrew.davison@unic.cnrs-gif.fr>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --fix-missing
 #RUN apt-get -y -q install nginx supervisor build-essential python-dev python-setuptools python-pip sqlite3 python-psycopg2
-RUN apt-get -y -q install nginx-extras supervisor build-essential python-dev python3-dev python-setuptools python-pip sqlite3 python-psycopg2 git libxml2-dev libxslt1-dev libyaml-dev #python-lxml python3-lxml libxml2 libxslt1.1 
+RUN apt-get -y -q install nginx-extras supervisor build-essential python-dev python3-dev python-setuptools python-pip sqlite3 python-psycopg2 git libxml2-dev libxslt1-dev libyaml-dev #python-lxml python3-lxml libxml2 libxslt1.1
 RUN unset DEBIAN_FRONTEND
 
 RUN pip install uwsgi
