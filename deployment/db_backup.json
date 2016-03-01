@@ -1,0 +1,7136 @@
+[
+{
+  "fields": {
+    "setup": 1,
+    "type": "",
+    "label": "1806",
+    "notes": "",
+    "researchers": [
+      1
+    ],
+    "end": null,
+    "preparation": 1,
+    "start": "2006-05-02T09:00:00Z"
+  },
+  "pk": 1,
+  "model": "experiments.experiment"
+},
+{
+  "fields": {
+    "setup": 1,
+    "type": "",
+    "label": "5106",
+    "notes": "",
+    "researchers": [
+      1
+    ],
+    "end": null,
+    "preparation": 2,
+    "start": "2006-12-19T09:00:00Z"
+  },
+  "pk": 2,
+  "model": "experiments.experiment"
+},
+{
+  "fields": {
+    "setup": 1,
+    "type": "",
+    "label": "2308",
+    "notes": "",
+    "researchers": [
+      1
+    ],
+    "end": null,
+    "preparation": 3,
+    "start": "2008-06-03T09:00:00Z"
+  },
+  "pk": 3,
+  "model": "experiments.experiment"
+},
+{
+  "fields": {
+    "species": [
+      1
+    ],
+    "url": "http://neurolex.org/wiki/Category:Visual_cortex_primary",
+    "name": "Primary visual cortex",
+    "abbreviation": "V1",
+    "parent": null
+  },
+  "pk": "nlx_143552",
+  "model": "neuralstructures.brainregion"
+},
+{
+  "fields": {
+    "url": "http://neurolex.org/wiki/Category:Neocortex_pyramidal_layer_2-3_cell",
+    "name": "Pyramidal neuron, layer 2/3",
+    "brain_regions": [
+      "nlx_143552"
+    ]
+  },
+  "pk": "nifext_49",
+  "model": "neuralstructures.celltype"
+},
+{
+  "fields": {
+    "url": "http://neurolex.org/wiki/Category:Neocortex_polymorphic_cell_layer_5-6",
+    "name": "Pyramidal neuron, layer 5/6",
+    "brain_regions": [
+      "nlx_143552"
+    ]
+  },
+  "pk": "nifext_51",
+  "model": "neuralstructures.celltype"
+},
+{
+  "fields": {
+    "url": "http://neurolex.org/wiki/Category:Neocortex_stellate_spiny_cell",
+    "name": "Spiny stellate neuron",
+    "brain_regions": [
+      "nlx_143552"
+    ]
+  },
+  "pk": "sao1236796660",
+  "model": "neuralstructures.celltype"
+},
+{
+  "fields": {
+    "english_name": "cat",
+    "url": "",
+    "lsid": "",
+    "scientific_name": "Felis silvestris catus",
+    "codename": ""
+  },
+  "pk": 1,
+  "model": "species.species"
+},
+{
+  "fields": {
+    "species": 1,
+    "url": "",
+    "label": "",
+    "notes": ""
+  },
+  "pk": "domestic short-hair",
+  "model": "species.strain"
+},
+{
+  "fields": {
+    "object_id": 1,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 1,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 2,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 3,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 3,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 4,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 5,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 5,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 6,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 6,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 1,
+    "content_type": [
+      "publications",
+      "publication"
+    ]
+  },
+  "pk": 7,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 7,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 8,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 8,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 9,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 9,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 10,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 10,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 11,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 11,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 12,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 12,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 13,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 13,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 14,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 14,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 15,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 15,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 16,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 16,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 17,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 17,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 18,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 18,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 19,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 19,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 20,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 20,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 21,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 21,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 22,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 22,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 23,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 23,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 24,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 24,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 25,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 25,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 26,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "object_id": 26,
+    "content_type": [
+      "storage",
+      "file"
+    ]
+  },
+  "pk": 27,
+  "model": "analysis.datasource"
+},
+{
+  "fields": {
+    "inputs": [
+      3,
+      4
+    ],
+    "algorithm": "figure plotting",
+    "outputs": [
+      1
+    ],
+    "parameters": ""
+  },
+  "pk": 1,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      5
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      6
+    ],
+    "parameters": ""
+  },
+  "pk": 2,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      8,
+      15
+    ],
+    "algorithm": "publication of Fournier et al (2014)",
+    "outputs": [
+      7
+    ],
+    "parameters": ""
+  },
+  "pk": 3,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      5,
+      9
+    ],
+    "algorithm": "plot Figure 3",
+    "outputs": [
+      8
+    ],
+    "parameters": ""
+  },
+  "pk": 4,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      11,
+      13
+    ],
+    "algorithm": "plot Figure 4",
+    "outputs": [
+      15
+    ],
+    "parameters": ""
+  },
+  "pk": 5,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      9
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      10
+    ],
+    "parameters": ""
+  },
+  "pk": 6,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      11
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      12
+    ],
+    "parameters": ""
+  },
+  "pk": 7,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      13
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      14
+    ],
+    "parameters": ""
+  },
+  "pk": 8,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      16
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      17
+    ],
+    "parameters": ""
+  },
+  "pk": 10,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      18
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      19
+    ],
+    "parameters": ""
+  },
+  "pk": 11,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      20
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      21
+    ],
+    "parameters": ""
+  },
+  "pk": 12,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      22
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      23
+    ],
+    "parameters": ""
+  },
+  "pk": 13,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      24
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      25
+    ],
+    "parameters": ""
+  },
+  "pk": 14,
+  "model": "analysis.step"
+},
+{
+  "fields": {
+    "inputs": [
+      26
+    ],
+    "algorithm": "plot_signals.py",
+    "outputs": [
+      27
+    ],
+    "parameters": ""
+  },
+  "pk": 15,
+  "model": "analysis.step"
+},
+{
+  "fields": {},
+  "pk": "amplifier",
+  "model": "devices.type"
+},
+{
+  "fields": {},
+  "pk": "sharp electrode",
+  "model": "devices.type"
+},
+{
+  "fields": {
+    "impedance": null,
+    "internal_diameter": null,
+    "type": "sharp electrode",
+    "version": "",
+    "notes": "",
+    "rows": null,
+    "step": null,
+    "label": "electrode for Fournier fig 2",
+    "columns": null,
+    "serial_or_id": "",
+    "manufacturer": null,
+    "model": ""
+  },
+  "pk": 1,
+  "model": "devices.item"
+},
+{
+  "fields": {
+    "impedance": null,
+    "internal_diameter": null,
+    "type": "amplifier",
+    "version": "",
+    "notes": "",
+    "rows": null,
+    "step": null,
+    "label": "amplifier for Fournier 2011 fig 2",
+    "columns": null,
+    "serial_or_id": "",
+    "manufacturer": "Axoclamp",
+    "model": "2A"
+  },
+  "pk": 2,
+  "model": "devices.item"
+},
+{
+  "fields": {
+    "impedance": null,
+    "internal_diameter": null,
+    "type": "sharp electrode",
+    "version": "",
+    "notes": "",
+    "rows": null,
+    "step": null,
+    "label": "1806e1",
+    "columns": null,
+    "serial_or_id": "",
+    "manufacturer": null,
+    "model": ""
+  },
+  "pk": 3,
+  "model": "devices.item"
+},
+{
+  "fields": {
+    "impedance": null,
+    "internal_diameter": null,
+    "type": "amplifier",
+    "version": "",
+    "notes": "",
+    "rows": null,
+    "step": null,
+    "label": "amplifier for Fournier 2014",
+    "columns": null,
+    "serial_or_id": "",
+    "manufacturer": "Axoclamp",
+    "model": "2A"
+  },
+  "pk": 4,
+  "model": "devices.item"
+},
+{
+  "fields": {
+    "item": 3,
+    "solution": "electrode solution for Fournier 2014",
+    "seal_resistance": null,
+    "amplification": null,
+    "notes": "",
+    "resistance": null,
+    "channel_type": "",
+    "position": null,
+    "label": "",
+    "filtering": "",
+    "contact_gel": null,
+    "contact_configuration": null
+  },
+  "pk": 1,
+  "model": "devices.itemproperties"
+},
+{
+  "fields": {
+    "subsystems": [],
+    "place": 1,
+    "label": "vision-electrophysiology",
+    "room": "456"
+  },
+  "pk": 1,
+  "model": "devices.setup"
+},
+{
+  "fields": {
+    "type": "PhD student",
+    "structure": 1,
+    "notes": "I have no idea if the start and end dates are correct",
+    "end": "2012-01-24",
+    "start": "2008-01-24",
+    "researcher": 1
+  },
+  "pk": 1,
+  "model": "people.position"
+},
+{
+  "fields": {
+    "notes": "",
+    "street_address": "",
+    "town": "",
+    "state": "",
+    "country": "",
+    "postal_code": "",
+    "website": "",
+    "phone": ""
+  },
+  "pk": "Axoclamp",
+  "model": "people.supplier"
+},
+{
+  "fields": {},
+  "pk": "dense noise",
+  "model": "stimulations.type"
+},
+{
+  "fields": {},
+  "pk": "sparse noise",
+  "model": "stimulations.type"
+},
+{
+  "fields": {
+    "stimulus_generator": null,
+    "type": "sparse noise",
+    "label": "standard sparse noise stimulus",
+    "notes": "",
+    "duration": "0.00 .",
+    "start": "0.00 ."
+  },
+  "pk": 1,
+  "model": "stimulations.stimulus"
+},
+{
+  "fields": {
+    "stimulus_generator": null,
+    "type": "dense noise",
+    "label": "standard ternary dense noise stimulus",
+    "notes": "",
+    "duration": "0.00 .",
+    "start": "0.00 ."
+  },
+  "pk": 2,
+  "model": "stimulations.stimulus"
+},
+{
+  "fields": {
+    "luminance_low": "1.00 .",
+    "luminance_high": "2.00 .",
+    "luminance_background": "1.00 ."
+  },
+  "pk": 2,
+  "model": "stimulations.ternarydensenoise"
+},
+{
+  "fields": {
+    "luminance_low": "1.00 .",
+    "luminance_high": "2.00 .",
+    "luminance_background": "1.00 ."
+  },
+  "pk": 1,
+  "model": "stimulations.sparsenoise"
+},
+{
+  "fields": {},
+  "pk": "KCl",
+  "model": "chemistry.substance"
+},
+{
+  "fields": {},
+  "pk": "alfatesin",
+  "model": "chemistry.substance"
+},
+{
+  "fields": {},
+  "pk": "biocytin",
+  "model": "chemistry.substance"
+},
+{
+  "fields": {},
+  "pk": "borosilicate",
+  "model": "chemistry.substance"
+},
+{
+  "fields": {},
+  "pk": "potassium methyl sulfate",
+  "model": "chemistry.substance"
+},
+{
+  "fields": {
+    "catalog_ref": "",
+    "name": "KCl",
+    "supplier": null,
+    "substance": "KCl"
+  },
+  "pk": 1,
+  "model": "chemistry.product"
+},
+{
+  "fields": {
+    "catalog_ref": "",
+    "name": "potassium methyl sulfate",
+    "supplier": null,
+    "substance": "potassium methyl sulfate"
+  },
+  "pk": 2,
+  "model": "chemistry.product"
+},
+{
+  "fields": {
+    "catalog_ref": "",
+    "name": "biocytin",
+    "supplier": null,
+    "substance": "biocytin"
+  },
+  "pk": 3,
+  "model": "chemistry.product"
+},
+{
+  "fields": {
+    "catalog_ref": "",
+    "name": "alfatesin",
+    "supplier": null,
+    "substance": "alfatesin"
+  },
+  "pk": 4,
+  "model": "chemistry.product"
+},
+{
+  "fields": {},
+  "pk": "alfatesin",
+  "model": "chemistry.solution"
+},
+{
+  "fields": {},
+  "pk": "electrode solution for Fournier 2014",
+  "model": "chemistry.solution"
+},
+{
+  "fields": {},
+  "pk": "pancuronium bromide",
+  "model": "chemistry.solution"
+},
+{
+  "fields": {},
+  "pk": "pipette solution for Fournier 2011",
+  "model": "chemistry.solution"
+},
+{
+  "fields": {
+    "concentration": 0.004,
+    "chemical_product": 1,
+    "solution": "pipette solution for Fournier 2011"
+  },
+  "pk": 1,
+  "model": "chemistry.quantityofsubstance"
+},
+{
+  "fields": {
+    "concentration": 2.0,
+    "chemical_product": 2,
+    "solution": "pipette solution for Fournier 2011"
+  },
+  "pk": 2,
+  "model": "chemistry.quantityofsubstance"
+},
+{
+  "fields": {
+    "concentration": 0.004,
+    "chemical_product": 1,
+    "solution": "electrode solution for Fournier 2014"
+  },
+  "pk": 3,
+  "model": "chemistry.quantityofsubstance"
+},
+{
+  "fields": {
+    "concentration": 2.0,
+    "chemical_product": 2,
+    "solution": "electrode solution for Fournier 2014"
+  },
+  "pk": 4,
+  "model": "chemistry.quantityofsubstance"
+},
+{
+  "fields": {
+    "solution": "alfatesin",
+    "unit": 2,
+    "route": "PF",
+    "notes": "",
+    "role": "AE",
+    "experiment": 1
+  },
+  "pk": 1,
+  "model": "drugs.drugapplication"
+},
+{
+  "fields": {
+    "solution": "pancuronium bromide",
+    "unit": 2,
+    "route": "PF",
+    "notes": "",
+    "role": "PL",
+    "experiment": 1
+  },
+  "pk": 2,
+  "model": "drugs.drugapplication"
+},
+{
+  "fields": {
+    "rate": 3.0,
+    "end": null,
+    "start": null
+  },
+  "pk": 1,
+  "model": "drugs.continuousdrugapplication"
+},
+{
+  "fields": {
+    "rate": 0.2,
+    "end": null,
+    "start": null
+  },
+  "pk": 2,
+  "model": "drugs.continuousdrugapplication"
+},
+{
+  "fields": {
+    "pattern": "",
+    "type": "F",
+    "verbose_name": "",
+    "label": "weight",
+    "unit": 1,
+    "notes": ""
+  },
+  "pk": 1,
+  "model": "measurements.parameter"
+},
+{
+  "fields": {
+    "float_value": 3.4,
+    "string_value": "",
+    "timestamp": "2006-05-12T09:00:00Z",
+    "unit": 1,
+    "object_id": 1,
+    "bool_value": false,
+    "integer_value": null,
+    "parameter": 1,
+    "content_type": [
+      "preparations",
+      "preparation"
+    ]
+  },
+  "pk": 1,
+  "model": "measurements.measurement"
+},
+{
+  "fields": {
+    "float_value": 4.7,
+    "string_value": "",
+    "timestamp": "2006-12-19T09:00:00Z",
+    "unit": 1,
+    "object_id": 2,
+    "bool_value": false,
+    "integer_value": null,
+    "parameter": 1,
+    "content_type": [
+      "preparations",
+      "preparation"
+    ]
+  },
+  "pk": 2,
+  "model": "measurements.measurement"
+},
+{
+  "fields": {
+    "float_value": 3.8,
+    "string_value": "",
+    "timestamp": "2008-06-03T09:00:00Z",
+    "unit": 1,
+    "object_id": 3,
+    "bool_value": false,
+    "integer_value": null,
+    "parameter": 1,
+    "content_type": [
+      "preparations",
+      "preparation"
+    ]
+  },
+  "pk": 3,
+  "model": "measurements.measurement"
+},
+{
+  "fields": {
+    "supplier": null,
+    "identifier": "000000",
+    "strain": "domestic short-hair",
+    "nickname": "placeholder",
+    "birth": null,
+    "sacrifice": null,
+    "sex": null
+  },
+  "pk": 1,
+  "model": "preparations.animal"
+},
+{
+  "fields": {
+    "supplier": null,
+    "identifier": "unknown1806",
+    "strain": "domestic short-hair",
+    "nickname": "",
+    "birth": null,
+    "sacrifice": null,
+    "sex": "M"
+  },
+  "pk": 2,
+  "model": "preparations.animal"
+},
+{
+  "fields": {
+    "supplier": null,
+    "identifier": "unknown5106",
+    "strain": "domestic short-hair",
+    "nickname": "",
+    "birth": null,
+    "sacrifice": null,
+    "sex": "F"
+  },
+  "pk": 3,
+  "model": "preparations.animal"
+},
+{
+  "fields": {
+    "supplier": null,
+    "identifier": "garfield2308",
+    "strain": "domestic short-hair",
+    "nickname": "Garfield",
+    "birth": null,
+    "sacrifice": null,
+    "sex": "M"
+  },
+  "pk": 4,
+  "model": "preparations.animal"
+},
+{
+  "fields": {
+    "model_description": "",
+    "thickness": null,
+    "equipment": null,
+    "type": "IN-VIVO-SHARP",
+    "cutting_solution": null,
+    "cut_orientation": "",
+    "protocol": "",
+    "bath_solution": null,
+    "animal": 2
+  },
+  "pk": 1,
+  "model": "preparations.preparation"
+},
+{
+  "fields": {
+    "model_description": "",
+    "thickness": null,
+    "equipment": null,
+    "type": "IN-VIVO-SHARP",
+    "cutting_solution": null,
+    "cut_orientation": "",
+    "protocol": "",
+    "bath_solution": null,
+    "animal": 3
+  },
+  "pk": 2,
+  "model": "preparations.preparation"
+},
+{
+  "fields": {
+    "model_description": "",
+    "thickness": null,
+    "equipment": null,
+    "type": "IN-VIVO-SHARP",
+    "cutting_solution": null,
+    "cut_orientation": "",
+    "protocol": "",
+    "bath_solution": null,
+    "animal": 4
+  },
+  "pk": 3,
+  "model": "preparations.preparation"
+},
+{
+  "fields": {
+    "name": "application/vnd.cnrs.unic.elphy"
+  },
+  "pk": "dat",
+  "model": "storage.mimetype"
+},
+{
+  "fields": {
+    "name": "image/jpeg"
+  },
+  "pk": "jpg",
+  "model": "storage.mimetype"
+},
+{
+  "fields": {
+    "name": "application/x-matlab-data"
+  },
+  "pk": "mat",
+  "model": "storage.mimetype"
+},
+{
+  "fields": {
+    "name": "image/png"
+  },
+  "pk": "png",
+  "model": "storage.mimetype"
+},
+{
+  "fields": {
+    "ip_address": "127.0.0.1",
+    "protocol": null,
+    "label": "localhost",
+    "port": null
+  },
+  "pk": 1,
+  "model": "storage.fileserver"
+},
+{
+  "fields": {
+    "path": "/Users/andrew/dev/brainscales_db/data",
+    "root": "",
+    "server": 1,
+    "drive": ""
+  },
+  "pk": 1,
+  "model": "storage.filelocation"
+},
+{
+  "fields": {
+    "original": false,
+    "name": "fournier2011_fig2",
+    "creation_date": null,
+    "notes": "Figure 2 Stimulus dependence of simple-like and complex-like receptive field components. (a) First-order kernel (left column, simple-like, h1st) and second-order diagonal kernel\r\n(right column, complex-like, h2Diag) of subthreshold (Vm) and spiking (spikes) receptive field estimates for a typical V1 cell (cell 1). Kernels are depicted as spatial (X, Y) and two-dimensional spatiotemporal (Y, time (t)) z-scored maps. The X,Y spatial maps are\r\nshown for the lag time corresponding to their maximal spatial extent (indicated by the vertical black line in Y,t spatiotemporal profiles).\r\nThe thin gray lines show the pixel size used\r\nfor sparse and dense noise. (b) Examples of elementary responses corresponding to positions indicated in the inset, overlaid over the shaded responsive area. Note the differences of scale between sparse (black) and dense noise (red) waveforms, reflecting a divisive gain control\r\nof both simple-like and complex-like receptive field components when switching from sparse\r\nto dense visual stimulation. (c,d) Data are presented as in a,b for another example\r\ncell (cell 2).",
+    "location": 1,
+    "mimetype": "jpg",
+    "size": null
+  },
+  "pk": 1,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "fournier2011_volterra_decomposition_cell1",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "mat",
+    "size": null
+  },
+  "pk": 2,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "fournier2011_volterra_decomposition_cell2",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "mat",
+    "size": null
+  },
+  "pk": 3,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "1806dM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 5,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 6,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "jneurosci_34_16_5515_F3.large",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "jpg",
+    "size": null
+  },
+  "pk": 7,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "5106CM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 8,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 9,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM7",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 10,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM7",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 11,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308GM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 12,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 13,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "jneurosci_34_16_5515_F4.large",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "jpg",
+    "size": null
+  },
+  "pk": 14,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM1",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 15,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM1",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 16,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM2",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 17,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM2",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 18,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 19,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM3",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 20,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM4",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 21,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM4",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 22,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM5",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 23,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM5",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 24,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": true,
+    "name": "2308DM6",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 25,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM6",
+    "creation_date": null,
+    "notes": "",
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 26,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 28,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 29,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806aM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 30,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806aM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 31,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806aM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 32,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806aM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 33,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806aM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 34,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806aM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 35,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 36,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 37,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM2-EEG-LGN",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 38,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 39,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 40,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM3-EEG-LGN",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 41,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 42,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806cM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 43,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 44,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 45,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 46,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 47,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 48,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 49,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 50,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 51,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 52,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 53,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806dM6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 54,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806f-Spt-1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 55,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806f-Spt-2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 56,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806f-Spt-3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 57,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806f-Spt-4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 58,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 59,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 60,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM2-EEG-LGN",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 61,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 62,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 63,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM3-EEG-LGN",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 64,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 65,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806fM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 66,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 67,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 68,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 69,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 70,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 71,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 72,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 73,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 74,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 75,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "1806gM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 76,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 77,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 78,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 79,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 80,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 81,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308AM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 82,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 83,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 84,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 85,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 86,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 87,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 88,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308DM7",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 89,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308FM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 90,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308FM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 91,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308FM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 92,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308FM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 93,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 94,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 95,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 96,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 97,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 98,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 99,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 100,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 101,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 102,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 103,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 104,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 105,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 106,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 107,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 108,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 109,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 110,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 111,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "2308GMAP6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 112,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 113,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 114,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 115,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 116,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 117,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 118,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 119,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 120,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 121,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM5",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 122,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 123,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM6",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 124,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM7",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 125,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM7",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 126,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM8",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 127,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM8",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 128,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM9",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 129,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106AM9",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 130,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106BM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 131,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106BM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 132,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106BM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 133,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106BM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 134,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106BM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 135,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106BM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 136,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 137,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 138,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 139,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 140,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 141,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106CM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 142,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106DM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 143,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106DM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 144,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106DM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 145,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106DM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 146,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106FM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 147,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106FM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 148,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106FM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 149,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106FM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 150,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106GM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 151,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106GM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 152,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 153,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 154,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 155,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 156,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 157,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 158,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 159,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106HM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 160,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106IM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 161,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106IM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 162,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106IM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 163,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106IM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 164,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106IM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 165,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106IM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 166,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 167,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 168,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 169,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 170,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 171,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 172,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 173,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106JM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 174,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 175,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM1",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 176,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 177,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM2",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 178,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 179,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM3",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 180,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "dat",
+    "size": null
+  },
+  "pk": 181,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "original": null,
+    "name": "5106KM4",
+    "creation_date": null,
+    "notes": null,
+    "location": 1,
+    "mimetype": "png",
+    "size": null
+  },
+  "pk": 182,
+  "model": "storage.file"
+},
+{
+  "fields": {
+    "name": "1806a",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 1,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "1806b",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 2,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "1806c",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 3,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "1806d",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 4,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "1806e",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 5,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "1806f",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 6,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "1806g",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 1
+  },
+  "pk": 7,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106a",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 8,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106b",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 9,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106c",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 10,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106d",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 11,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106f",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 12,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106g",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 13,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106h",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 14,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106i",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 15,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106j",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 16,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "5106k",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 2
+  },
+  "pk": 17,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "2308a",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 3
+  },
+  "pk": 18,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "2308d",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 3
+  },
+  "pk": 19,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "2308g",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 3
+  },
+  "pk": 20,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "name": "2308f",
+    "notes": "",
+    "end": null,
+    "description": "",
+    "start": null,
+    "experiment": 3
+  },
+  "pk": 21,
+  "model": "recordings.block"
+},
+{
+  "fields": {
+    "file": 5,
+    "name": "1806dm3",
+    "block": 4,
+    "is_continuous": false,
+    "stimulus": 2,
+    "description": "'cell 1' in Figure 3 of Fournier et al 2014",
+    "rec_datetime": null
+  },
+  "pk": 1,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 8,
+    "name": "5106cm3",
+    "block": 10,
+    "is_continuous": null,
+    "stimulus": 2,
+    "description": "'cell 1' in Figure 3 of Fournier et al 2014",
+    "rec_datetime": null
+  },
+  "pk": 2,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 10,
+    "name": "2308dm7",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": 2,
+    "description": "'cell 3' in Figure 4 of Fournier et al 2014.\r\n+50 pA",
+    "rec_datetime": null
+  },
+  "pk": 3,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 12,
+    "name": "2308gm3",
+    "block": 20,
+    "is_continuous": null,
+    "stimulus": 2,
+    "description": "'cell 4' in Figure 4 of Fournier et al 2014",
+    "rec_datetime": null
+  },
+  "pk": 4,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 15,
+    "name": "2308dm1",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 5,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 17,
+    "name": "2308dm2",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 6,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 19,
+    "name": "2308dm3",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": 1,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 7,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 21,
+    "name": "2308dm4",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": 2,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 8,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 23,
+    "name": "2308dm5",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": 1,
+    "description": "+50 pA",
+    "rec_datetime": null
+  },
+  "pk": 9,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 25,
+    "name": "2308dm6",
+    "block": 19,
+    "is_continuous": null,
+    "stimulus": 1,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 10,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 30,
+    "name": "1806am1",
+    "block": 1,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 11,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 137,
+    "name": "5106cm1",
+    "block": 10,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 12,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 75,
+    "name": "1806gm5",
+    "block": 7,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 13,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 99,
+    "name": "2308gm4",
+    "block": 20,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 14,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 67,
+    "name": "1806gm1",
+    "block": 7,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 15,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 77,
+    "name": "2308am1",
+    "block": 18,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 16,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 155,
+    "name": "5106hm2",
+    "block": 14,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 17,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 145,
+    "name": "5106dm2",
+    "block": 11,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 18,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 179,
+    "name": "5106km3",
+    "block": 17,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 19,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 94,
+    "name": "2308gm1",
+    "block": 20,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 20,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 96,
+    "name": "2308gm2",
+    "block": 20,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 21,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 119,
+    "name": "5106am4",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 22,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 90,
+    "name": "2308fm1",
+    "block": 21,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 23,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 71,
+    "name": "1806gm3",
+    "block": 7,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 24,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 153,
+    "name": "5106hm1",
+    "block": 14,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 25,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 173,
+    "name": "5106jm4",
+    "block": 16,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 26,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 147,
+    "name": "5106fm1",
+    "block": 12,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 27,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 69,
+    "name": "1806gm2",
+    "block": 7,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 28,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 34,
+    "name": "1806am3",
+    "block": 1,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 29,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 44,
+    "name": "1806dm1",
+    "block": 4,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 30,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 117,
+    "name": "5106am3",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 31,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 64,
+    "name": "1806fm3",
+    "block": 6,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 32,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 133,
+    "name": "5106bm2",
+    "block": 9,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 33,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 81,
+    "name": "2308am3",
+    "block": 18,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 34,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 32,
+    "name": "1806am2",
+    "block": 1,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 35,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 36,
+    "name": "1806cm1",
+    "block": 3,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 36,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 171,
+    "name": "5106jm3",
+    "block": 16,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 37,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 92,
+    "name": "2308fm2",
+    "block": 21,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 38,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 58,
+    "name": "1806f-s",
+    "block": 6,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 39,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 143,
+    "name": "5106dm1",
+    "block": 11,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 40,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 51,
+    "name": "1806dm5",
+    "block": 4,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 41,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 115,
+    "name": "5106am2",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 42,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 177,
+    "name": "5106km2",
+    "block": 17,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 43,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 73,
+    "name": "1806gm4",
+    "block": 7,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 44,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 163,
+    "name": "5106im2",
+    "block": 15,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 45,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 61,
+    "name": "1806fm2",
+    "block": 6,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 46,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 125,
+    "name": "5106am7",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 47,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 113,
+    "name": "5106am1",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 48,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 159,
+    "name": "5106hm4",
+    "block": 14,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 49,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 169,
+    "name": "5106jm2",
+    "block": 16,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 50,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 175,
+    "name": "5106km1",
+    "block": 17,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 51,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 123,
+    "name": "5106am6",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 52,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 129,
+    "name": "5106am9",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 53,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 161,
+    "name": "5106im1",
+    "block": 15,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 54,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 49,
+    "name": "1806dm4",
+    "block": 4,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 55,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 135,
+    "name": "5106bm3",
+    "block": 9,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 56,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 131,
+    "name": "5106bm1",
+    "block": 9,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 57,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 38,
+    "name": "1806cm2",
+    "block": 3,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 58,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 165,
+    "name": "5106im3",
+    "block": 15,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 59,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 127,
+    "name": "5106am8",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 60,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 79,
+    "name": "2308am2",
+    "block": 18,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 61,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 167,
+    "name": "5106jm1",
+    "block": 16,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 62,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 59,
+    "name": "1806fm1",
+    "block": 6,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 63,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 181,
+    "name": "5106km4",
+    "block": 17,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 64,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 41,
+    "name": "1806cm3",
+    "block": 3,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 65,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 151,
+    "name": "5106gm1",
+    "block": 13,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 66,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 111,
+    "name": "2308gma",
+    "block": 20,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 67,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 149,
+    "name": "5106fm2",
+    "block": 12,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 68,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 139,
+    "name": "5106cm2",
+    "block": 10,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 69,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 157,
+    "name": "5106hm3",
+    "block": 14,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 70,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 46,
+    "name": "1806dm2",
+    "block": 4,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 71,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 121,
+    "name": "5106am5",
+    "block": 8,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 72,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "file": 53,
+    "name": "1806dm6",
+    "block": 4,
+    "is_continuous": false,
+    "stimulus": null,
+    "description": "",
+    "rec_datetime": null
+  },
+  "pk": 73,
+  "model": "recordings.recording"
+},
+{
+  "fields": {
+    "configuration": 1,
+    "file": 5,
+    "name": "Vm",
+    "continuous_signals": [],
+    "index": 0,
+    "protocol": 1,
+    "description": ""
+  },
+  "pk": 1,
+  "model": "recordings.recordingchannel"
+},
+{
+  "fields": {
+    "physical_meaning": "",
+    "symbol": "kg"
+  },
+  "pk": 1,
+  "model": "units.unit"
+},
+{
+  "fields": {
+    "physical_meaning": "",
+    "symbol": "mg/kg/h"
+  },
+  "pk": 2,
+  "model": "units.unit"
+},
+{
+  "fields": {
+    "url": "http://www.jneurosci.org/content/34/16/5515",
+    "date": "2014-04-16",
+    "identifier": "34: 5515\u201328",
+    "title": "Hidden Complexity of Synaptic Receptive Fields in Cat V1",
+    "authors": "Fournier, Julien, Cyril Monier, Manuel Levy, Olivier Marre, Katalin S\u00e1ri, Zolt\u00e1n F. Kisv\u00e1rday, and Yves Fr\u00e9gnac\r\n",
+    "doi": "10.1523/JNEUROSCI.04",
+    "venue": "The Journal of Neuroscience"
+  },
+  "pk": 1,
+  "model": "publications.publication"
+},
+{
+  "fields": {
+    "url": "http://journal.frontiersin.org/article/10.3389/fncir.2013.00206/abstract",
+    "date": "2013-12-27",
+    "identifier": "7:206",
+    "title": "Animation of natural scene by virtual eye-movements evokes high precision and low noise in V1 neurons",
+    "authors": "Baudot P, Levy M, Marre O, Monier C, Pananceau M and Fr\u00e9gnac Y",
+    "doi": "10.3389/fncir.2013.00206",
+    "venue": "Frontiers in Neural Circuits"
+  },
+  "pk": 2,
+  "model": "publications.publication"
+},
+{
+  "fields": {
+    "url": "http://www.jneurosci.org/content/33/15/6388.long",
+    "date": "2013-04-10",
+    "identifier": "33: 6388-400",
+    "title": "The role of delayed suppression in slow and fast contrast adaptation in V1 simple cells",
+    "authors": "Levy M, Fournier J, Fr\u00e9gnac Y",
+    "doi": "10.1523/JNEUROSCI.3609-12.2013",
+    "venue": "The Journal of Neuroscience"
+  },
+  "pk": 3,
+  "model": "publications.publication"
+},
+{
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add object index",
+    "content_type": [
+      "core",
+      "objectindex"
+    ],
+    "codename": "add_objectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change object index",
+    "content_type": [
+      "core",
+      "objectindex"
+    ],
+    "codename": "change_objectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete object index",
+    "content_type": [
+      "core",
+      "objectindex"
+    ],
+    "codename": "delete_objectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add integer object index",
+    "content_type": [
+      "core",
+      "integerobjectindex"
+    ],
+    "codename": "add_integerobjectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change integer object index",
+    "content_type": [
+      "core",
+      "integerobjectindex"
+    ],
+    "codename": "change_integerobjectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete integer object index",
+    "content_type": [
+      "core",
+      "integerobjectindex"
+    ],
+    "codename": "delete_integerobjectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add char object index",
+    "content_type": [
+      "core",
+      "charobjectindex"
+    ],
+    "codename": "add_charobjectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change char object index",
+    "content_type": [
+      "core",
+      "charobjectindex"
+    ],
+    "codename": "change_charobjectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete char object index",
+    "content_type": [
+      "core",
+      "charobjectindex"
+    ],
+    "codename": "delete_charobjectindex"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add experiment",
+    "content_type": [
+      "experiments",
+      "experiment"
+    ],
+    "codename": "add_experiment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change experiment",
+    "content_type": [
+      "experiments",
+      "experiment"
+    ],
+    "codename": "change_experiment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete experiment",
+    "content_type": [
+      "experiments",
+      "experiment"
+    ],
+    "codename": "delete_experiment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can view experiment",
+    "content_type": [
+      "experiments",
+      "experiment"
+    ],
+    "codename": "view_experiment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add brain region",
+    "content_type": [
+      "neuralstructures",
+      "brainregion"
+    ],
+    "codename": "add_brainregion"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change brain region",
+    "content_type": [
+      "neuralstructures",
+      "brainregion"
+    ],
+    "codename": "change_brainregion"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete brain region",
+    "content_type": [
+      "neuralstructures",
+      "brainregion"
+    ],
+    "codename": "delete_brainregion"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add cell type",
+    "content_type": [
+      "neuralstructures",
+      "celltype"
+    ],
+    "codename": "add_celltype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change cell type",
+    "content_type": [
+      "neuralstructures",
+      "celltype"
+    ],
+    "codename": "change_celltype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete cell type",
+    "content_type": [
+      "neuralstructures",
+      "celltype"
+    ],
+    "codename": "delete_celltype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add cell",
+    "content_type": [
+      "neuralstructures",
+      "cell"
+    ],
+    "codename": "add_cell"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change cell",
+    "content_type": [
+      "neuralstructures",
+      "cell"
+    ],
+    "codename": "change_cell"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete cell",
+    "content_type": [
+      "neuralstructures",
+      "cell"
+    ],
+    "codename": "delete_cell"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add species",
+    "content_type": [
+      "species",
+      "species"
+    ],
+    "codename": "add_species"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change species",
+    "content_type": [
+      "species",
+      "species"
+    ],
+    "codename": "change_species"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete species",
+    "content_type": [
+      "species",
+      "species"
+    ],
+    "codename": "delete_species"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add strain",
+    "content_type": [
+      "species",
+      "strain"
+    ],
+    "codename": "add_strain"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change strain",
+    "content_type": [
+      "species",
+      "strain"
+    ],
+    "codename": "change_strain"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete strain",
+    "content_type": [
+      "species",
+      "strain"
+    ],
+    "codename": "delete_strain"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add data source",
+    "content_type": [
+      "analysis",
+      "datasource"
+    ],
+    "codename": "add_datasource"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change data source",
+    "content_type": [
+      "analysis",
+      "datasource"
+    ],
+    "codename": "change_datasource"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete data source",
+    "content_type": [
+      "analysis",
+      "datasource"
+    ],
+    "codename": "delete_datasource"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add step",
+    "content_type": [
+      "analysis",
+      "step"
+    ],
+    "codename": "add_step"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change step",
+    "content_type": [
+      "analysis",
+      "step"
+    ],
+    "codename": "change_step"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete step",
+    "content_type": [
+      "analysis",
+      "step"
+    ],
+    "codename": "delete_step"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add image",
+    "content_type": [
+      "analysis",
+      "image"
+    ],
+    "codename": "add_image"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change image",
+    "content_type": [
+      "analysis",
+      "image"
+    ],
+    "codename": "change_image"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete image",
+    "content_type": [
+      "analysis",
+      "image"
+    ],
+    "codename": "delete_image"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can view image",
+    "content_type": [
+      "analysis",
+      "image"
+    ],
+    "codename": "view_image"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add type",
+    "content_type": [
+      "devices",
+      "type"
+    ],
+    "codename": "add_type"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change type",
+    "content_type": [
+      "devices",
+      "type"
+    ],
+    "codename": "change_type"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete type",
+    "content_type": [
+      "devices",
+      "type"
+    ],
+    "codename": "delete_type"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add item",
+    "content_type": [
+      "devices",
+      "item"
+    ],
+    "codename": "add_item"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change item",
+    "content_type": [
+      "devices",
+      "item"
+    ],
+    "codename": "change_item"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete item",
+    "content_type": [
+      "devices",
+      "item"
+    ],
+    "codename": "delete_item"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add item properties",
+    "content_type": [
+      "devices",
+      "itemproperties"
+    ],
+    "codename": "add_itemproperties"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change item properties",
+    "content_type": [
+      "devices",
+      "itemproperties"
+    ],
+    "codename": "change_itemproperties"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete item properties",
+    "content_type": [
+      "devices",
+      "itemproperties"
+    ],
+    "codename": "delete_itemproperties"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add recording point",
+    "content_type": [
+      "devices",
+      "recordingpoint"
+    ],
+    "codename": "add_recordingpoint"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change recording point",
+    "content_type": [
+      "devices",
+      "recordingpoint"
+    ],
+    "codename": "change_recordingpoint"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete recording point",
+    "content_type": [
+      "devices",
+      "recordingpoint"
+    ],
+    "codename": "delete_recordingpoint"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add sub system",
+    "content_type": [
+      "devices",
+      "subsystem"
+    ],
+    "codename": "add_subsystem"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change sub system",
+    "content_type": [
+      "devices",
+      "subsystem"
+    ],
+    "codename": "change_subsystem"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete sub system",
+    "content_type": [
+      "devices",
+      "subsystem"
+    ],
+    "codename": "delete_subsystem"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add setup",
+    "content_type": [
+      "devices",
+      "setup"
+    ],
+    "codename": "add_setup"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change setup",
+    "content_type": [
+      "devices",
+      "setup"
+    ],
+    "codename": "change_setup"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete setup",
+    "content_type": [
+      "devices",
+      "setup"
+    ],
+    "codename": "delete_setup"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add position",
+    "content_type": [
+      "locations",
+      "position"
+    ],
+    "codename": "add_position"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change position",
+    "content_type": [
+      "locations",
+      "position"
+    ],
+    "codename": "change_position"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete position",
+    "content_type": [
+      "locations",
+      "position"
+    ],
+    "codename": "delete_position"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add organization",
+    "content_type": [
+      "people",
+      "organization"
+    ],
+    "codename": "add_organization"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change organization",
+    "content_type": [
+      "people",
+      "organization"
+    ],
+    "codename": "change_organization"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete organization",
+    "content_type": [
+      "people",
+      "organization"
+    ],
+    "codename": "delete_organization"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add researcher",
+    "content_type": [
+      "people",
+      "researcher"
+    ],
+    "codename": "add_researcher"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change researcher",
+    "content_type": [
+      "people",
+      "researcher"
+    ],
+    "codename": "change_researcher"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete researcher",
+    "content_type": [
+      "people",
+      "researcher"
+    ],
+    "codename": "delete_researcher"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can view researcher",
+    "content_type": [
+      "people",
+      "researcher"
+    ],
+    "codename": "view_researcher"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add position",
+    "content_type": [
+      "people",
+      "position"
+    ],
+    "codename": "add_position"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change position",
+    "content_type": [
+      "people",
+      "position"
+    ],
+    "codename": "change_position"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete position",
+    "content_type": [
+      "people",
+      "position"
+    ],
+    "codename": "delete_position"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add supplier",
+    "content_type": [
+      "people",
+      "supplier"
+    ],
+    "codename": "add_supplier"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change supplier",
+    "content_type": [
+      "people",
+      "supplier"
+    ],
+    "codename": "change_supplier"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete supplier",
+    "content_type": [
+      "people",
+      "supplier"
+    ],
+    "codename": "delete_supplier"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add type",
+    "content_type": [
+      "stimulations",
+      "type"
+    ],
+    "codename": "add_type"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change type",
+    "content_type": [
+      "stimulations",
+      "type"
+    ],
+    "codename": "change_type"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete type",
+    "content_type": [
+      "stimulations",
+      "type"
+    ],
+    "codename": "delete_type"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add stimulus",
+    "content_type": [
+      "stimulations",
+      "stimulus"
+    ],
+    "codename": "add_stimulus"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change stimulus",
+    "content_type": [
+      "stimulations",
+      "stimulus"
+    ],
+    "codename": "change_stimulus"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete stimulus",
+    "content_type": [
+      "stimulations",
+      "stimulus"
+    ],
+    "codename": "delete_stimulus"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add spike",
+    "content_type": [
+      "stimulations",
+      "spike"
+    ],
+    "codename": "add_spike"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change spike",
+    "content_type": [
+      "stimulations",
+      "spike"
+    ],
+    "codename": "change_spike"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete spike",
+    "content_type": [
+      "stimulations",
+      "spike"
+    ],
+    "codename": "delete_spike"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add multistim",
+    "content_type": [
+      "stimulations",
+      "multi"
+    ],
+    "codename": "add_multi"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change multistim",
+    "content_type": [
+      "stimulations",
+      "multi"
+    ],
+    "codename": "change_multi"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete multistim",
+    "content_type": [
+      "stimulations",
+      "multi"
+    ],
+    "codename": "delete_multi"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add drifting grating",
+    "content_type": [
+      "stimulations",
+      "driftinggrating"
+    ],
+    "codename": "add_driftinggrating"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change drifting grating",
+    "content_type": [
+      "stimulations",
+      "driftinggrating"
+    ],
+    "codename": "change_driftinggrating"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete drifting grating",
+    "content_type": [
+      "stimulations",
+      "driftinggrating"
+    ],
+    "codename": "delete_driftinggrating"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add ternary dense noise",
+    "content_type": [
+      "stimulations",
+      "ternarydensenoise"
+    ],
+    "codename": "add_ternarydensenoise"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change ternary dense noise",
+    "content_type": [
+      "stimulations",
+      "ternarydensenoise"
+    ],
+    "codename": "change_ternarydensenoise"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete ternary dense noise",
+    "content_type": [
+      "stimulations",
+      "ternarydensenoise"
+    ],
+    "codename": "delete_ternarydensenoise"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add sparse noise",
+    "content_type": [
+      "stimulations",
+      "sparsenoise"
+    ],
+    "codename": "add_sparsenoise"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change sparse noise",
+    "content_type": [
+      "stimulations",
+      "sparsenoise"
+    ],
+    "codename": "change_sparsenoise"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete sparse noise",
+    "content_type": [
+      "stimulations",
+      "sparsenoise"
+    ],
+    "codename": "delete_sparsenoise"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add substance",
+    "content_type": [
+      "chemistry",
+      "substance"
+    ],
+    "codename": "add_substance"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change substance",
+    "content_type": [
+      "chemistry",
+      "substance"
+    ],
+    "codename": "change_substance"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete substance",
+    "content_type": [
+      "chemistry",
+      "substance"
+    ],
+    "codename": "delete_substance"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add product",
+    "content_type": [
+      "chemistry",
+      "product"
+    ],
+    "codename": "add_product"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change product",
+    "content_type": [
+      "chemistry",
+      "product"
+    ],
+    "codename": "change_product"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete product",
+    "content_type": [
+      "chemistry",
+      "product"
+    ],
+    "codename": "delete_product"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add solution",
+    "content_type": [
+      "chemistry",
+      "solution"
+    ],
+    "codename": "add_solution"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change solution",
+    "content_type": [
+      "chemistry",
+      "solution"
+    ],
+    "codename": "change_solution"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete solution",
+    "content_type": [
+      "chemistry",
+      "solution"
+    ],
+    "codename": "delete_solution"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add quantity of substance",
+    "content_type": [
+      "chemistry",
+      "quantityofsubstance"
+    ],
+    "codename": "add_quantityofsubstance"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change quantity of substance",
+    "content_type": [
+      "chemistry",
+      "quantityofsubstance"
+    ],
+    "codename": "change_quantityofsubstance"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete quantity of substance",
+    "content_type": [
+      "chemistry",
+      "quantityofsubstance"
+    ],
+    "codename": "delete_quantityofsubstance"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add route of application",
+    "content_type": [
+      "drugs",
+      "routeofapplication"
+    ],
+    "codename": "add_routeofapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change route of application",
+    "content_type": [
+      "drugs",
+      "routeofapplication"
+    ],
+    "codename": "change_routeofapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete route of application",
+    "content_type": [
+      "drugs",
+      "routeofapplication"
+    ],
+    "codename": "delete_routeofapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add drug application",
+    "content_type": [
+      "drugs",
+      "drugapplication"
+    ],
+    "codename": "add_drugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change drug application",
+    "content_type": [
+      "drugs",
+      "drugapplication"
+    ],
+    "codename": "change_drugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete drug application",
+    "content_type": [
+      "drugs",
+      "drugapplication"
+    ],
+    "codename": "delete_drugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add continuous drug application",
+    "content_type": [
+      "drugs",
+      "continuousdrugapplication"
+    ],
+    "codename": "add_continuousdrugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change continuous drug application",
+    "content_type": [
+      "drugs",
+      "continuousdrugapplication"
+    ],
+    "codename": "change_continuousdrugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete continuous drug application",
+    "content_type": [
+      "drugs",
+      "continuousdrugapplication"
+    ],
+    "codename": "delete_continuousdrugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add discrete drug application",
+    "content_type": [
+      "drugs",
+      "discretedrugapplication"
+    ],
+    "codename": "add_discretedrugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change discrete drug application",
+    "content_type": [
+      "drugs",
+      "discretedrugapplication"
+    ],
+    "codename": "change_discretedrugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete discrete drug application",
+    "content_type": [
+      "drugs",
+      "discretedrugapplication"
+    ],
+    "codename": "delete_discretedrugapplication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add parameter",
+    "content_type": [
+      "measurements",
+      "parameter"
+    ],
+    "codename": "add_parameter"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change parameter",
+    "content_type": [
+      "measurements",
+      "parameter"
+    ],
+    "codename": "change_parameter"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete parameter",
+    "content_type": [
+      "measurements",
+      "parameter"
+    ],
+    "codename": "delete_parameter"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add measurement",
+    "content_type": [
+      "measurements",
+      "measurement"
+    ],
+    "codename": "add_measurement"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change measurement",
+    "content_type": [
+      "measurements",
+      "measurement"
+    ],
+    "codename": "change_measurement"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete measurement",
+    "content_type": [
+      "measurements",
+      "measurement"
+    ],
+    "codename": "delete_measurement"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add animal",
+    "content_type": [
+      "preparations",
+      "animal"
+    ],
+    "codename": "add_animal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change animal",
+    "content_type": [
+      "preparations",
+      "animal"
+    ],
+    "codename": "change_animal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete animal",
+    "content_type": [
+      "preparations",
+      "animal"
+    ],
+    "codename": "delete_animal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can view animal",
+    "content_type": [
+      "preparations",
+      "animal"
+    ],
+    "codename": "view_animal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add preparation",
+    "content_type": [
+      "preparations",
+      "preparation"
+    ],
+    "codename": "add_preparation"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change preparation",
+    "content_type": [
+      "preparations",
+      "preparation"
+    ],
+    "codename": "change_preparation"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete preparation",
+    "content_type": [
+      "preparations",
+      "preparation"
+    ],
+    "codename": "delete_preparation"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add communication protocol",
+    "content_type": [
+      "storage",
+      "communicationprotocol"
+    ],
+    "codename": "add_communicationprotocol"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change communication protocol",
+    "content_type": [
+      "storage",
+      "communicationprotocol"
+    ],
+    "codename": "change_communicationprotocol"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete communication protocol",
+    "content_type": [
+      "storage",
+      "communicationprotocol"
+    ],
+    "codename": "delete_communicationprotocol"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add mime type",
+    "content_type": [
+      "storage",
+      "mimetype"
+    ],
+    "codename": "add_mimetype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change mime type",
+    "content_type": [
+      "storage",
+      "mimetype"
+    ],
+    "codename": "change_mimetype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete mime type",
+    "content_type": [
+      "storage",
+      "mimetype"
+    ],
+    "codename": "delete_mimetype"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add file server",
+    "content_type": [
+      "storage",
+      "fileserver"
+    ],
+    "codename": "add_fileserver"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change file server",
+    "content_type": [
+      "storage",
+      "fileserver"
+    ],
+    "codename": "change_fileserver"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete file server",
+    "content_type": [
+      "storage",
+      "fileserver"
+    ],
+    "codename": "delete_fileserver"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add file location",
+    "content_type": [
+      "storage",
+      "filelocation"
+    ],
+    "codename": "add_filelocation"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change file location",
+    "content_type": [
+      "storage",
+      "filelocation"
+    ],
+    "codename": "change_filelocation"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete file location",
+    "content_type": [
+      "storage",
+      "filelocation"
+    ],
+    "codename": "delete_filelocation"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add file",
+    "content_type": [
+      "storage",
+      "file"
+    ],
+    "codename": "add_file"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change file",
+    "content_type": [
+      "storage",
+      "file"
+    ],
+    "codename": "change_file"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete file",
+    "content_type": [
+      "storage",
+      "file"
+    ],
+    "codename": "delete_file"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can view file",
+    "content_type": [
+      "storage",
+      "file"
+    ],
+    "codename": "view_file"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add block",
+    "content_type": [
+      "recordings",
+      "block"
+    ],
+    "codename": "add_block"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change block",
+    "content_type": [
+      "recordings",
+      "block"
+    ],
+    "codename": "change_block"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete block",
+    "content_type": [
+      "recordings",
+      "block"
+    ],
+    "codename": "delete_block"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add recording",
+    "content_type": [
+      "recordings",
+      "recording"
+    ],
+    "codename": "add_recording"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change recording",
+    "content_type": [
+      "recordings",
+      "recording"
+    ],
+    "codename": "change_recording"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete recording",
+    "content_type": [
+      "recordings",
+      "recording"
+    ],
+    "codename": "delete_recording"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can view recording",
+    "content_type": [
+      "recordings",
+      "recording"
+    ],
+    "codename": "view_recording"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add segment",
+    "content_type": [
+      "recordings",
+      "segment"
+    ],
+    "codename": "add_segment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change segment",
+    "content_type": [
+      "recordings",
+      "segment"
+    ],
+    "codename": "change_segment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete segment",
+    "content_type": [
+      "recordings",
+      "segment"
+    ],
+    "codename": "delete_segment"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add continuous signal",
+    "content_type": [
+      "recordings",
+      "continuoussignal"
+    ],
+    "codename": "add_continuoussignal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change continuous signal",
+    "content_type": [
+      "recordings",
+      "continuoussignal"
+    ],
+    "codename": "change_continuoussignal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete continuous signal",
+    "content_type": [
+      "recordings",
+      "continuoussignal"
+    ],
+    "codename": "delete_continuoussignal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add discrete signal",
+    "content_type": [
+      "recordings",
+      "discretesignal"
+    ],
+    "codename": "add_discretesignal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change discrete signal",
+    "content_type": [
+      "recordings",
+      "discretesignal"
+    ],
+    "codename": "change_discretesignal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete discrete signal",
+    "content_type": [
+      "recordings",
+      "discretesignal"
+    ],
+    "codename": "delete_discretesignal"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add recording channel",
+    "content_type": [
+      "recordings",
+      "recordingchannel"
+    ],
+    "codename": "add_recordingchannel"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change recording channel",
+    "content_type": [
+      "recordings",
+      "recordingchannel"
+    ],
+    "codename": "change_recordingchannel"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete recording channel",
+    "content_type": [
+      "recordings",
+      "recordingchannel"
+    ],
+    "codename": "delete_recordingchannel"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add unit",
+    "content_type": [
+      "units",
+      "unit"
+    ],
+    "codename": "add_unit"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change unit",
+    "content_type": [
+      "units",
+      "unit"
+    ],
+    "codename": "change_unit"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete unit",
+    "content_type": [
+      "units",
+      "unit"
+    ],
+    "codename": "delete_unit"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add publication",
+    "content_type": [
+      "publications",
+      "publication"
+    ],
+    "codename": "add_publication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change publication",
+    "content_type": [
+      "publications",
+      "publication"
+    ],
+    "codename": "change_publication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete publication",
+    "content_type": [
+      "publications",
+      "publication"
+    ],
+    "codename": "delete_publication"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add api access",
+    "content_type": [
+      "tastypie",
+      "apiaccess"
+    ],
+    "codename": "add_apiaccess"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change api access",
+    "content_type": [
+      "tastypie",
+      "apiaccess"
+    ],
+    "codename": "change_apiaccess"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete api access",
+    "content_type": [
+      "tastypie",
+      "apiaccess"
+    ],
+    "codename": "delete_apiaccess"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add api key",
+    "content_type": [
+      "tastypie",
+      "apikey"
+    ],
+    "codename": "add_apikey"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change api key",
+    "content_type": [
+      "tastypie",
+      "apikey"
+    ],
+    "codename": "change_apikey"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete api key",
+    "content_type": [
+      "tastypie",
+      "apikey"
+    ],
+    "codename": "delete_apikey"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add user object permission",
+    "content_type": [
+      "guardian",
+      "userobjectpermission"
+    ],
+    "codename": "add_userobjectpermission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change user object permission",
+    "content_type": [
+      "guardian",
+      "userobjectpermission"
+    ],
+    "codename": "change_userobjectpermission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete user object permission",
+    "content_type": [
+      "guardian",
+      "userobjectpermission"
+    ],
+    "codename": "delete_userobjectpermission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can add group object permission",
+    "content_type": [
+      "guardian",
+      "groupobjectpermission"
+    ],
+    "codename": "add_groupobjectpermission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can change group object permission",
+    "content_type": [
+      "guardian",
+      "groupobjectpermission"
+    ],
+    "codename": "change_groupobjectpermission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "name": "Can delete group object permission",
+    "content_type": [
+      "guardian",
+      "groupobjectpermission"
+    ],
+    "codename": "delete_groupobjectpermission"
+  },
+  "model": "auth.permission"
+},
+{
+  "fields": {
+    "date_joined": "2015-01-23T13:17:40.454Z",
+    "is_staff": false,
+    "is_superuser": false,
+    "last_login": "2015-01-23T13:17:40.454Z",
+    "username": "AnonymousUser",
+    "email": "",
+    "last_name": "",
+    "is_active": true,
+    "groups": [],
+    "password": "",
+    "user_permissions": [],
+    "first_name": ""
+  },
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "date_joined": "2015-01-24T18:39:12.984Z",
+    "is_staff": true,
+    "is_superuser": true,
+    "last_login": "2015-03-24T15:27:58.601Z",
+    "username": "apdavison",
+    "email": "",
+    "last_name": "",
+    "is_active": true,
+    "groups": [],
+    "password": "pbkdf2_sha256$15000$g8drDVAeQFHK$58Qz7owx4/1kPXzeYzwXg2OxdyjLszT6Y4J9rkEqjQY=",
+    "user_permissions": [],
+    "first_name": ""
+  },
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "date_joined": "2015-01-24T18:49:20Z",
+    "is_staff": false,
+    "is_superuser": false,
+    "last_login": "2015-01-24T18:49:20Z",
+    "username": "julien_fournier",
+    "email": "",
+    "last_name": "Fournier",
+    "is_active": true,
+    "groups": [],
+    "password": "pbkdf2_sha256$15000$JGpO5IVlA9KK$qCwduILmqYQ0x2lAObXleMLLr2N7+KxLf65MNltaS3c=",
+    "user_permissions": [],
+    "first_name": "Julien"
+  },
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "date_joined": "2015-03-30T08:59:28Z",
+    "is_staff": false,
+    "is_superuser": false,
+    "last_login": "2015-03-30T08:59:28Z",
+    "username": "fetfp7",
+    "email": "",
+    "last_name": "EC reviewers and POs",
+    "is_active": true,
+    "groups": [],
+    "password": "pbkdf2_sha256$15000$fQUxAChL6nfh$G/rb8QlsIk3BWBKxVUeJGNdHTiODXukSs/6sAueUA/0=",
+    "user_permissions": [],
+    "first_name": ""
+  },
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "object_pk": "2",
+    "permission": [
+      "view_experiment",
+      "experiments",
+      "experiment"
+    ],
+    "content_type": [
+      "experiments",
+      "experiment"
+    ],
+    "user": [
+      "apdavison"
+    ]
+  },
+  "pk": 1,
+  "model": "guardian.userobjectpermission"
+},
+{
+  "fields": {
+    "object_pk": "2",
+    "permission": [
+      "view_experiment",
+      "experiments",
+      "experiment"
+    ],
+    "content_type": [
+      "experiments",
+      "experiment"
+    ],
+    "user": [
+      "AnonymousUser"
+    ]
+  },
+  "pk": 2,
+  "model": "guardian.userobjectpermission"
+},
+{
+  "fields": {
+    "town": "",
+    "notes": "",
+    "street_address": "",
+    "user": [
+      "julien_fournier"
+    ],
+    "state": "",
+    "country": "",
+    "postal_code": "",
+    "website": "",
+    "phone": ""
+  },
+  "pk": 1,
+  "model": "people.researcher"
+},
+{
+  "fields": {
+    "diminutive": "UNIC",
+    "name": "Unit\u00e9 de Neurosciences, Information et Complexit\u00e9",
+    "is_data_provider": true,
+    "db_group": null,
+    "parent": 2,
+    "description": "",
+    "dissolution_date": null,
+    "foundation_date": null
+  },
+  "pk": 1,
+  "model": "people.organization"
+},
+{
+  "fields": {
+    "diminutive": "CNRS",
+    "name": "Centre National de la Recherche Scientifique",
+    "is_data_provider": false,
+    "db_group": null,
+    "parent": null,
+    "description": "",
+    "dissolution_date": null,
+    "foundation_date": null
+  },
+  "pk": 2,
+  "model": "people.organization"
+}
+]

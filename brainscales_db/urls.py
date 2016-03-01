@@ -1,6 +1,4 @@
-from django.conf.urls import patterns
-from django.conf.urls import include
-from django.conf.urls import url
+from django.conf.urls import patterns, include, url
 from django.views.generic import RedirectView
 
 # Uncomment the next two lines to enable the admin:
@@ -9,19 +7,20 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'app.views.home', name='home'),
-    # url(r'^app/', include('app.foo.urls')),
+    # url(r'^$', 'brainscales_db.views.home', name='home'),
+    # url(r'^brainscales_db/', include('brainscales_db.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^people/', include('helmholtz.people.urls')),
 
-    # attach measurements
+   # attach measurements
     url( r'^(?P<resource_name>\w[\w/-]*)/(?P<pk>\w[\w/-]*)/measurement/$', 'helmholtz.measurements.api.resources.set_measurement_by_name' ),
     url( r'^(?P<resource_app>\w[\w/-]*)/(?P<resource_name>\w[\w/-]*)/(?P<pk>\w[\w/-]*)/measurement/$', 'helmholtz.measurements.api.resources.set_measurement' ),
-    # APPS
+
     ('^people/', include('helmholtz.people.urls')),
     ('^species/', include('helmholtz.species.urls')),
     ('^units/', include('helmholtz.units.urls')),
@@ -38,5 +37,5 @@ urlpatterns = patterns('',
     ('^drugs/', include('helmholtz.drugs.urls')),
     ('^recordings/', include('helmholtz.recordings.urls')),
     ('^analysis/', include('helmholtz.analysis.urls')),
-
+    ('^notebooks/', include('helmholtz.notebooks.urls')),
 )

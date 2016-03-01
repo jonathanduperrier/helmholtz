@@ -2,6 +2,7 @@ defusedxml==0.4.1
 Django==1.5.1
 django-guardian==1.1.1
 django-tastypie==0.10.0
+git+https://github.com/apdavison/helmholtz.git@bsdb#egg=helmholtz
 mimeparse==0.1.3
 python-dateutil==2.1
 PyYAML==3.10

@@ -1,0 +1,1 @@
+/manage.py dumpdata --natural-primary --natural-foreign --indent=2 core experiments neuralstructures species analysis devices locations people stimulations chemistry drugs measurements preparations storage recordings units publications tastypie guardian auth > deployment/db_backup.json

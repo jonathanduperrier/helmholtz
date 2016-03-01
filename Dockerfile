@@ -18,8 +18,10 @@ MAINTAINER Andrew Davison <andrew.davison@unic.cnrs-gif.fr>
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --fix-missing
-#RUN apt-get -y -q install nginx supervisor build-essential python-dev python-setuptools python-pip sqlite3 python-psycopg2
-RUN apt-get -y -q install nginx-extras supervisor build-essential python-dev python3-dev python-setuptools python-pip sqlite3 python-psycopg2 git libxml2-dev libxslt1-dev libyaml-dev #python-lxml python3-lxml libxml2 libxslt1.1
+
+RUN apt-get install -y vim
+
+RUN apt-get -y -q --fix-missing install nginx nginx-extras supervisor build-essential python-dev python3-dev python-setuptools python-pip sqlite3 python-psycopg2 git libxml2-dev libxslt1-dev libyaml-dev python-lxml python3-lxml libxml2 libxslt1.1
 RUN unset DEBIAN_FRONTEND
 
 RUN pip install uwsgi
@@ -34,8 +36,18 @@ ENV PYTHONPATH  /home/docker:/usr/local/lib/python2.7/dist-packages
 ENV EMAIL_PASSWORD "omjm qhyv ztxg qlmk"
 
 RUN if [ -f /home/docker/site/db.sqlite3 ]; then rm /home/docker/site/db.sqlite3; fi
+RUN cp /home/docker/site/deployment/db.sqlite3 /home/docker/site/db.sqlite3
+#RUN cp -r /home/docker/site/deployment/static/ /home/docker/site/brainscales_db/
+
 #RUN python manage.py check
 #RUN python manage.py collectstatic --noinput
+#RUN python manage.py sycndb --settings=brainscales_db.settings
+
+RUN python manage.py validate
+#RUN python manage.py migrate
+#RUN python manage.py syncdb
+#RUN python manage.py loaddata /home/docker/site/deployment/db.json
+RUN python manage.py collectstatic --noinput
 RUN unset PYTHONPATH
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -45,6 +57,12 @@ RUN ln -s /home/docker/site/deployment/supervisor-app.conf /etc/supervisor/conf.
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
+RUN mkdir /etc/nginx/ssl/
+RUN ln -s /home/docker/site/deployment/ssl/nginx.key /etc/nginx/ssl/nginx.key
+RUN ln -s /home/docker/site/deployment/ssl/nginx.pem /etc/nginx/ssl/nginx.pem
+
 ENV PYTHONPATH /usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages
 EXPOSE 80
+#EXPOSE 443
 CMD ["supervisord", "-n"]
+

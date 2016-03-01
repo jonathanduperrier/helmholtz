@@ -1,5 +1,9 @@
 # Django settings for brainscales_db project.
 import os
+PROJ_DIR = os.path.dirname(__file__)
+#BASE_DIR = os.path.dirname(PROJ_DIR)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 from os.path import dirname, join, abspath
 from django.core.exceptions import ImproperlyConfigured
 
@@ -16,21 +20,33 @@ TEMPLATE_DEBUG = DEBUG
 PROJECT_ROOT = abspath(join(abspath(dirname(__file__)), "..", ".."))
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('jonathan', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
     }
 }
+
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'Europe/Paris'
+#TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -58,34 +74,44 @@ MEDIA_ROOT = join(PROJECT_ROOT, "media")
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = ''
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
-STATIC_ROOT = join(PROJECT_ROOT, "static")
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
+
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data')
+MEDIA_URL = '/data/'
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Tastypie
+TASTYPIE_DEFAULT_FORMATS = [ 'json', 'jsonp', 'xml', 'yaml' ]
+TASTYPIE_ALLOW_MISSING_SLASH = True
+API_LIMIT_PER_PAGE = 0
+
+# Guardian
+AUTHENTICATION_BACKENDS = {
+    'django.contrib.auth.backends.ModelBackend',  # this is the default
+    'guardian.backends.ObjectPermissionBackend',
+}
+ANONYMOUS_USER_ID = -1
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+IN_DOCKER = True
+if IN_DOCKER:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+   STATICFILES_DIRS = (
+       os.path.join(BASE_DIR, "static"),
+   )
+
+LOGIN_URL = "/login/"
+
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY')
-#SECRET_KEY = LOCAL_SECRET_KEY
+SECRET_KEY = 'l6f=27t3_bepmg)ajt#%=la7k(n$o50c%hf6luz2$0o=*5r0a!'
+#SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -99,9 +125,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',#
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',#
     # CORS
     'helmholtz.middleware.crossdomainxhr.XsSharing',
 )
@@ -146,6 +173,7 @@ INSTALLED_APPS = (
     'helmholtz.drugs',
     'helmholtz.recordings',
     'helmholtz.analysis',
+    'helmholtz.notebooks',
     # THIRD-PARTY APPS
     'tastypie',
     'guardian',
