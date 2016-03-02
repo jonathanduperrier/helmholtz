@@ -1,5 +1,5 @@
-var base_url = 'http://172.17.0.2/';
-var app_url = 'http://172.17.0.2:8080/';
+var base_url = 'http://127.0.0.1/';
+var app_url = 'http://127.0.0.1:8080/';
 //var base_url = 'https://www.dbunic.cnrs-gif.fr/visiondb/';
 
 
@@ -96,6 +96,9 @@ mainApp.config(['$routeProvider', '$httpProvider',
           when('/protocol/:eID', {
             templateUrl: 'protocol/protocol_detail.tpl.html',
             controller: 'DetailProtocol'
+          }).
+          when('/', {
+            redirectTo: '/login'
           }).
           otherwise({
             redirectTo: '/experiment'
