@@ -1,5 +1,5 @@
-var base_url = 'http://127.0.0.1/';
-var app_url = 'http://127.0.0.1:8080/';
+var base_url = 'https://172.17.0.200/';
+var app_url = 'https://172.17.0.200:8080/';
 //var base_url = 'https://www.dbunic.cnrs-gif.fr/visiondb/';
 
 

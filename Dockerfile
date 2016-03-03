@@ -44,9 +44,6 @@ RUN cp /home/docker/site/deployment/db.sqlite3 /home/docker/site/db.sqlite3
 #RUN python manage.py sycndb --settings=brainscales_db.settings
 
 RUN python manage.py validate
-#RUN python manage.py migrate
-#RUN python manage.py syncdb
-#RUN python manage.py loaddata /home/docker/site/deployment/db.json
 RUN python manage.py collectstatic --noinput
 RUN unset PYTHONPATH
 
@@ -57,12 +54,12 @@ RUN ln -s /home/docker/site/deployment/supervisor-app.conf /etc/supervisor/conf.
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN mkdir /etc/nginx/ssl/
-RUN ln -s /home/docker/site/deployment/ssl/nginx.key /etc/nginx/ssl/nginx.key
-RUN ln -s /home/docker/site/deployment/ssl/nginx.pem /etc/nginx/ssl/nginx.pem
+RUN mkdir -p /etc/nginx/ssl/brainscales.unic.cnrs-gif.fr/
+RUN ln -s /home/docker/site/deployment/ssl/brainscales.unic.cnrs-gif.fr/brainscales.unic.cnrs-gif.fr.key /etc/nginx/ssl/brainscales.unic.cnrs-gif.fr/
+RUN ln -s /home/docker/site/deployment/ssl/brainscales.unic.cnrs-gif.fr/brainscales.unic.cnrs-gif.fr.pem /etc/nginx/ssl/brainscales.unic.cnrs-gif.fr/
 
 ENV PYTHONPATH /usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages
-EXPOSE 80
-#EXPOSE 443
+#EXPOSE 80
+EXPOSE 443
 CMD ["supervisord", "-n"]
 
