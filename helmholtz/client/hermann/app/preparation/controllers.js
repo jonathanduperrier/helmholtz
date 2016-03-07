@@ -5,7 +5,7 @@ var mod_prep = angular.module( 'hermann.preparation', [
     'ngRoute',
     'hermann.people',
     'hermann.animal',
-    'ui.bootstrap', 
+    'ui.bootstrap',
     'angularModalService',
     'mod_tlv',
     'preparationServices',
@@ -26,7 +26,6 @@ mod_prep.controller('ListPreparation', [
         $scope.animal = animals.get({id:idAnimal}, function(data){
           $scope.preparation.objects[key].animal0 = data.identifier;
         });
-
       });
     });
     $scope.predicate = 'identifier';
@@ -64,7 +63,7 @@ mod_prep.controller('ListPreparation', [
               if(result.del_prep == true){
                   $scope.showConfirmRemovePreparation(result.preparation);
               } else {
-                  $scope.managePreparation( result.preparation, edition );                    
+                  $scope.managePreparation( result.preparation, edition );
               }
           });
       });
@@ -124,7 +123,7 @@ mod_prep.controller('ManagePreparationController', [
         }
         else if($scope.preparation.protocol == ""){
           $scope.msgAlert = "Protocol field must be a number";
-        } 
+        }
         else {
             $scope.close();
         }

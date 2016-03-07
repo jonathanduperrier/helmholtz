@@ -1,7 +1,6 @@
-var base_url = 'https://172.17.0.200/';
-var app_url = 'https://172.17.0.200:8080/';
-//var base_url = 'https://www.dbunic.cnrs-gif.fr/visiondb/';
-
+var base_url = 'https://brainscales.cnrs-gif.fr/';
+//var base_url = 'https://172.17.0.200';
+var app_url = base_url+':8080';
 
 var mainApp = angular.module('mainApp', [
 	'ngRoute',
@@ -14,6 +13,10 @@ var mainApp = angular.module('mainApp', [
   'hermann.electrode',
   'hermann.neuron',
   'hermann.protocol',
+	'hermann.blocks',
+	'hermann.recording',
+	'hermann.file',
+	'hermann.image',
 ]);
 
 mainApp.factory('errorHttpInterceptor', ['$q', function ($q) {
@@ -62,11 +65,11 @@ mainApp.config(['$routeProvider', '$httpProvider',
             controller: 'ListExperiment'
           }).
           when('/experiment/:eId', {
-             templateUrl: 'experiments/detail.tpl.html', 
+             templateUrl: 'experiments/detail.tpl.html',
              controller: 'DetailExperiment'
       	  }).
       	  when('/experiment/:eId/edit', {
-      	     templateUrl: 'experiments/edit.tpl.html', 
+      	     templateUrl: 'experiments/edit.tpl.html',
       	     controller: 'EditExperiment'
       	  }).
           when('/timeline/experiment/:eID', {
@@ -97,6 +100,40 @@ mainApp.config(['$routeProvider', '$httpProvider',
             templateUrl: 'protocol/protocol_detail.tpl.html',
             controller: 'DetailProtocol'
           }).
+
+					when('/blocks_list', {
+						templateUrl: 'blocks/blocks_list.tpl.html',
+						controller: 'ListBlocks'
+					}).
+					when('/blocks/:eID', {
+						templateUrl: 'blocks/blocks_detail.tpl.html',
+						controller: 'DetailBlocks'
+					}).
+					when('/recording_list', {
+						templateUrl: 'recording/recording_list.tpl.html',
+						controller: 'ListRecordings'
+					}).
+					when('/recordings/recording/:eID', {
+						templateUrl: 'recording/recording_detail.tpl.html',
+						controller: 'DetailRecording'
+					}).
+					when('/files_list', {
+						templateUrl: 'files/files_list.tpl.html',
+						controller: 'ListFiles'
+					}).
+					when('/storage/file/:eID', {
+						templateUrl: 'files/files_detail.tpl.html',
+						controller: 'DetailFiles'
+					}).
+					when('/images_list', {
+						templateUrl: 'images/images_list.tpl.html',
+						controller: 'ListImages'
+					}).
+					when('/images/:eID', {
+						templateUrl: 'images/images_detail.tpl.html',
+						controller: 'DetailImages'
+					}).
+
           when('/', {
             redirectTo: '/login'
           }).
