@@ -1,4 +1,4 @@
-var base_url = 'https://brainscales.cnrs-gif.fr/';
+var base_url = 'https://brainscales.cnrs-gif.fr';
 //var base_url = 'https://172.17.0.200';
 var app_url = base_url+':8080';
 
@@ -16,7 +16,7 @@ var mainApp = angular.module('mainApp', [
 	'hermann.blocks',
 	'hermann.recording',
 	'hermann.file',
-	'hermann.image',
+	//'hermann.image',
 ]);
 
 mainApp.factory('errorHttpInterceptor', ['$q', function ($q) {
