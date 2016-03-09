@@ -1,5 +1,5 @@
-var base_url = 'https://brainscales.unic.cnrs-gif.fr/';
-//var base_url = 'https://172.17.0.200';
+//var base_url = 'https://brainscales.unic.cnrs-gif.fr/';
+var base_url = 'https://172.17.1.77/';
 
 var mainApp = angular.module('mainApp', [
 	'ngRoute',
@@ -15,7 +15,7 @@ var mainApp = angular.module('mainApp', [
 	'hermann.blocks',
 	'hermann.recording',
 	'hermann.file',
-	//'hermann.image',
+	'hermann.image',
 ]);
 
 mainApp.factory('errorHttpInterceptor', ['$q', function ($q) {
@@ -128,7 +128,7 @@ mainApp.config(['$routeProvider', '$httpProvider',
 						templateUrl: 'images/images_list.tpl.html',
 						controller: 'ListImages'
 					}).
-					when('/images/:eID', {
+					when('/analysis/image/:eID', {
 						templateUrl: 'images/images_detail.tpl.html',
 						controller: 'DetailImages'
 					}).

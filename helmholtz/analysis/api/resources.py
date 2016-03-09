@@ -25,6 +25,9 @@ from helmholtz.recordings.api.resources import RecordingResource
 from helmholtz.recordings.api.resources import SegmentResource
 from helmholtz.recordings.api.resources import ContinuousSignalResource
 from helmholtz.recordings.api.resources import DiscreteSignalResource
+# storage resources
+from helmholtz.storage.api.resources import FileResource
+
 # ... add here other sources
 
 # Resources
@@ -66,7 +69,9 @@ class StepResource( ModelResource ) :
 
 
 class ImageResource( ModelResource ) :
-    generator = fields.ForeignKey( StepResource, 'generator', null=True )
+    generator = fields.ForeignKey( StepResource, 'generator', null=True, full=True )
+    #file = fields.ForeignKey( FileResource, 'image', full=True )
+    file = fields.ForeignKey(FileResource, attribute='file' )
     class Meta:
         queryset = Image.objects.all()
         resource_name = 'image'

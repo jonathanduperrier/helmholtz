@@ -23,7 +23,6 @@ var mod_files = angular.module( 'hermann.file', [
             var $file = file.resource_uri.split('/');
             var $idFile = $file[3];
             file.id = $idFile;
-
             var location0 = file.location.split('/');
             var idLocation = location0[3];
             $scope.location = fileLocation.get({id:idLocation}, function(data){

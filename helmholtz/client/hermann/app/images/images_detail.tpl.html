@@ -2,16 +2,12 @@
     <div class="row-fluid">
         <!--Body-->
         <div class="span12">
-        	<h1>File: {{file.name}}</h1>
+        	<h1>Image: {{image.caption}}</h1>
         	<ul class="specs">
         		<dl class="dl-horizontal">
-              <dt>Name</dt><dd>{{file.name}}</dd>
-        			<dt>Location</dt><dd>{{file.location}}</dd>
-        			<dt>Mimetype</dt><dd>{{file.mimetype}}</dd>
-        			<dt>Original</dt><dd>{{file.original}}</dd>
-        			<dt>Creation date</dt><dd>{{file.creation_date}}</dd>
-        			<dt>Size</dt><dd>{{file.size}}</dd>
-              <dt>Notes</dt><dd>{{file.notes}}</dd>
+              <dt>Generator</dt><dd>{{image.generator.algorithm}}</dd>
+        			<dt>Caption</dt><dd>{{image.caption}}</dd>
+        			<dt></dt><dd>{{image.file}}</dd>
         		</dl>
         	</ul>
         </div>

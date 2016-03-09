@@ -10,19 +10,19 @@
                             <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
                         </th>
                         <th>
-                            <a href="" ng-click="order('location')">File</a>
+                            <a href="" ng-click="order('location')">Caption</a>
                             <span class="sortorder" ng-show="location === 'name'" ng-class="{reverse:reverse}"></span>
                         </th>
                         <th>
-                            <a href="" ng-click="order('mimetype')">Caption</a>
-                            <span class="sortorder" ng-show="predicate === 'mimetype'" ng-class="{reverse:reverse}"></span>
+                            <a href="" ng-click="order('file')">File</a>
+                            <span class="sortorder" ng-show="predicate === 'file'" ng-class="{reverse:reverse}"></span>
                         </th>
                     </tr>
                 </thead>
                 <tr ng-repeat="image in image.objects | filter:query | orderBy:predicate:reverse">
-                    <td><a href ="#/analysis/image/{{file.id}}">{{image.}}</a></td>
-                    <td>{{image.}}</td>
-                    <td>{{image.}}</td>
+                    <td><a href ="#/analysis/image/{{image.id}}">{{image.generator.algorithm}}</a></td>
+                    <td>{{image.caption}}</td>
+                    <td>{{image.file}}</td>
                 </tr>
             </table>
         </div>
