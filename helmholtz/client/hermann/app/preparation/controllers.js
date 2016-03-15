@@ -16,6 +16,7 @@ var mod_prep = angular.module( 'hermann.preparation', [
 mod_prep.controller('ListPreparation', [
   '$scope', '$rootScope', 'preparations', 'animals', 'itemDevices' ,'ModalService', '$route',
   function($scope, $rootScope, preparations, animals, itemDevices, ModalService, $route) {
+    $rootScope.page_title = "Preparation";
     $scope.$route = $route;
     $rootScope.spin = 0;
 
@@ -94,7 +95,9 @@ mod_prep.controller('ListPreparation', [
   }
 ]);
 
-mod_prep.controller('DetailPreparation', ['$scope', '$routeParams', 'preparations', 'animals', 'itemDevices' ,'ModalService', function($scope, $routeParams, preparations, animals, itemDevices, ModalService){
+mod_prep.controller('DetailPreparation', ['$scope', '$rootScope', '$routeParams', 'preparations', 'animals', 'itemDevices' ,'ModalService',
+function($scope, $rootScope, $routeParams, preparations, animals, itemDevices, ModalService){
+    $rootScope.page_title = "Preparation";
     $scope.prep = preparations.get( {id: $routeParams.eID}, function(prep){
         var animal0 = prep.animal.split('/');
         var idAnimal = animal0[3];

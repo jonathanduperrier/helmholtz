@@ -16,6 +16,7 @@ var mod_images = angular.module( 'hermann.image', [
     mod_images.controller('ListImages', [
       '$scope', '$rootScope', 'image' ,'ModalService', 'files', 'fileLocation', '$route',
       function($scope, $rootScope, image, ModalService, files, fileLocation, $route) {
+        $rootScope.page_title = "Images";
         $scope.$route = $route;
         $rootScope.spin = 0;
       	$scope.image = image.get({}, function(data){
@@ -52,8 +53,9 @@ var mod_images = angular.module( 'hermann.image', [
       }
     ]);
 
-    mod_images.controller('DetailImages', ['$scope', '$routeParams', 'image', 'files', 'fileLocation' ,'ModalService',
-    function($scope, $routeParams, image, files, fileLocation, ModalService){
+    mod_images.controller('DetailImages', ['$scope', '$rootScope', '$routeParams', 'image', 'files', 'fileLocation' ,'ModalService',
+    function($scope, $rootScope, $routeParams, image, files, fileLocation, ModalService){
+        $rootScope.page_title = "Images";
         $scope.image = image.get( {id: $routeParams.eID}, function(data){
           var $image = $scope.image.resource_uri.split('/');
           var $idImage = $image[3];

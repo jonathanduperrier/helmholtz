@@ -16,6 +16,7 @@ var mod_files = angular.module( 'hermann.file', [
     mod_files.controller('ListFiles', [
       '$scope', '$rootScope', 'files' ,'ModalService', '$route', 'fileLocation',
       function($scope, $rootScope, files, ModalService, $route, fileLocation) {
+        $rootScope.page_title = "Files";
         $scope.$route = $route;
         $rootScope.spin = 0;
       	$scope.file = files.get({}, function(data){
@@ -47,7 +48,9 @@ var mod_files = angular.module( 'hermann.file', [
       }
     ]);
 
-    mod_files.controller('DetailFiles', ['$scope', '$routeParams', 'files' ,'ModalService', 'fileLocation', function($scope, $routeParams, files, ModalService, fileLocation){
+    mod_files.controller('DetailFiles', ['$scope', '$rootScope', '$routeParams', 'files' ,'ModalService', 'fileLocation',
+    function($scope, $rootScope, $routeParams, files, ModalService, fileLocation){
+        $rootScope.page_title = "Files";
         $scope.file = files.get( {id: $routeParams.eID}, function(data){
           var $file = $scope.file.resource_uri.split('/');
           var $idFile = $file[3];

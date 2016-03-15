@@ -15,6 +15,7 @@ var mod_blocks = angular.module( 'hermann.blocks', [
     mod_blocks.controller('ListBlocks', [
       '$scope', '$rootScope', 'blocks' ,'ModalService', '$route', 'Experiment',
       function($scope, $rootScope, blocks, ModalService, $route, Experiment) {
+        $rootScope.page_title = "Blocks";
         $scope.$route = $route;
         $rootScope.spin = 0;
       	$scope.block = blocks.get({}, function(data){
@@ -31,7 +32,7 @@ var mod_blocks = angular.module( 'hermann.blocks', [
         });
         $scope.predicate = 'experiment';
         $scope.reverse = false;
-        
+
         $scope.order = function(predicate) {
           $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
           $scope.predicate = predicate;
@@ -46,7 +47,9 @@ var mod_blocks = angular.module( 'hermann.blocks', [
       }
     ]);
 
-    mod_blocks.controller('DetailBlocks', ['$scope', '$routeParams', 'blocks' ,'ModalService', 'Experiment', function($scope, $routeParams, blocks, ModalService, Experiment){
+    mod_blocks.controller('DetailBlocks', ['$scope', '$rootScope', '$routeParams', 'blocks' ,'ModalService', 'Experiment',
+    function($scope, $rootScope, $routeParams, blocks, ModalService, Experiment){
+        $rootScope.page_title = "Blocks";
         $scope.block = blocks.get( {id: $routeParams.eID}, function(data){
           var $block = $scope.block.resource_uri.split('/');
           var $idBlock = $block[3];

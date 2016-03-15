@@ -1,5 +1,5 @@
 //var base_url = 'https://brainscales.unic.cnrs-gif.fr/';
-var base_url = 'https://172.17.1.77/';
+var base_url = 'https://172.17.1.80/';
 
 var mainApp = angular.module('mainApp', [
 	'ngRoute',
@@ -37,7 +37,6 @@ mainApp.factory('errorHttpInterceptor', ['$q', function ($q) {
 mainApp.config(['$routeProvider', '$httpProvider',
       function ($routeProvider, $httpProvider) {
         $httpProvider.interceptors.push('errorHttpInterceptor');
-
         $routeProvider.
           when('/login', {
             templateUrl: 'login/form.tpl.html',
@@ -99,7 +98,6 @@ mainApp.config(['$routeProvider', '$httpProvider',
             templateUrl: 'protocol/protocol_detail.tpl.html',
             controller: 'DetailProtocol'
           }).
-
 					when('/blocks_list', {
 						templateUrl: 'blocks/blocks_list.tpl.html',
 						controller: 'ListBlocks'
@@ -132,7 +130,6 @@ mainApp.config(['$routeProvider', '$httpProvider',
 						templateUrl: 'images/images_detail.tpl.html',
 						controller: 'DetailImages'
 					}).
-
           when('/', {
             redirectTo: '/login'
           }).

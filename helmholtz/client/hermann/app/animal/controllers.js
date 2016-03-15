@@ -21,6 +21,7 @@ mod_animal.controller('ListAnimal', [
       $scope.animal.objects.forEach( function( animal ){
       });
     });
+    $rootScope.page_title = "Animals";
     $scope.predicate = 'identifier';
     $scope.reverse = false;
     $scope.order = function(predicate) {

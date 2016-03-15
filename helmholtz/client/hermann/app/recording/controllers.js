@@ -15,6 +15,7 @@ var mod_recordings = angular.module( 'hermann.recording', [
     mod_recordings.controller('ListRecordings', [
       '$scope', '$rootScope', 'recordings' ,'ModalService', '$route', 'blocks',
       function($scope, $rootScope, recordings, ModalService, $route, blocks) {
+        $rootScope.page_title = "Recordings";
         $scope.$route = $route;
         $rootScope.spin = 0;
       	$scope.recording = recordings.get({}, function(data){
@@ -48,7 +49,9 @@ var mod_recordings = angular.module( 'hermann.recording', [
       }
     ]);
 
-    mod_recordings.controller('DetailRecording', ['$scope', '$routeParams', 'recordings' ,'ModalService', 'blocks', function($scope, $routeParams, recordings, ModalService, blocks){
+    mod_recordings.controller('DetailRecording', ['$scope', '$rootScope', '$routeParams', 'recordings' ,'ModalService', 'blocks',
+    function($scope, $rootScope, $routeParams, recordings, ModalService, blocks){
+        $rootScope.page_title = "Recordings";
         $scope.recording = recordings.get( {id: $routeParams.eID}, function(data){
           var $recording = $scope.recording.resource_uri.split('/');
           var $idRecording = $recording[3];
