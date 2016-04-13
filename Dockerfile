@@ -35,16 +35,11 @@ WORKDIR /home/docker/site
 ENV PYTHONPATH  /home/docker:/usr/local/lib/python2.7/dist-packages
 ENV EMAIL_PASSWORD "omjm qhyv ztxg qlmk"
 
-RUN if [ -f /home/docker/site/db.sqlite3 ]; then rm /home/docker/site/db.sqlite3; fi
-RUN cp /home/docker/site/deployment/db.sqlite3 /home/docker/site/db.sqlite3
-#RUN cp -r /home/docker/site/deployment/static/ /home/docker/site/brainscales_db/
-
-#RUN python manage.py check
-#RUN python manage.py collectstatic --noinput
-#RUN python manage.py sycndb --settings=brainscales_db.settings
-
 RUN python manage.py validate
 RUN python manage.py collectstatic --noinput
+RUN python manage.py syncdb --noinput --settings=brainscales_db.settings
+RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('brainscales', 'brainscales@example.com', 'pwd_brainscales_5f6f3d')" | python manage.py shell
+
 RUN unset PYTHONPATH
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -62,4 +57,3 @@ ENV PYTHONPATH /usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-pa
 #EXPOSE 80
 EXPOSE 443
 CMD ["supervisord", "-n"]
-
