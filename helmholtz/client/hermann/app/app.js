@@ -3,6 +3,7 @@ var base_url = 'https://172.17.5.118/';
 
 var mainApp = angular.module('mainApp', [
 	'ngRoute',
+	'ngCookies',
 	'mod_tlv',
   'hermann.animal',
   'hermann.preparation',
