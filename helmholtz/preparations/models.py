@@ -25,7 +25,7 @@ class Animal( models.Model ) :
     birth = models.DateField( help_text="(approximate)", null=True, blank=True )
     sacrifice = models.DateField( null=True, blank=True )
     supplier = models.ForeignKey( Supplier, null=True, blank=True ) 
-    
+
     def __unicode__(self):
         st = ''
         if self.identifier :
@@ -34,7 +34,7 @@ class Animal( models.Model ) :
             if self.identifier :
                 st += ', '
             st += "%s" % (self.strain)
-        return st 
+        return st
 
     def __str__(self):
         return self.__unicode__()
@@ -58,7 +58,7 @@ class Preparation( models.Model ):
     """The subject of an :class:`Experiment`."""
     animal = models.ForeignKey( Animal, null=True, blank=True )
     type = models.CharField( max_length=16, choices=preparations, null=True, blank=True, verbose_name="types of preparation" )
-    protocol = models.TextField( null=True, blank=True )   
+    protocol = models.TextField( null=True, blank=True )
     equipment = models.ForeignKey( Item, null=True, blank=True )
     model_description = models.TextField( null=True, blank=True ) # simulation
     thickness = models.FloatField( null=True, blank=True ) # microm &mu;m
@@ -66,7 +66,7 @@ class Preparation( models.Model ):
     cutting_solution = models.ForeignKey( Solution, related_name="is_cutting_solution_of", null=True, blank=True )
     bath_solution = models.ForeignKey( Solution, related_name="is_bath_solution_of", null=True, blank=True )
     notes = generic.GenericRelation( Measurement, verbose_name="observations", content_type_field='content_type', object_id_field='object_id' )
-    
+
     def __unicode__(self):
         return u"%s, %s" % (self.type, self.animal)
 

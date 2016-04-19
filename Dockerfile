@@ -21,7 +21,7 @@ RUN apt-get update --fix-missing
 
 RUN apt-get install -y vim
 
-RUN apt-get -y -q --fix-missing install nginx nginx-extras supervisor build-essential python-dev python3-dev python-setuptools python-pip sqlite3 python-psycopg2 git libxml2-dev libxslt1-dev libyaml-dev python-lxml python3-lxml libxml2 libxslt1.1
+RUN apt-get -y -q --fix-missing install nginx nginx-extras supervisor build-essential python-dev python3-dev python-setuptools python-pip sqlite3 python-psycopg2 git libxml2-dev libxslt1-dev libyaml-dev python-lxml python3-lxml libxml2 libxslt1.1 postgresql-client
 RUN unset DEBIAN_FRONTEND
 
 RUN pip install uwsgi
@@ -39,6 +39,11 @@ RUN python manage.py validate
 RUN python manage.py collectstatic --noinput
 RUN python manage.py syncdb --noinput --settings=brainscales_db.settings
 RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('brainscales', 'brainscales@example.com', 'pwd_brainscales_5f6f3d')" | python manage.py shell
+
+#insert
+#RUN psql -h 172.17.4.145 -U brainscales brainscales_db --command "INSERT INTO \"Animals\" (identifier, nickname, weight, sex, birth, sacrifice) VALUES (\"default\", \"default\", 10, \"M\", now(), now()); "  &&\
+#RUN psql --command "INSERT INTO \"Preparations\" (animal, type, protocol) VALUES (\"/preparations/animal/1\", \"in vivo intracellular\", \"default\"); "
+
 
 RUN unset PYTHONPATH
 
