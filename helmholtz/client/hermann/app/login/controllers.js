@@ -11,7 +11,9 @@ mod_login.controller('LoginForm', ['$scope', '$http', '$location', '$rootScope',
     $rootScope.page_title = "Login";
     // set focus on username
     document.getElementById('username').focus();
-    alert($cookieStore.get('username'));
+    //remove cookie
+    $cookieStore.remove("username");
+    $cookieStore.remove("userpass64");
 
     // the controller declares a function used onclick submit
     $scope.submitLogin = function(){
@@ -31,7 +33,8 @@ mod_login.controller('LoginForm', ['$scope', '$http', '$location', '$rootScope',
             if( headers('content-type').search('json') > 0 ){
                 $rootScope.showLogout = true;
                 $rootScope.username = username;
-                $cookieStore.put("username", $rootScope.username);
+                $cookieStore.put("username", username);
+                $cookieStore.put("userpass64", userpass64);
                 $location.path( '/experiment' );
             }
         },
@@ -70,5 +73,4 @@ mod_login.controller('LoginForm', ['$scope', '$http', '$location', '$rootScope',
             //alert( 'func:'+$rootScope.users.length);
         });
     };
-
 }]);
