@@ -21,18 +21,6 @@ class Timeline(models.Model):
     class Meta:
         verbose_name_plural = "timeline"
 
-
-class Event(models.Model):
-    """."""
-    timeline = models.ForeignKey( Timeline, null=False, blank=False )
-    text = models.TextField( )
-    date = models.DateTimeField( auto_now=False, auto_now_add=False )
-    type = models.CharField( max_length=50, null=False, blank=False )
-    color = models.CharField( max_length=7, null=False, blank=False )
-    
-    def __unicode__(self):
-        return unicode(self.date)
-
 class Epoch(models.Model):
     """."""
     timeline = models.ForeignKey( Timeline, null=False, blank=False )
@@ -45,6 +33,19 @@ class Epoch(models.Model):
 
     def __unicode__(self):
         return unicode(self.start)
+
+class Event(models.Model):
+    """."""
+    timeline = models.ForeignKey( Timeline, null=False, blank=False )
+    depend = models.ForeignKey( Epoch, null=True, blank=True )
+    text = models.TextField( )
+    date = models.DateTimeField( auto_now=False, auto_now_add=False )
+    type = models.CharField( max_length=50, null=False, blank=False )
+    color = models.CharField( max_length=7, null=False, blank=False )
+    
+    def __unicode__(self):
+        return unicode(self.date)
+
 
 
 # class Electrode(Epoch, Item):

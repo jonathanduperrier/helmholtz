@@ -70,7 +70,12 @@ class Item( models.Model ):
     manufacturer = models.ForeignKey( Supplier, null=True, blank=True )
     notes = models.TextField( null=True, blank=True )
     # electrode specific
-    impedance = models.FloatField( null=True, blank=True, verbose_name="impedance in M&Omega; for solid electrode" ) 
+    resistence = models.FloatField( null=True, blank=True, verbose_name="resistence in M&Omega; for solid electrode" ) 
+    depth = models.FloatField( null=True, blank=True, verbose_name="depth in &mu;m for solid electrode" ) 
+    zero = models.FloatField( null=True, blank=True, verbose_name="zero set point in &mu;m for solid electrode" ) 
+    hemisphere = models.CharField( max_length=2, null=True, blank=True, verbose_name="Hemisphere for solid electrode" ) 
+    craniotomy = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="Craniotomy for solid electrode" )
+    # MEA
     internal_diameter = models.FloatField( null=True, blank=True, verbose_name="internal diameter in &mu;m for hollow electrode" ) 
     rows = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="rows of Multielectrode array" )
     columns = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="columns of Multielectrode array" )

@@ -25,6 +25,7 @@ class TimelineAdmin( GuardedModelAdmin ) :
 class EventAdmin( GuardedModelAdmin ) :
     fields = [
         'timeline',
+        'depend',
         'text',
         'date',
         'type',
