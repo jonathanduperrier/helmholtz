@@ -270,6 +270,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     //show dialog add event
     $scope.showDlgEvent = function( timeline, event ){
         // if we are creating an event, we initialize it here
+        var tln = timeline.name.split(' ');
         if( event == null ){
             // ADD
             dateStartExp = $scope.experiment.start.valueOf();
@@ -293,7 +294,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var currentDate = new Date();
             var startDate  = new Date(event.date);
             var diff = new Date(currentDate.getTime() - startDate.getTime());
-            var tln = timeline.name.split(' ');
             var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
         }
 
@@ -364,6 +364,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     //show dialog add epoch
     $scope.showDlgEpoch = function(timeline, epoch){
+        var tln = timeline.name.split(' ');
         // check new epoch
         if( epoch == null ){
             // ADD
@@ -389,7 +390,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var currentDate = new Date();
             var startDate  = new Date(epoch.start);
             var diff = new Date(currentDate.getTime() - startDate.getTime());
-            var tln = timeline.name.split(' ');
             var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
         }
 
