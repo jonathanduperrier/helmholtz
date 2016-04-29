@@ -286,17 +286,23 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             };
             // template add
             edition = false;
+            var title_event = "Event "+tln[1];
         } else {
             // EDIT
             edition = true;
+            var currentDate = new Date();
+            var startDate  = new Date(event.date);
+            var diff = new Date(currentDate.getTime() - startDate.getTime());
+            var tln = timeline.name.split(' ');
+            var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
         }
+
         //define controller in terms of timeline.name
-        var tln = timeline.name.split(' ');
         ModalService.showModal({
             templateUrl: "timeline/modal_dlg_event_"+tln[0]+".tpl.html",
             controller: "ManageEventController_"+tln[0],
             inputs: {
-                title: "Event "+tln[1],
+                title: title_event,
                 config_defaults: $scope.config_defaults,
                 config_choices: $scope.config_choices,
                 timeline_name: timeline.name,
@@ -376,9 +382,15 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 depend : null,
             }
             edition = false;
+            var title_epoch = "Epoch "+tln[1];
         } else {
             // EDIT
             edition = true;
+            var currentDate = new Date();
+            var startDate  = new Date(epoch.start);
+            var diff = new Date(currentDate.getTime() - startDate.getTime());
+            var tln = timeline.name.split(' ');
+            var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
         }
 
         // set dependencies
@@ -400,12 +412,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             );
         }
         //define controller in terms of timeline.name
-        var tln = timeline.name.split(' ');
         ModalService.showModal({
             templateUrl: "timeline/modal_dlg_epoch_"+tln[0]+".tpl.html",
             controller: "ManageEpochController_"+tln[0],
             inputs: {
-                title: "Epoch "+tln[1],
+                title: title_epoch,
                 depend_choices: $scope.depend_choices,
                 config_choices: $scope.config_choices,
                 timeline_name: timeline.name,
