@@ -3,6 +3,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          'timeLineServices',
                                          'eventServices',
                                          'epochServices',
+                                         'DeviceItemService',
                                          'hermann.experiments',
                                          'CellTypeService',
                                          'DeviceTypeService',
@@ -11,7 +12,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          ]);
 
 mod_tlv.controller('timeLineVisualController',
-function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route) {
+function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems) {
     $scope.$route = $route;
 
     $scope.idExp = 0;
@@ -250,6 +251,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                         //$scope.TLExp.objects[key].height = $( document ).height();
                                     }
                                 });
+                                $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
+                                  //console.log($scope.TLExp.objects[key].DeviceItems.objects);
+                                });
                             }
                         );
                     });
@@ -429,7 +433,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(result.del_epoch == true){
                     $scope.showConfirmRemoveEpoch(result.epoch);
                 } else {
-                    $scope.manageEpoch( timeline, result.epoch, edition );
+                    $scope.manageEpoch( timeline, result.epoch, edition, DeviceItems );
                 }
             });
         });
@@ -448,6 +452,20 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 $scope.TLExp.objects[timeline.key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
                 $scope.stopSpin();
             });
+          if(timeline.name == "5 Electrode"){
+            DeviceItem = {
+                label : "e",
+                descent : epoch.descent,
+                resistance : epoch.resistance,
+                zero_set_point : epoch.zero_set_point,
+                hemisphere : epoch.hemisphere,
+                craniotomy : epoch.craniotomy,
+            }
+
+            DeviceItems.post(DeviceItem, function(data){
+              $scope.stopSpin();
+            });
+          }
         } else {
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
@@ -455,6 +473,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 }
                 $scope.stopSpin();
             });
+            if(timeline.name == "5 Electrode"){
+            }
         }
     };
 
