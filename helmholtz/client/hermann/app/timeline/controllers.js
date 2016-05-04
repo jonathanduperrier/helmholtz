@@ -18,7 +18,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     $scope.idExp = 0;
     $scope.dateStartExp = "";
     $scope.dateEndExp = "";
-    $scope.heightMinEpoch = 35;
+    $scope.min_epoch_height = 20;
     $rootScope.spin = 0;
 
     $scope.margin_bottom_timeline = 150;
@@ -241,8 +241,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     if($scope.TLExp.objects[key].epochs.objects[key2].end != null){
                                         timeStampEpochEnd = $scope.TLExp.objects[key].epochs.objects[key2].end.valueOf();
                                         $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = ((new Date(timeStampEpochEnd)/1e3|0) - (new Date(timeStampEpoch)/1e3|0)) / $scope.scale_coef;
+                                        if($scope.TLExp.objects[key].epochs.objects[key2].epoch_height < $scope.min_epoch_height){
+                                          $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = $scope.min_epoch_height;
+                                        }
                                     } else {
-                                        $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = 35;//à recalculler
+                                        var current_timeline_height = $( "#timeline_"+$scope.TLExp.objects[key].id ).height();
+                                        $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = current_timeline_height - $scope.TLExp.objects[key].epochs.objects[key2].vPlacement;
                                     }
 
                                     // check whether event placement is higher than current value
@@ -461,7 +465,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 hemisphere : epoch.hemisphere,
                 craniotomy : epoch.craniotomy,
             }
-
             DeviceItems.post(DeviceItem, function(data){
               $scope.stopSpin();
             });
@@ -470,6 +473,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
                     epoch.epoch_height = ((new Date(epoch.end)/1e3|0) - (new Date(epoch.start)/1e3|0)) / $scope.scale_coef;
+                    if(epoch.epoch_height < $scope.min_epoch_height){
+                      epoch.epoch_height = $scope.min_epoch_height;
+                    }
                 }
                 $scope.stopSpin();
             });
