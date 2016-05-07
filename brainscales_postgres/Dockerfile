@@ -63,6 +63,7 @@ RUN cp /etc/postgresql/$PG_MAJOR/main/pg_hba.conf /var/lib/postgresql/$PG_MAJOR/
 
 USER postgres
 RUN /etc/init.d/postgresql start &&\
+    sleep 60 &&\
     psql -h localhost --command "CREATE USER brainscales WITH PASSWORD 'pwd_brainscales_5f6f3d';"  &&\
     psql --command "CREATE ROLE root SUPERUSER;"  &&\
 		psql --command "GRANT ROOT TO brainscales;"  &&\
