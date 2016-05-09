@@ -244,11 +244,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                         if($scope.TLExp.objects[key].epochs.objects[key2].epoch_height < $scope.min_epoch_height){
                                           $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = $scope.min_epoch_height;
                                         }
-                                    } else {
-                                        var current_timeline_height = $( "#timeline_"+$scope.TLExp.objects[key].id ).height();
-                                        $scope.TLExp.objects[key].epochs.objects[key2].epoch_height = current_timeline_height - $scope.TLExp.objects[key].epochs.objects[key2].vPlacement;
                                     }
-
                                     // check whether event placement is higher than current value
                                     if( $scope.TLExp.objects[key].epochs.objects[key2].vPlacement > $scope.TLExp.objects[key].height){
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].epochs.objects[key2].vPlacement + $scope.margin_bottom_timeline;
@@ -258,11 +254,21 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
                                   //console.log($scope.TLExp.objects[key].DeviceItems.objects);
                                 });
+
+                                angular.forEach($scope.TLExp.objects, function(value, key) {
+                                  var current_timeline_height = $( "#timeline_"+value.id ).height();
+                                  angular.forEach(value.epochs.objects, function(value2, key2) {
+                                    if(value2.end == null){
+                                      value2.epoch_height = current_timeline_height - value2.vPlacement;
+                                    }
+                                  });
+                                });
                             }
                         );
                     });
                 }
             );
+
             //chronometer
             var currentDate = new Date();
             var pastDate  = new Date($scope.experiment.start);
@@ -450,10 +456,17 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         $rootScope.spin = 1;
         if(edition == false){
             epochs.post(epoch, function(data){
-                //console.log(data);
                 epoch.id = data.id;
                 $scope.TLExp.objects[timeline.key].epochs.objects.push(epoch);
                 $scope.TLExp.objects[timeline.key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
+                angular.forEach($scope.TLExp.objects, function(value, key) {
+                  var current_timeline_height = $( "#timeline_"+value.id ).height();
+                  angular.forEach(value.epochs.objects, function(value2, key2) {
+                    if(value2.end == null){
+                      value2.epoch_height = current_timeline_height - value2.vPlacement;
+                    }
+                  });
+                });
                 $scope.stopSpin();
             });
           if(timeline.name == "5 Electrode"){
