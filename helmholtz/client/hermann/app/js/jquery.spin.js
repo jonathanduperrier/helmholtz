@@ -19,7 +19,7 @@
         var styles = {
             overlay: {
                 position: 'absolute',
-                opacity: '0',
+                opacity: '0.5',
                 zIndex: '10000',
                 backgroundColor: '#000'
             },
@@ -35,7 +35,7 @@
                 height: '40px',
                 zIndex: '10001',
                 borderRadius: '6px',
-                // boxShadow: '0 0px 6px #666'
+                //boxShadow: '0 0px 6px #666'
                 boxShadow: '0 2px 10px #444'
             }
         };

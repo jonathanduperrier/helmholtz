@@ -40,10 +40,14 @@ RUN python manage.py collectstatic --noinput
 RUN python manage.py syncdb --noinput --settings=brainscales_db.settings
 RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('brainscales', 'brainscales@example.com', 'pwd_brainscales_5f6f3d')" | python manage.py shell
 
-#insert
-#RUN psql -h 172.17.4.145 -U brainscales brainscales_db --command "INSERT INTO \"Animals\" (identifier, nickname, weight, sex, birth, sacrifice) VALUES (\"default\", \"default\", 10, \"M\", now(), now()); "  &&\
-#RUN psql --command "INSERT INTO \"Preparations\" (animal, type, protocol) VALUES (\"/preparations/animal/1\", \"in vivo intracellular\", \"default\"); "
+RUN sleep 30
 
+#insert
+RUN psql -h 172.17.0.136 -U brainscales brainscales_db --command "INSERT INTO \"preparations_animal\" (identifier, nickname, weight, sex, birth, sacrifice) VALUES (\"default\", \"default\", 10, \"M\", now(), now()); "
+
+RUN psql --command "INSERT INTO \"preparations_preparation\" (animal, type, protocol) VALUES (\"/preparations/animal/1\", \"in vivo intracellular\", \"default\"); "
+
+RUN psql --command "INSERT INTO \"devices_setup\" (label) VALUES (\"default\")"
 
 RUN unset PYTHONPATH
 
