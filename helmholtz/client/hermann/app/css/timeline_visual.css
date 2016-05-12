@@ -77,12 +77,12 @@
 }
 .event {
 	width:70px;
-	float:left;
+  float:right;
+	margin-left: 75px;
 }
 .epoch{
 	width:70px;
-	float:right;
-	margin-left: 75px;
+  float:left;
 }
 .epoch_open{
   border: 0px!important;

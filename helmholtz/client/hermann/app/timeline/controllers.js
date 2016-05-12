@@ -298,6 +298,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
                 color : "#FFFFFF",
                 vPlacement : (((new Date(dateEvent)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
+                depend : null,
             };
             // template add
             edition = false;
@@ -310,6 +311,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var diff = new Date(currentDate.getTime() - startDate.getTime());
             var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
         }
+        // set dependencies
+        console.log(timeline.epochs.objects);
+
 
         //define controller in terms of timeline.name
         ModalService.showModal({
@@ -322,6 +326,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 timeline_name: timeline.name,
                 edition: edition,
                 event: event,
+                list_epoch: timeline.epochs.objects,
             }
         }).then(function(modal) {
             modal.element.modal();
@@ -605,13 +610,14 @@ mod_tlv.directive('onFinishRender', function ($timeout) {
 
 
 mod_tlv.controller('ManageEventController_1', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 

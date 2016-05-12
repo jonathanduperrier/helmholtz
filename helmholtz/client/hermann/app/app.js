@@ -1,5 +1,5 @@
 //var base_url = 'https://brainscales.unic.cnrs-gif.fr/';
-var base_url = 'https://172.17.0.38/';
+var base_url = 'https://172.17.0.224/';
 var mainApp = angular.module('mainApp', [
   'ngRoute',
   'ngCookies',
