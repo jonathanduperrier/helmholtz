@@ -428,8 +428,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         // set dependencies
         //console.log(timeline.name +" "+timeline.id)
         if( $scope.depend_choices[timeline.name] != undefined ){
-            //console.log( "my parent is: "+$scope.TLExp.objects[ $scope.depend_choices[timeline.name].timeline_key ].name )
-            //console.log( $scope.TLExp.objects.indexOf( $scope.depend_choices[timeline.name].timeline ) )
             // get all epochs in parent timeline
             $scope.depend_choices[timeline.name].option_epochs = [];
             angular.forEach( $scope.TLExp.objects[ $scope.depend_choices[timeline.name].timeline_key ].epochs.objects,
@@ -685,13 +683,14 @@ mod_tlv.controller('ManageEventController_1', [
 }]);
 
 mod_tlv.controller('ManageEventController_2', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 
@@ -730,13 +729,14 @@ mod_tlv.controller('ManageEventController_2', [
 }]);
 
 mod_tlv.controller('ManageEventController_3', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 
@@ -775,13 +775,14 @@ mod_tlv.controller('ManageEventController_3', [
 }]);
 
 mod_tlv.controller('ManageEventController_4', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 
@@ -820,13 +821,14 @@ mod_tlv.controller('ManageEventController_4', [
 }]);
 
 mod_tlv.controller('ManageEventController_5', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 
@@ -865,13 +867,14 @@ mod_tlv.controller('ManageEventController_5', [
 }]);
 
 mod_tlv.controller('ManageEventController_6', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 
@@ -910,13 +913,14 @@ mod_tlv.controller('ManageEventController_6', [
 }]);
 
 mod_tlv.controller('ManageEventController_7', [
-    '$scope', '$element', 'title', 'close', 'config_choices', 'timeline_name', 'edition', 'event',
-    function($scope, $element, title, close, config_choices, timeline_name, edition, event) {
+    '$scope', '$element', 'title', 'close', 'list_epoch', 'config_choices', 'timeline_name', 'edition', 'event',
+    function($scope, $element, title, close, list_epoch, config_choices, timeline_name, edition, event) {
 
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
     $scope.list_selection = config_choices[timeline_name];
+    $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
 
