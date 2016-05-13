@@ -44,28 +44,6 @@ class TimelineResource( ModelResource ) :
         authorization = DjangoAuthorization()
 
 
-
-class EventResource( ModelResource ) :
-    timeline = fields.ForeignKey(TimelineResource, attribute='timeline' ) #resource_name of TimelineRessource
-    class Meta:
-        queryset = Event.objects.all()
-        resource_name = 'event'
-        filtering = {
-            #'id': ALL,
-            'timeline': ALL_WITH_RELATIONS,
-            'text': ALL,
-            'date': ALL,
-            'type': ALL,
-            'color': ALL
-        }
-        allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
-        always_return_data = True
-        limit = 0
-        max_limit = 0
-        authentication = BasicAuthentication()
-        authorization = DjangoAuthorization()
-
-
 class EpochResource( ModelResource ) : 
     timeline = fields.ForeignKey( TimelineResource, attribute='timeline' )
     depend = fields.ForeignKey( 'self', attribute='depend', null=True )
@@ -89,6 +67,29 @@ class EpochResource( ModelResource ) :
         max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
+
+class EventResource( ModelResource ) :
+    timeline = fields.ForeignKey(TimelineResource, attribute='timeline' ) #resource_name of TimelineRessource
+    depend = fields.ForeignKey( EpochResource, attribute='depend', null=True )
+    class Meta:
+        queryset = Event.objects.all()
+        resource_name = 'event'
+        filtering = {
+            #'id': ALL,
+            'timeline': ALL_WITH_RELATIONS,
+            'depend': ALL_WITH_RELATIONS,
+            'text': ALL,
+            'date': ALL,
+            'type': ALL,
+            'color': ALL
+        }
+        allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
+        always_return_data = True
+        limit = 0
+        max_limit = 0
+        authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
+
 
 
 # class ElectrodeResource( EpochResource, ItemResource ) :
