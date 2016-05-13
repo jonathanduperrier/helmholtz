@@ -287,8 +287,15 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         var tln = timeline.name.split(' ');
         if( event == null ){
             // ADD
+            var evtdepend = null;
             dateStartExp = $scope.experiment.start.valueOf();
             dateEvent = new Date();
+            angular.forEach( timeline.epochs.objects, function(epc, k) {
+                if(epc.end == null){
+                  evtdepend = epc.resource_uri;
+                }
+              }
+            );
             event = {
                 id : null,
                 timeline : "/notebooks/timeline/" + timeline.id,
@@ -298,7 +305,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
                 color : "#FFFFFF",
                 vPlacement : (((new Date(dateEvent)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
-                depend : null,
+                depend : evtdepend,
             };
             // template add
             edition = false;
@@ -312,8 +319,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
         }
         // set dependencies
-        console.log(timeline.epochs.objects);
-
+        //console.log(timeline.epochs.objects);
 
         //define controller in terms of timeline.name
         ModalService.showModal({
@@ -384,8 +390,15 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     //show dialog add epoch
     $scope.showDlgEpoch = function(timeline, epoch){
         var tln = timeline.name.split(' ');
+        var evtdepend = null;
+        angular.forEach( timeline.epochs.objects, function(epc, k) {
+            if(epc.end == null){
+              evtdepend = epc.resource_uri;
+            }
+          }
+        );
         // check new epoch
-        if( epoch == null ){
+          if( epoch == null ){
             // ADD
             dateStartExp = $scope.experiment.start.valueOf();
             dateStartEpoch = new Date();
@@ -431,28 +444,44 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             );
         }
         //define controller in terms of timeline.name
-        ModalService.showModal({
-            templateUrl: "timeline/modal_dlg_epoch_"+tln[0]+".tpl.html",
-            controller: "ManageEpochController_"+tln[0],
-            inputs: {
-                title: title_epoch,
-                depend_choices: $scope.depend_choices,
-                config_choices: $scope.config_choices,
-                timeline_name: timeline.name,
-                edition: edition,
-                epoch: epoch,
+        var continueDisplayModal = false;
+        if((evtdepend != null) && (edition == false)){
+          bootbox.confirm("An epoch is still running now! Do you want to continue ?",
+            function(result){
+              if(result == true){
+                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln);
+              }
             }
-        }).then(function(modal) {
-            modal.element.modal();
-            modal.close.then(function(result) {
-                if(result.del_epoch == true){
-                    $scope.showConfirmRemoveEpoch(result.epoch);
-                } else {
-                    $scope.manageEpoch( timeline, result.epoch, edition, DeviceItems );
-                }
-            });
-        });
+          );
+        } else {
+          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln);
+        }
     };
+
+    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln){
+      ModalService.showModal({
+          templateUrl: "timeline/modal_dlg_epoch_"+tln[0]+".tpl.html",
+          controller: "ManageEpochController_"+tln[0],
+          inputs: {
+              title: title_epoch,
+              depend_choices: $scope.depend_choices,
+              config_choices: $scope.config_choices,
+              timeline_name: timeline.name,
+              edition: edition,
+              epoch: epoch,
+          }
+      }).then(function(modal) {
+          modal.element.modal();
+          modal.close.then(function(result) {
+              if(result.del_epoch == true){
+                  $scope.showConfirmRemoveEpoch(result.epoch);
+              } else {
+                  $scope.manageEpoch( timeline, result.epoch, edition, DeviceItems );
+              }
+          });
+      });
+    };
+
 
     //create epoch: display it in the timaline and insert it in the database
     $scope.manageEpoch = function(timeline, epoch, edition){
