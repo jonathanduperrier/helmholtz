@@ -47,6 +47,7 @@ class TimelineResource( ModelResource ) :
 class EpochResource( ModelResource ) : 
     timeline = fields.ForeignKey( TimelineResource, attribute='timeline' )
     depend = fields.ForeignKey( 'self', attribute='depend', null=True )
+    item = fields.ForeignKey( ItemResource, attribute='item', null=True )
 
     class Meta:
         queryset = Epoch.objects.all()
@@ -55,6 +56,7 @@ class EpochResource( ModelResource ) :
                 'id': ALL,
                 'timeline': ALL_WITH_RELATIONS,
                 'depend': ALL_WITH_RELATIONS,
+                'item' : ALL_WITH_RELATIONS,
                 'start': ALL,
                 'text': ALL,
                 'end': ALL,

@@ -34,7 +34,7 @@ DATABASES = {
         #'USER': 'root',
         'PASSWORD': 'pwd_brainscales_5f6f3d',
         #'PASSWORD': 'toto',
-        'HOST': '172.17.1.132',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': '172.17.2.58',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
     }
 }

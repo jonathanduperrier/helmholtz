@@ -253,8 +253,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 });
                                 $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
                                   //console.log($scope.TLExp.objects[key].DeviceItems.objects);
-                                });
 
+                                });
                                 angular.forEach($scope.TLExp.objects, function(value, key) {
                                   var current_timeline_height = $( "#timeline_"+value.id ).height();
                                   angular.forEach(value.epochs.objects, function(value2, key2) {
@@ -447,16 +447,16 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           bootbox.confirm("An epoch is still running now! Do you want to continue ?",
             function(result){
               if(result == true){
-                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln);
+                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems);
               }
             }
           );
         } else {
-          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln);
+          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems);
         }
     };
 
-    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln){
+    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems){
       ModalService.showModal({
           templateUrl: "timeline/modal_dlg_epoch_"+tln[0]+".tpl.html",
           controller: "ManageEpochController_"+tln[0],
@@ -482,38 +482,29 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
 
     //create epoch: display it in the timaline and insert it in the database
-    $scope.manageEpoch = function(timeline, epoch, edition){
+    $scope.manageEpoch = function(timeline, epoch, edition, DeviceItems){
         angular.element(window).spin();
         angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
-        if(edition == false){
-            epochs.post(epoch, function(data){
-                epoch.id = data.id;
-                $scope.TLExp.objects[timeline.key].epochs.objects.push(epoch);
-                $scope.TLExp.objects[timeline.key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
-                angular.forEach($scope.TLExp.objects, function(value, key) {
-                  var current_timeline_height = $( "#timeline_"+value.id ).height();
-                  angular.forEach(value.epochs.objects, function(value2, key2) {
-                    if(value2.end == null){
-                      value2.epoch_height = current_timeline_height - value2.vPlacement;
-                    }
-                  });
-                });
-                $scope.stopSpin();
-            });
-          if(timeline.name == "5 Electrode"){
-            DeviceItem = {
-                label : "e",
-                descent : epoch.descent,
-                resistance : epoch.resistance,
-                zero_set_point : epoch.zero_set_point,
-                hemisphere : epoch.hemisphere,
-                craniotomy : epoch.craniotomy,
+          if(edition == false){
+            if(timeline.name == "5 Electrode"){
+              DeviceItem = {
+                  type : "/stimulations/type/default",//obligatoire
+                  label : "default",
+                  descent : epoch.descent,
+                  resistance : epoch.resistance,
+                  zero_set_point : epoch.zero_set_point,
+                  hemisphere : epoch.hemisphere,
+                  craniotomy : epoch.craniotomy,
+              }
+              DeviceItems.post(DeviceItem, function(data){
+                $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
+                //$scope.stopSpin();
+              });
+            } else {
+              //post epoch
+              $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
             }
-            DeviceItems.post(DeviceItem, function(data){
-              $scope.stopSpin();
-            });
-          }
         } else {
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
@@ -527,6 +518,29 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             if(timeline.name == "5 Electrode"){
             }
         }
+    };
+
+    $scope.postEpoch = function(epoch, timeline, specific_epoch, DeviceItems){
+      epochs.post(epoch, function(data){
+          epoch.id = data.id;
+          $scope.TLExp.objects[timeline.key].epochs.objects.push(epoch);
+          $scope.TLExp.objects[timeline.key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
+          angular.forEach($scope.TLExp.objects, function(value, key) {
+            var current_timeline_height = $( "#timeline_"+value.id ).height();
+            angular.forEach(value.epochs.objects, function(value2, key2) {
+              if(value2.end == null){
+                value2.epoch_height = current_timeline_height - value2.vPlacement;
+              }
+              var DeviceItem_r = DeviceItems.get({resource_uri: value2.item},function(value3, key3){
+                //console.log(value3.objects[value3.objects.length-1].resource_uri);
+                value2.item = value3.objects[value3.objects.length-1].resource_uri;
+                //var epich_resource_uri = "/notebooks/epoch/"+value2.id+"/";
+                epochs.put({id:value2.id}, angular.toJson(value2));
+              });
+            });
+          });
+          $scope.stopSpin();
+      });
     };
 
     $scope.showConfirmRemoveEpoch = function(epoch) {

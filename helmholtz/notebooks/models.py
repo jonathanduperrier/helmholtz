@@ -30,6 +30,7 @@ class Epoch(models.Model):
     type = models.CharField( max_length=50, null=True, blank=True )
     color = models.CharField( max_length=7, null=True, blank=True )
     depend = models.ForeignKey('self', on_delete=models.SET_DEFAULT, default=None, null=True, blank=True )
+    item = models.ForeignKey(Item, null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.start)

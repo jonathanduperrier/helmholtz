@@ -40,7 +40,8 @@ class EpochAdmin( GuardedModelAdmin ) :
         'end',
         'type',
         'color',
-        'depend'
+        'depend',
+        'item',
     ]
 
 # class ElectrodeAdmin(GuardedModelAdmin) :
