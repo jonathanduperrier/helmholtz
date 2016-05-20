@@ -426,7 +426,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         }
 
         // set dependencies
-        //console.log(timeline.name +" "+timeline.id)
         if( $scope.depend_choices[timeline.name] != undefined ){
             // get all epochs in parent timeline
             $scope.depend_choices[timeline.name].option_epochs = [];
@@ -457,6 +456,18 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     };
 
     $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems){
+      if(timeline.name == "5 Electrode"){
+        angular.forEach(timeline.DeviceItems.objects, function(data){
+          if(data.resource_uri == epoch.item){
+            epoch.descent = data.descent;
+            epoch.resistance = data.resistance;
+            epoch.zero_set_point = data.zero_set_point;
+            epoch.hemisphere = data.hemisphere;
+            epoch.craniotomy = data.craniotomy;
+          }
+        });
+      }
+
       ModalService.showModal({
           templateUrl: "timeline/modal_dlg_epoch_"+tln[0]+".tpl.html",
           controller: "ManageEpochController_"+tln[0],
@@ -531,12 +542,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               if(value2.end == null){
                 value2.epoch_height = current_timeline_height - value2.vPlacement;
               }
-              var DeviceItem_r = DeviceItems.get({resource_uri: value2.item},function(value3, key3){
-                //console.log(value3.objects[value3.objects.length-1].resource_uri);
-                value2.item = value3.objects[value3.objects.length-1].resource_uri;
-                //var epich_resource_uri = "/notebooks/epoch/"+value2.id+"/";
-                epochs.put({id:value2.id}, angular.toJson(value2));
-              });
+              if(specific_epoch == "electrode"){
+                var DeviceItem_r = DeviceItems.get({resource_uri: value2.item},function(value3, key3){
+                  value2.item = value3.objects[value3.objects.length-1].resource_uri;
+                  epochs.put({id:value2.id}, angular.toJson(value2));
+                });
+              }
             });
           });
           $scope.stopSpin();
