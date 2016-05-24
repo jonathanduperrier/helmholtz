@@ -423,6 +423,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var startDate  = new Date(epoch.start);
             var diff = new Date(currentDate.getTime() - startDate.getTime());
             var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
+            epoch = $scope.TLExp.objects[timeline.key].epochs.objects[key];
         }
 
         // set dependencies
@@ -457,11 +458,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems){
       if(timeline.name == "5 Electrode"){
-        angular.forEach(timeline.DeviceItems.objects, function(data){
+        //console.log(timeline.DeviceItems.objects);
+        //console.log($scope.TLExp.objects);
+        //angular.forEach(timeline.DeviceItems.objects, function(data){
+        angular.forEach($scope.TLExp.objects[timeline.key].DeviceItems.objects, function(data){
           if(data.resource_uri == epoch.item){
-            epoch.descent = data.descent;
-            epoch.resistance = data.resistance;
-            epoch.zero_set_point = data.zero_set_point;
+            epoch.depth = data.depth;
+            epoch.resistence = data.resistence;
+            epoch.zero = data.zero;
             epoch.hemisphere = data.hemisphere;
             epoch.craniotomy = data.craniotomy;
           }
@@ -502,9 +506,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               DeviceItem = {
                   type : "/stimulations/type/default",//obligatoire
                   label : "default",
-                  descent : epoch.descent,
-                  resistance : epoch.resistance,
-                  zero_set_point : epoch.zero_set_point,
+                  depth : epoch.depth,
+                  resistence : epoch.resistence,
+                  zero : epoch.zero,
                   hemisphere : epoch.hemisphere,
                   craniotomy : epoch.craniotomy,
               }
@@ -524,10 +528,38 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                       epoch.epoch_height = $scope.min_epoch_height;
                     }
                 }
+                if(timeline.name == "5 Electrode"){
+                  DeviceItem = {
+                      type : "/stimulations/type/default",//obligatoire
+                      label : "default",
+                      depth : epoch.depth,
+                      resistence : epoch.resistence,
+                      zero : epoch.zero,
+                      hemisphere : epoch.hemisphere,
+                      craniotomy : epoch.craniotomy,
+                  }
+                  id_item_array = epoch.item.split('/');
+                  id_item = id_item_array[3];
+                  DeviceItems.put({id:id_item}, angular.toJson(DeviceItem), function(){
+                    /*console.log(epoch);
+                    console.log(DeviceItem);
+                    console.log($scope.TLExp.objects[timeline.key].DeviceItems.objects);*/
+
+                    angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
+                      if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
+
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].depth = DeviceItem.depth;
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].resistence = DeviceItem.resistence;
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].zero = DeviceItem.zero;
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].hemisphere = DeviceItem.hemisphere;
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].craniotomy = DeviceItem.craniotomy;
+                      }
+                    });
+                  });
+                }
                 $scope.stopSpin();
             });
-            if(timeline.name == "5 Electrode"){
-            }
+
         }
     };
 
@@ -674,7 +706,6 @@ mod_tlv.controller('ManageEventController_1', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
@@ -720,7 +751,6 @@ mod_tlv.controller('ManageEventController_2', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
@@ -766,7 +796,6 @@ mod_tlv.controller('ManageEventController_3', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
@@ -812,7 +841,6 @@ mod_tlv.controller('ManageEventController_4', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
@@ -858,7 +886,6 @@ mod_tlv.controller('ManageEventController_5', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
@@ -904,7 +931,6 @@ mod_tlv.controller('ManageEventController_6', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
@@ -950,7 +976,6 @@ mod_tlv.controller('ManageEventController_7', [
     $scope.del_evt = false;
 
     $scope.beforeClose = function() {
-        //console.log($scope.dateFormat);
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";

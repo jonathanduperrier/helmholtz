@@ -9,18 +9,18 @@ from helmholtz.chemistry.models import Product
 
 """
 This module provides facilities to store
-the set of items used during experiments or 
-useful to deploy a setup. 
+the set of items used during experiments or
+useful to deploy a setup.
 """
 
 class Type( models.Model ):
     """
     Type of :class:`Device` :
-    
+
     ``name`` : the identifier of the type of item.
     """
     name = models.CharField( primary_key=True, max_length=20 )
-    
+
     def __unicode__(self):
         return self.name
 
@@ -47,7 +47,7 @@ class Type( models.Model ):
 class Item( models.Model ):
     """
     Device that could be deployed in a :class:`Setup` :
-    
+
     ``type`` : reference to a :class:`DeviceType`.
     ``label`` : the label for a specific item.
     ``model`` : the identifier of the item (from the manufacturer).
@@ -60,7 +60,7 @@ class Item( models.Model ):
     ``rows`` : rows of Multielectrode array.
     ``columns`` : columns of Multielectrode array.
     ``step`` : step in mm of Multielectrode array.
-    
+
     """
     type = models.ForeignKey( Type )
     label = models.CharField( max_length=100 )
@@ -70,13 +70,14 @@ class Item( models.Model ):
     manufacturer = models.ForeignKey( Supplier, null=True, blank=True )
     notes = models.TextField( null=True, blank=True )
     # electrode specific
-    resistence = models.FloatField( null=True, blank=True, verbose_name="resistence in M&Omega; for solid electrode" ) 
-    depth = models.FloatField( null=True, blank=True, verbose_name="depth in &mu;m for solid electrode" ) 
-    zero = models.FloatField( null=True, blank=True, verbose_name="zero set point in &mu;m for solid electrode" ) 
-    hemisphere = models.CharField( max_length=2, null=True, blank=True, verbose_name="Hemisphere for solid electrode" ) 
+    resistence = models.FloatField( null=True, blank=True, verbose_name="resistence in M&Omega; for solid electrode" )
+    depth = models.FloatField( null=True, blank=True, verbose_name="depth in &mu;m for solid electrode" )
+    zero = models.FloatField( null=True, blank=True, verbose_name="zero set point in &mu;m for solid electrode" )
+    hemisphere = models.CharField( max_length=2, null=True, blank=True, verbose_name="Hemisphere for solid electrode" )
     craniotomy = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="Craniotomy for solid electrode" )
+    descent = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="Number of descent" )
     # MEA
-    internal_diameter = models.FloatField( null=True, blank=True, verbose_name="internal diameter in &mu;m for hollow electrode" ) 
+    internal_diameter = models.FloatField( null=True, blank=True, verbose_name="internal diameter in &mu;m for hollow electrode" )
     rows = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="rows of Multielectrode array" )
     columns = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="columns of Multielectrode array" )
     step = models.PositiveSmallIntegerField( null=True, blank=True, verbose_name="step in mm of Multielectrode array" )
@@ -109,7 +110,7 @@ class ItemProperties( models.Model ):
     """
     Class for all kind of configurations making an
     :class:`Device` ready for an :class:`Experiment` :
-    
+
     ``item`` : reference to a specific item.
     ``label`` : the label identifying the item configuration.
     ``notes`` : notes concerning the item configuration.
@@ -122,7 +123,7 @@ class ItemProperties( models.Model ):
     ``seal_resistance`` : seal resistance in M%Omega; for patch electrode.
     ``contact_configuration`` : contact configurations for patch electrode.
     ``channel_type`` : type of electrical channel.
-    
+
     """
     item = models.ForeignKey( Item )
     label = models.CharField( max_length=50, null=True, blank=True )
@@ -142,23 +143,23 @@ class ItemProperties( models.Model ):
     def __unicode__(self):
         st = "%s %s" % (self.__class__._meta.verbose_name, self.pk)
         if self.label :
-            st += " called '%s'" % self.label 
+            st += " called '%s'" % self.label
         if self.amplification :
             st += ", amplification:%s" % self.amplification
         if self.filtering :
-            st += ", filtering:'%s'" % self.filtering 
+            st += ", filtering:'%s'" % self.filtering
         if self.position :
-            st += ", position:(%s)" % self.position 
+            st += ", position:(%s)" % self.position
         if self.resistance :
-            st += ", resistance:%s M&Omega;" % self.resistance 
+            st += ", resistance:%s M&Omega;" % self.resistance
         if self.contact_gel :
-            st += ", contact gel:'%s'" % self.contact_gel 
+            st += ", contact gel:'%s'" % self.contact_gel
         if self.solution :
-            st += ", solution:'%s'" % self.solution 
+            st += ", solution:'%s'" % self.solution
         if self.seal_resistance :
-            st += ", seal resistance:%s M&Omega;" % self.seal_resistance 
+            st += ", seal resistance:%s M&Omega;" % self.seal_resistance
         if self.contact_configuration :
-            st += ", contact configuration:'%s'" % self.contact_configuration 
+            st += ", contact configuration:'%s'" % self.contact_configuration
         if self.channel_type :
             st += ", channel_type:'%s'" % self.channel_type
         return  st
@@ -170,16 +171,16 @@ class ItemProperties( models.Model ):
 class RecordingPoint( models.Model ):
     """
     Part of the item useful to acquire data :
-    
+
     ``item`` : the item having this recording point.
     ``number`` : the index of the recording point.
     ``label`` : the label identifying the recording point.
-    
+
     """
     item = models.ForeignKey( Item )
     number = models.PositiveSmallIntegerField( default=1 )
     label = models.CharField( max_length=50, null=True, blank=True )
-    
+
     def __unicode__(self):
         st = "%s" % self.number
         if self.label :
@@ -198,7 +199,7 @@ class SubSystem( models.Model ):
     parent = models.ForeignKey( 'self', null=True, blank=True )
     label = models.CharField( max_length=256 )
     items = models.ManyToManyField( Item, blank=True )
-    
+
     def __unicode__(self):
         return self.label
 
@@ -216,7 +217,7 @@ class SubSystem( models.Model ):
             result.append( subsystem )
             result.extend( subsystem.get_components() )
         return result
-    
+
     def get_items(self):
         """
         Return all :class:`Devices` instances
@@ -227,7 +228,7 @@ class SubSystem( models.Model ):
         for subsystem in subsystems :
             items.extend( subsystem.get_items() )
         return items
-    
+
     class Meta :
         ordering = ['label']
 
@@ -235,17 +236,17 @@ class SubSystem( models.Model ):
 class Setup( models.Model ):
     """
     Setup used to launch protocols during an :class:`Experiment` :
-    
+
     ``label`` : the label identifying the setup.
     ``room`` : the identifier of the room containing the setup.
     ``place`` : the :class:`Organization` which is the owner of the setup.
-    
+
     """
     label = models.CharField( max_length=30, null=True, blank=True )
     place = models.ForeignKey( Organization )
     room = models.CharField( max_length=16, null=True, blank=True )
     subsystems = models.ManyToManyField( SubSystem, null=True, blank=True )
-    
+
     def __unicode__(self):
         return u"%s \u2192 %s" % (self.place, self.room)
 
@@ -263,7 +264,7 @@ class Setup( models.Model ):
             result.append( subsystem )
             result.extend( subsystem.get_components() )
         return result
-    
+
     def get_item(self):
         """
         Return all :class:`Device` instances
