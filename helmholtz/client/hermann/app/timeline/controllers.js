@@ -423,7 +423,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var startDate  = new Date(epoch.start);
             var diff = new Date(currentDate.getTime() - startDate.getTime());
             var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
-            epoch = $scope.TLExp.objects[timeline.key].epochs.objects[key];
+            angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
+              if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
+                epoch = $scope.TLExp.objects[timeline.key].epochs.objects[key];
+              }
+            });
         }
 
         // set dependencies
@@ -547,7 +551,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
                     angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
                       if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
-
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].depth = DeviceItem.depth;
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].resistence = DeviceItem.resistence;
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].zero = DeviceItem.zero;

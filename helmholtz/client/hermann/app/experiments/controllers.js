@@ -175,17 +175,17 @@ mod_exp.controller('AddExperimentController', [
   $scope.label = default_label;
   $scope.type = null;
   $scope.notes = null;
-  $scope.setup = null;
   $scope.title = title;
+  //$('select#setup').val('/devices/setup/1');
 
   //  This close function doesn't need to use jQuery or bootstrap, because
   //  the button has the 'data-dismiss' attribute.
   $scope.beforeClose = function() {
     if(($scope.label == "") | ($scope.label == null)) {
       $scope.msgAlert = "Please enter label to create experiment !";
-    } else if ($scope.type == null) {
+    } /*else if ($scope.type == null) {
       $scope.msgAlert = "Please choose type to create experiment !";
-    } else if($scope.setup == null) {
+    }*/ else if($scope.setup == null) {
       $scope.msgAlert = "Please choose setup to create experiment !";
     } else if($scope.preparation == null) {
       $scope.msgAlert = "Please choose preparation to create experiment !";
@@ -248,9 +248,9 @@ mod_exp.controller('EditExperimentController', [
   $scope.beforeClose = function() {
     if(($scope.label == "") | ($scope.label == null)) {
       $scope.msgAlert = "Please enter label to create experiment !";
-    } else if ($scope.type == null) {
+    } /*else if ($scope.type == null) {
       $scope.msgAlert = "Please choose type to create experiment !";
-    } else if($scope.setup == null) {
+    }*/ else if($scope.setup == null) {
       $scope.msgAlert = "Please choose setup to create experiment !";
     } else if($scope.preparation == null) {
       $scope.msgAlert = "Please choose preparation to create experiment !";
