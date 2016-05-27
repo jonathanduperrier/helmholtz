@@ -316,7 +316,16 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var currentDate = new Date();
             var startDate  = new Date(event.date);
             var diff = new Date(currentDate.getTime() - startDate.getTime());
-            var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
+            var diff_day = (diff.getDate())-1;
+            var diff_hour = (diff.getHours())-1;
+            if(diff_hour <= 9){
+              diff_hour = "0"+diff_hour;
+            }
+            var diff_minute = (diff.getMinutes());
+            if(diff_minute <= 9){
+              diff_minute = "0"+diff_minute;
+            }
+            var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
         }
         // set dependencies
         //console.log(timeline.epochs.objects);
@@ -417,12 +426,23 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             edition = false;
             var title_epoch = "Epoch "+tln[1];
         } else {
-            // EDIT
-            edition = true;
-            var currentDate = new Date();
-            var startDate  = new Date(epoch.start);
-            var diff = new Date(currentDate.getTime() - startDate.getTime());
-            var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy - HH:MM')+" -   "+diff.format('dd / HH:MM');
+          // EDIT
+          edition = true;
+          var currentDate = new Date();
+          var startDate  = new Date(epoch.start);
+          var diff = new Date(currentDate.getTime() - startDate.getTime());
+          var diff_day = (diff.getDate())-1;
+          var diff_hour = (diff.getHours())-1;
+          if(diff_hour <= 9){
+            diff_hour = "0"+diff_hour;
+          }
+          var diff_minute = (diff.getMinutes());
+          if(diff_minute <= 9){
+            diff_minute = "0"+diff_minute;
+          }
+
+          var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
+
             angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
               if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
                 epoch = $scope.TLExp.objects[timeline.key].epochs.objects[key];
