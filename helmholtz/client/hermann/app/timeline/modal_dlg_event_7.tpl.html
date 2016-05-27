@@ -17,6 +17,8 @@
 						    <label for="type" class="col-sm-2 control-label">Type : </label>
 						    <div class="col-sm-10">
 						    	<select class="form-control" id="type" name="type" placeholder="type ..." ng-model="event.type">
+										<option value="? object:null ?" ng-if="edition==true" ng-selected="{{l==null}}"></option>
+										<option value="? object:null ?" ng-if="edition==false" ng-selected="true"></option>
 						    		<option ng-repeat="l in list_selection" ng-selected="{{l==event.type}}" value="{{l}}">{{l}}</option>
 								</select>
 						    </div>

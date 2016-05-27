@@ -76,7 +76,7 @@ mainApp.factory('errorHttpInterceptor', ['$q', '$cookieStore', '$location', '$ro
                     if( headers('content-type').search('json') > 0 ){
                         $rootScope.showLogout = true;
                         $rootScope.username = username;
-                        $location.path( '/experiment' );
+                        $location.path( '/home' );
                     }
                 },
                 function(reason) {
@@ -115,6 +115,10 @@ mainApp.config(['$routeProvider', '$httpProvider',
           when('/preparation/:eID', {
             templateUrl: 'preparation/preparation_detail.tpl.html',
             controller: 'DetailPreparation'
+          }).
+          when('/home', {
+            templateUrl: 'experiments/home.tpl.html',
+            controller: 'ListExperiment'
           }).
           when('/experiment', {
             templateUrl: 'experiments/list.tpl.html',

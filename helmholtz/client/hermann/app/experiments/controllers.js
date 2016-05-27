@@ -9,12 +9,13 @@ var mod_exp = angular.module( 'hermann.experiments', [
     'ui.bootstrap',
     'angularModalService',
     'preparationServices',
+    'animalServices',
     'mod_tlv'
     ]);
 
 mod_exp.controller('ListExperiment', [
-  '$scope', '$rootScope', 'Experiment' ,'ModalService', 'timeLine', 'preparations', '$location',
-  function($scope, $rootScope, Experiment, ModalService, timeLine, preparations, $q, $location){
+  '$scope', '$rootScope', 'Experiment' ,'ModalService', 'timeLine', 'preparations', 'animals', '$location',
+  function($scope, $rootScope, Experiment, ModalService, timeLine, preparations, animals, $q, $location){
     $rootScope.page_title = "Experiment";
     $scope.timeLineObj = [];
     var nb_create_timeline = 7;
@@ -165,11 +166,12 @@ mod_exp.controller('ListExperiment', [
 }]);
 
 mod_exp.controller('AddExperimentController', [
-  '$scope', '$element', 'title', 'default_label', 'close', 'Setup', 'preparations', 'Researcher',
-  function($scope, $element, title, default_label, close, Setup, preparations, Researcher) {
+  '$scope', '$element', 'title', 'default_label', 'close', 'Setup', 'preparations', 'animals', 'Researcher',
+  function($scope, $element, title, default_label, close, Setup, preparations, animals, Researcher) {
 
   $scope.lstSetup = Setup.get();
   $scope.lstPrep = preparations.get();
+  $scope.lstAnimals = animals.get();
   $scope.lstResearcher = Researcher.get();
 
   $scope.label = default_label;
