@@ -142,7 +142,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             'Generic'
         ],
         '5 Electrode': [
-            'Generic'
+            'Hollow',
+            'MultiElectrode',
         ],
         '6 Neuron': [
             'Generic'
@@ -283,6 +284,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     //show dialog add event
     $scope.showDlgEvent = function( timeline, event ){
+        text_event = "";
         // if we are creating an event, we initialize it here
         var tln = timeline.name.split(' ');
         if( event == null ){
@@ -293,16 +295,17 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             angular.forEach( timeline.epochs.objects, function(epc, k) {
                 if(epc.end == null){
                   evtdepend = epc.resource_uri;
+                  text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
                 }
               }
             );
             event = {
                 id : null,
                 timeline : "/notebooks/timeline/" + timeline.id,
-                text : "",
+                text : text_event,
                 date : dateEvent,
                 dateFormat : dateEvent.format('yyyy/mm/dd HH:MM'),
-                type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
+                //type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
                 color : "#FFFFFF",
                 vPlacement : (((new Date(dateEvent)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
                 depend : evtdepend,
@@ -328,8 +331,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
         }
         // set dependencies
-        //console.log(timeline.epochs.objects);
-
         //define controller in terms of timeline.name
         ModalService.showModal({
             templateUrl: "timeline/modal_dlg_event_"+tln[0]+".tpl.html",
@@ -361,7 +362,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         //hide reset start hour of experiment
         angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
+        if(timeline.name == "5 Electrode"){
 
+          angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(epc, k) {
+            if($scope.TLExp.objects[timeline.key].epochs.objects[k].resource_uri == event.depend){
+              event.text = epc.type + " - " + epc.text + " - " + event.date.format('yyyy/mm/dd HH:MM');
+            }
+          });
+        }
         // if event.id is null: POST
         if(edition == false){
             events.post(event, function(data){
@@ -417,7 +425,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 start : dateStartEpoch,
                 dateFormat : dateStartEpoch.format('dd/mm/yyyy HH:MM'),
                 end : null,
-                type : $scope.config_defaults[$scope.experiment.type][timeline.name]['epoch'],
+                //type : $scope.config_defaults[$scope.experiment.type][timeline.name]['epoch'],
                 text : "",
                 color : "#FFF600",
                 vPlacement : (((new Date(dateStartEpoch)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
@@ -487,7 +495,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         //angular.forEach(timeline.DeviceItems.objects, function(data){
         angular.forEach($scope.TLExp.objects[timeline.key].DeviceItems.objects, function(data){
           if(data.resource_uri == epoch.item){
-            epoch.depth = data.depth;
+            epoch.label = data.label;
+            epoch.text = data.descent+data.hemisphere+data.craniotomy;
+            epoch.descent = data.descent;
             epoch.resistence = data.resistence;
             epoch.zero = data.zero;
             epoch.hemisphere = data.hemisphere;
@@ -529,13 +539,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             if(timeline.name == "5 Electrode"){
               DeviceItem = {
                   type : "/stimulations/type/default",//obligatoire
-                  label : "default",
-                  depth : epoch.depth,
+                  label : epoch.label,
+                  descent : epoch.descent,
                   resistence : epoch.resistence,
                   zero : epoch.zero,
                   hemisphere : epoch.hemisphere,
                   craniotomy : epoch.craniotomy,
               }
+              epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               DeviceItems.post(DeviceItem, function(data){
                 $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
                 //$scope.stopSpin();
@@ -545,6 +556,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
             }
         } else {
+            epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
                     epoch.epoch_height = ((new Date(epoch.end)/1e3|0) - (new Date(epoch.start)/1e3|0)) / $scope.scale_coef;
@@ -555,13 +567,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(timeline.name == "5 Electrode"){
                   DeviceItem = {
                       type : "/stimulations/type/default",//obligatoire
-                      label : "default",
-                      depth : epoch.depth,
+                      label : epoch.label,
+                      descent : epoch.descent,
                       resistence : epoch.resistence,
                       zero : epoch.zero,
                       hemisphere : epoch.hemisphere,
                       craniotomy : epoch.craniotomy,
                   }
+                  epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
                   id_item_array = epoch.item.split('/');
                   id_item = id_item_array[3];
                   DeviceItems.put({id:id_item}, angular.toJson(DeviceItem), function(){
@@ -571,7 +584,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
                     angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
                       if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
-                        $scope.TLExp.objects[timeline.key].epochs.objects[key].depth = DeviceItem.depth;
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].label = DeviceItem.label;
+                        $scope.TLExp.objects[timeline.key].epochs.objects[key].descent = DeviceItem.descent;
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].resistence = DeviceItem.resistence;
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].zero = DeviceItem.zero;
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].hemisphere = DeviceItem.hemisphere;
@@ -732,6 +746,8 @@ mod_tlv.controller('ManageEventController_1', [
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -777,6 +793,8 @@ mod_tlv.controller('ManageEventController_2', [
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -822,6 +840,8 @@ mod_tlv.controller('ManageEventController_3', [
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -867,6 +887,8 @@ mod_tlv.controller('ManageEventController_4', [
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -910,8 +932,10 @@ mod_tlv.controller('ManageEventController_5', [
 
     $scope.beforeClose = function() {
         event.date = new Date($scope.event.date);
-        if($scope.event.text == ""){
+        /*if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else */if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -957,6 +981,8 @@ mod_tlv.controller('ManageEventController_6', [
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -1002,6 +1028,8 @@ mod_tlv.controller('ManageEventController_7', [
         event.date = new Date($scope.event.date);
         if($scope.event.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.event.type == "") || ($scope.event.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else {
             $scope.close();
         }
@@ -1045,6 +1073,8 @@ mod_tlv.controller('ManageEpochController_1', [
     $scope.beforeClose = function() {
         if($scope.epoch.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
@@ -1101,6 +1131,8 @@ mod_tlv.controller('ManageEpochController_2', [
     $scope.beforeClose = function() {
         if($scope.epoch.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
@@ -1157,6 +1189,8 @@ mod_tlv.controller('ManageEpochController_3', [
     $scope.beforeClose = function() {
         if($scope.epoch.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
@@ -1213,6 +1247,8 @@ mod_tlv.controller('ManageEpochController_4', [
     $scope.beforeClose = function() {
         if($scope.epoch.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
@@ -1267,8 +1303,10 @@ mod_tlv.controller('ManageEpochController_5', [
     $scope.del_epoch = false;
 
     $scope.beforeClose = function() {
-        if($scope.epoch.text == ""){
-            $scope.msgAlert = "Text field is required";
+        if($scope.epoch.label == ""){
+            $scope.msgAlert = "Label field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
@@ -1325,6 +1363,8 @@ mod_tlv.controller('ManageEpochController_6', [
     $scope.beforeClose = function() {
         if($scope.epoch.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
@@ -1381,6 +1421,8 @@ mod_tlv.controller('ManageEpochController_7', [
     $scope.beforeClose = function() {
         if($scope.epoch.text == ""){
             $scope.msgAlert = "Text field is required";
+        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+            $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {

@@ -64,9 +64,9 @@ mod_exp.controller('ListExperiment', [
       }).then(function(modal) {
         modal.element.modal();
         modal.close.then(function(result) {
-          if(result.type == null){
+          /*if(result.type == null){
             bootbox.alert("Please choose type to create experiment !");
-          } else {
+          } else {*/
             $scope.createExp(result.label, result.type, result.notes, result.setup, result.preparation, result.researchers);
             Experiment.save($scope.expSend, function(value){
               var $dateTL = new Date();
@@ -96,7 +96,7 @@ mod_exp.controller('ListExperiment', [
                 $i++;
               });
             });
-          }
+          //}
         });
       });
     };
@@ -137,16 +137,16 @@ mod_exp.controller('ListExperiment', [
       }).then(function(modal) {
         modal.element.modal();
         modal.close.then(function(result) {
-          if(result.type == null){
+          /*if(result.type == null){
             bootbox.alert("Please choose type to save experiment !");
-          } else {
+          } else {*/
             $scope.editExperiment($exp_uri, result.label, result.type, result.notes, result.setup, result.preparation, result.researchers);
 
             var $nCol = $exp_uri.split('/');
             var id_exp = $nCol[2];
             $scope.jsonNewLabel = '{ "label" : "'+result.label+'", "type": "'+result.type+'", "notes": "'+result.notes+'", "setup": "'+result.setup+'", "preparation": "'+result.preparation+'", "researchers": '+JSON.stringify(result.researchers)+' }';
             Experiment.patch({id:id_exp}, $scope.jsonNewLabel, function(value){});
-          }
+          //}
         });
       });
     };

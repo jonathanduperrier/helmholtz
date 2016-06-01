@@ -7,10 +7,18 @@
 				      </div>
 				      <div class="modal-body">
 						<form class="form-horizontal" role="form">
-						  <div class="form-group">
+						  <!--<div class="form-group">
 						    <label for="text" class="col-sm-2 control-label">Quantity/Speed : </label>
 						    <div class="col-sm-10">
 						      <input type="text" class="form-control" id="text" name="text" placeholder="name ..." ng-model="epoch.text">
+						    </div>
+						  </div>-->
+							<input type="hidden" class="form-control" id="text" name="text" placeholder="name ..." ng-model="epoch.text">
+
+							<div class="form-group">
+						    <label for="label" class="col-sm-2 control-label">Text : </label>
+						    <div class="col-sm-10">
+						      <input type="label" class="form-control" id="label" name="label" placeholder="name ..." ng-model="epoch.label">
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -30,9 +38,9 @@
 						    </div>
 						  </div>
 							<div class="form-group">
-						    <label for="depth" class="col-sm-2 control-label">Descent : </label>
+						    <label for="descent" class="col-sm-2 control-label">Descents : </label>
 						    <div class="col-sm-10">
-									<input type="depth" class="form-control" id="depth" name="depth" placeholder="Descent ..." ng-model="epoch.depth">
+									<input type="descent" class="form-control" id="descent" name="descent" placeholder="Descent ..." ng-model="epoch.descent">
 						    </div>
 						  </div>
 							<div class="form-group">
