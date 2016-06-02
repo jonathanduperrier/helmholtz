@@ -495,7 +495,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         //angular.forEach(timeline.DeviceItems.objects, function(data){
         angular.forEach($scope.TLExp.objects[timeline.key].DeviceItems.objects, function(data){
           if(data.resource_uri == epoch.item){
-            epoch.label = data.label;
+            epoch.label = data.descent+data.hemisphere+data.craniotomy;
             epoch.text = data.descent+data.hemisphere+data.craniotomy;
             epoch.descent = data.descent;
             epoch.resistence = data.resistence;
@@ -546,6 +546,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                   hemisphere : epoch.hemisphere,
                   craniotomy : epoch.craniotomy,
               }
+              epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               DeviceItems.post(DeviceItem, function(data){
                 $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
@@ -556,6 +557,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
             }
         } else {
+            epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
             epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
@@ -574,6 +576,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                       hemisphere : epoch.hemisphere,
                       craniotomy : epoch.craniotomy,
                   }
+                  epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
                   epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
                   id_item_array = epoch.item.split('/');
                   id_item = id_item_array[3];

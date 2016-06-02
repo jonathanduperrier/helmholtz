@@ -175,14 +175,12 @@ mod_exp.controller('AddExperimentController', [
   $scope.type = null;
   $scope.notes = null;
   $scope.title = title;
-  //$('select#setup').val('/devices/setup/1');
 
   $scope.lstPrep = preparations.get(function(data){
     angular.forEach($scope.lstPrep.objects, function(value, key) {
       var animal_tab = value.animal.split('/');
       var id_animal = animal_tab[3];
       $scope.lstAnimals = animals.get({id:id_animal}, function(data){
-        //$scope.identifier_animal = data.identifier;
         $scope.lstPrep.objects[key].identifier_animal = data.identifier;
       });
     });
@@ -257,7 +255,6 @@ mod_exp.controller('EditExperimentController', [
               var animal_tab = value.animal.split('/');
               var id_animal = animal_tab[3];
               $scope.lstAnimals = animals.get({id:id_animal}, function(data){
-                //$scope.identifier_animal = data.identifier;
                 $scope.lstPrep.objects[key].identifier_animal = data.identifier;
               });
             });
