@@ -115,7 +115,6 @@ mod_prep.controller('ManagePreparationController', [
       $scope.title = title;
       $scope.lstAnimals = animals.get();
 
-
       $scope.beforeClose = function() {
         //console.log($scope.dateFormat);
         if($scope.preparation.animal == ""){
@@ -124,9 +123,9 @@ mod_prep.controller('ManagePreparationController', [
         else if($scope.preparation.type == ""){
           $scope.msgAlert = "Type field is required";
         }
-        else if($scope.preparation.protocol == ""){
+        /*else if($scope.preparation.protocol == ""){
           $scope.msgAlert = "Protocol field must be a number";
-        }
+        }*/
         else {
             $scope.close();
         }

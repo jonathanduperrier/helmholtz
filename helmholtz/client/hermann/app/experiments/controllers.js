@@ -141,7 +141,6 @@ mod_exp.controller('ListExperiment', [
             bootbox.alert("Please choose type to save experiment !");
           } else {*/
             $scope.editExperiment($exp_uri, result.label, result.type, result.notes, result.setup, result.preparation, result.researchers);
-
             var $nCol = $exp_uri.split('/');
             var id_exp = $nCol[2];
             $scope.jsonNewLabel = '{ "label" : "'+result.label+'", "type": "'+result.type+'", "notes": "'+result.notes+'", "setup": "'+result.setup+'", "preparation": "'+result.preparation+'", "researchers": '+JSON.stringify(result.researchers)+' }';
@@ -170,8 +169,6 @@ mod_exp.controller('AddExperimentController', [
   function($scope, $element, title, default_label, close, Setup, preparations, animals, Researcher) {
 
   $scope.lstSetup = Setup.get();
-  $scope.lstPrep = preparations.get();
-  $scope.lstAnimals = animals.get();
   $scope.lstResearcher = Researcher.get();
 
   $scope.label = default_label;
@@ -179,6 +176,17 @@ mod_exp.controller('AddExperimentController', [
   $scope.notes = null;
   $scope.title = title;
   //$('select#setup').val('/devices/setup/1');
+
+  $scope.lstPrep = preparations.get(function(data){
+    angular.forEach($scope.lstPrep.objects, function(value, key) {
+      var animal_tab = value.animal.split('/');
+      var id_animal = animal_tab[3];
+      $scope.lstAnimals = animals.get({id:id_animal}, function(data){
+        //$scope.identifier_animal = data.identifier;
+        $scope.lstPrep.objects[key].identifier_animal = data.identifier;
+      });
+    });
+  });
 
   //  This close function doesn't need to use jQuery or bootstrap, because
   //  the button has the 'data-dismiss' attribute.
@@ -227,10 +235,9 @@ mod_exp.controller('AddExperimentController', [
 }]);
 
 mod_exp.controller('EditExperimentController', [
-  '$scope', '$routeParams', 'Experiment', 'Setup', 'preparations', '$element', 'exp_uri', 'title', 'close', 'Researcher',
-  function($scope, $routeParams, Experiment, Setup, preparations, $element, exp_uri, title, close, Researcher) {
+  '$scope', '$routeParams', 'Experiment', 'Setup', 'preparations', 'animals', '$element', 'exp_uri', 'title', 'close', 'Researcher',
+  function($scope, $routeParams, Experiment, Setup, preparations, animals, $element, exp_uri, title, close, Researcher) {
     $scope.lstSetup = Setup.get();
-    $scope.lstPrep = preparations.get();
     $scope.lstResearcher = Researcher.get();
 
     $scope.experiment = Experiment.get( {id: $routeParams.eId}, function(data){
@@ -242,6 +249,19 @@ mod_exp.controller('EditExperimentController', [
           $scope.setup = value.setup;
           $scope.selectedResearchers = value.researchers;
           $scope.preparation = value.preparation;
+          var prep_tab = $scope.preparation.split('/');
+          var id_preparation = prep_tab[3];
+
+          $scope.lstPrep = preparations.get(function(data){
+            angular.forEach($scope.lstPrep.objects, function(value, key) {
+              var animal_tab = value.animal.split('/');
+              var id_animal = animal_tab[3];
+              $scope.lstAnimals = animals.get({id:id_animal}, function(data){
+                //$scope.identifier_animal = data.identifier;
+                $scope.lstPrep.objects[key].identifier_animal = data.identifier;
+              });
+            });
+          });
         }
       });
       $scope.title = title;

@@ -103,8 +103,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 'epoch': 'Generic'
             },
             '5 Electrode': {
-                'event': 'Generic',
-                'epoch': 'Generic'
+                'event': 'Hollow',
+                'epoch': 'Hollow'
             },
             '6 Neuron': {
                 'event': 'Generic',
@@ -143,7 +143,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         ],
         '5 Electrode': [
             'Hollow',
-            'MultiElectrode',
+            'Multi',
         ],
         '6 Neuron': [
             'Generic'
@@ -328,7 +328,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             if(diff_minute <= 9){
               diff_minute = "0"+diff_minute;
             }
-            var title_event = "Event "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
+            var title_event = "Event "+tln[1]+"      |||      "+startDate.format('dd/mm/yyyy HH:MM')+"      |||       "+diff_day+" / "+diff_hour+":"+diff_minute;
         }
         // set dependencies
         //define controller in terms of timeline.name

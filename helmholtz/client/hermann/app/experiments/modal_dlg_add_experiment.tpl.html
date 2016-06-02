@@ -6,7 +6,6 @@
 				        <h4 class="modal-title">{{title}}</h4>
 				      </div>
 				      <div class="modal-body">
-				        <p>Enter event information here.</p>
 						<form class="form-horizontal" role="form">
 						  <div class="form-group">
 						    <label for="text" class="col-sm-2 control-label">Label </label>
@@ -44,7 +43,7 @@
 						  	<label for="preparation" class="col-sm-2 control-label">Preparation </label>
 						  	<div class="col-sm-10">
 							  	<select class="form-control" id="preparation" name="preparation" ng-model="preparation">
-							  		<option ng-repeat="prep in lstPrep.objects" value="{{prep.resource_uri}}" >{{prep.type}} - {{prep.protocol}}</option>
+							  		<option ng-repeat="prep in lstPrep.objects" value="{{prep.resource_uri}}" >{{prep.type}} -  {{prep.identifier_animal}}</option>
 							  	</select>
 
 						    </div>
