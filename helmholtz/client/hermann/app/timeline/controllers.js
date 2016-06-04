@@ -366,7 +366,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
           angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(epc, k) {
             if($scope.TLExp.objects[timeline.key].epochs.objects[k].resource_uri == event.depend){
-              event.text = epc.type + " - " + epc.text + " - " + event.date.format('yyyy/mm/dd HH:MM');
+              //event.text = epc.type + " - " + epc.text + " - " + event.date.format('yyyy/mm/dd HH:MM');
+              event.text = epc.text;
             }
           });
         }
@@ -537,6 +538,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         $rootScope.spin = 1;
           if(edition == false){
             if(timeline.name == "5 Electrode"){
+              epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
+              epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               DeviceItem = {
                   type : "/stimulations/type/default",//obligatoire
                   label : epoch.label,
@@ -546,8 +549,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                   hemisphere : epoch.hemisphere,
                   craniotomy : epoch.craniotomy,
               }
-              epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
-              epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               DeviceItems.post(DeviceItem, function(data){
                 $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
                 //$scope.stopSpin();

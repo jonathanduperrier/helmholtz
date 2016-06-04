@@ -1,4 +1,6 @@
-1- Create default animal (cat) and preparation (INVIVO INTRACELLULAR by default)
-2- Create "default" setup
-3- Create user, add user permissions, set staff status and superuser status
-4- Create one researchers by user
+1- Create user, add user permissions, set staff status and superuser status
+2- Create one researchers by user
+3- Set base url by ip address of the brainscale container in app.js file
+4- Create default animal (cat) and preparation (INVIVO INTRACELLULAR by default)
+5- Create "default" setup (and place)
+6- Create type "default" in /device/type table

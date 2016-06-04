@@ -175,6 +175,7 @@ mod_exp.controller('AddExperimentController', [
   $scope.type = null;
   $scope.notes = null;
   $scope.title = title;
+  $scope.setup = "/devices/setup/1";
 
   $scope.lstPrep = preparations.get(function(data){
     angular.forEach($scope.lstPrep.objects, function(value, key) {
