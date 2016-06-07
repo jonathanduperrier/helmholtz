@@ -219,7 +219,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     // check whether event placement is higher than current value
                                     if( $scope.TLExp.objects[key].events.objects[key2].vPlacement > $scope.TLExp.objects[key].height){
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].events.objects[key2].vPlacement + $scope.margin_bottom_timeline;
-                                        //$scope.TLExp.objects[key].height = $( document ).height();
                                     }
                                 });
                             }
@@ -249,12 +248,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     // check whether event placement is higher than current value
                                     if( $scope.TLExp.objects[key].epochs.objects[key2].vPlacement > $scope.TLExp.objects[key].height){
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].epochs.objects[key2].vPlacement + $scope.margin_bottom_timeline;
-                                        //$scope.TLExp.objects[key].height = $( document ).height();
                                     }
                                 });
-                                $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
-                                  //console.log($scope.TLExp.objects[key].DeviceItems.objects);
-
+                                    $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
                                 });
                                 angular.forEach($scope.TLExp.objects, function(value, key) {
                                   var current_timeline_height = $( "#timeline_"+value.id ).height();
