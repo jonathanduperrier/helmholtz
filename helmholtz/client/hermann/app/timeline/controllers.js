@@ -491,9 +491,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems){
       if(timeline.name == "5 Electrode"){
-        //console.log(timeline.DeviceItems.objects);
-        //console.log($scope.TLExp.objects);
-        //angular.forEach(timeline.DeviceItems.objects, function(data){
         angular.forEach($scope.TLExp.objects[timeline.key].DeviceItems.objects, function(data){
           if(data.resource_uri == epoch.item){
             epoch.label = data.descent+data.hemisphere+data.craniotomy;
@@ -522,7 +519,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           modal.element.modal();
           modal.close.then(function(result) {
               if(result.del_epoch == true){
-                  $scope.showConfirmRemoveEpoch(result.epoch);
+                  if(timeline.name == "5 Electrode"){
+                    $scope.showConfirmRemoveEpoch(result.epoch, DeviceItems);
+                  } else {
+                    $scope.showConfirmRemoveEpoch(result.epoch, "");
+                  }
               } else {
                   $scope.manageEpoch( timeline, result.epoch, edition, DeviceItems );
               }
@@ -570,7 +571,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(timeline.name == "5 Electrode"){
                   DeviceItem = {
                       type : "/stimulations/type/default",//obligatoire
-                      label : epoch.label,
+                      label : epoch.descent+epoch.hemisphere+epoch.craniotomy,
                       descent : epoch.descent,
                       resistence : epoch.resistence,
                       zero : epoch.zero,
@@ -582,10 +583,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                   id_item_array = epoch.item.split('/');
                   id_item = id_item_array[3];
                   DeviceItems.put({id:id_item}, angular.toJson(DeviceItem), function(){
-                    /*console.log(epoch);
-                    console.log(DeviceItem);
-                    console.log($scope.TLExp.objects[timeline.key].DeviceItems.objects);*/
-
                     angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
                       if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].label = DeviceItem.label;
@@ -616,10 +613,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 value2.epoch_height = current_timeline_height - value2.vPlacement;
               }
               if(specific_epoch == "electrode"){
-                var DeviceItem_r = DeviceItems.get({resource_uri: value2.item},function(value3, key3){
-                  value2.item = value3.objects[value3.objects.length-1].resource_uri;
-                  epochs.put({id:value2.id}, angular.toJson(value2));
-                });
+                if(value2.item != null){
+                  id_item_array = value2.item.split('/');
+                  id_item = id_item_array[3];
+                  var DeviceItem_r = DeviceItems.get({id: id_item},function(value3, key3){
+                    value2.item = value3.resource_uri;
+                    epochs.put({id:value2.id}, angular.toJson(value2));
+                  });
+                }
               }
             });
           });
@@ -627,7 +628,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
       });
     };
 
-    $scope.showConfirmRemoveEpoch = function(epoch) {
+    $scope.showConfirmRemoveEpoch = function(epoch, DeviceItems) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_epoch.tpl.html',
             controller: "ModalController"
@@ -635,15 +636,18 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEpoch(epoch);
+                    $scope.removeEpoch(epoch, DeviceItems);
                 }
             });
         });
     };
 
-    $scope.removeEpoch = function(epoch){
+    $scope.removeEpoch = function(epoch, DeviceItems){
         angular.element('#epoch_' + epoch.id).remove();
         epochs.del({id:epoch.id});
+        if(DeviceItems != ""){
+          DeviceItems.del({id:DeviceItems.id});
+        }
     };
 
     $scope.displayZoomEvent = function(scale_coef){
