@@ -9,13 +9,11 @@ from helmholtz.core.api.authorization import GuardianAuthorization
 from helmholtz.notebooks.models import Timeline
 from helmholtz.notebooks.models import Event
 from helmholtz.notebooks.models import Epoch
-# from helmholtz.notebooks.models import Electrode
-from helmholtz.devices.models import Item
-# from helmholtz.notebooks.models import Neuron
-from helmholtz.neuralstructures.models import Cell
-# from helmholtz.notebooks.models import Protocol
 
-#from helmholtz.experiments.models import Experiment
+from helmholtz.devices.models import Item
+from helmholtz.neuralstructures.models import Cell
+from helmholtz.measurements.models import Measurement
+
 from helmholtz.experiments.api.resources import ExperimentResource
 from helmholtz.devices.api.resources import ItemResource
 from helmholtz.neuralstructures.api.resources import CellResource
@@ -73,6 +71,8 @@ class EpochResource( ModelResource ) :
 class EventResource( ModelResource ) :
     timeline = fields.ForeignKey(TimelineResource, attribute='timeline' ) #resource_name of TimelineRessource
     depend = fields.ForeignKey( EpochResource, attribute='depend', null=True )
+    measurement = fields.ForeignKey( Measurement, attribute='measurement', null=True )
+
     class Meta:
         queryset = Event.objects.all()
         resource_name = 'event'
@@ -80,6 +80,7 @@ class EventResource( ModelResource ) :
             #'id': ALL,
             'timeline': ALL_WITH_RELATIONS,
             'depend': ALL_WITH_RELATIONS,
+            'measurement': ALL_WITH_RELATIONS,
             'text': ALL,
             'date': ALL,
             'type': ALL,
@@ -91,55 +92,3 @@ class EventResource( ModelResource ) :
         max_limit = 0
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
-
-
-
-# class ElectrodeResource( EpochResource, ItemResource ) :
-#     class Meta:
-# 	queryset = Electrode.objects.all()
-# 	resource_name = 'electrode'
-# 	excludes = ['idElectrode']
-# 	filtering = {
-#             'id': ALL,
-#         }
-#         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
-#         always_return_data = True
-# 	limit = 0
-# 	max_limit = 0
-#         authentication = BasicAuthentication()
-#         authorization = DjangoAuthorization()
-
-# class NeuronResource( EpochResource, CellResource ) :
-#     electrode = fields.ForeignKey(ElectrodeResource, attribute='electrode' ) #resource_name of ElectrodeResource
-#     class Meta:
-# 	queryset = Neuron.objects.all()
-# 	resource_name = 'neuron'
-# 	excludes = ['idNeuron']
-# 	filtering = {
-#             'id': ALL,
-# 	    'electrode': ALL_WITH_RELATIONS,
-#         }
-#         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
-#         always_return_data = True
-# 	limit = 0
-# 	max_limit = 0
-#         authentication = BasicAuthentication()
-#         authorization = DjangoAuthorization()
-
-# class ProtocolResource( EpochResource ) :
-#     neuron = fields.ForeignKey(NeuronResource, attribute='neuron' ) #resource_name of NeuronResource
-#     class Meta:
-# 	queryset = Protocol.objects.all()
-# 	resource_name = 'protocol'
-# 	excludes = ['idProtocol']
-# 	filtering = {
-#             'id': ALL,
-# 	    'neuron': ALL_WITH_RELATIONS,
-#         }
-#         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
-#         always_return_data = True
-# 	limit = 0
-# 	max_limit = 0
-#         authentication = BasicAuthentication()
-#         authorization = DjangoAuthorization()
-

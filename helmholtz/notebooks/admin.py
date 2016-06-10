@@ -6,9 +6,6 @@ from guardian.admin import GuardedModelAdmin
 
 from helmholtz.notebooks.models import Timeline
 from helmholtz.notebooks.models import Event
-# from helmholtz.notebooks.models import Electrode
-# from helmholtz.notebooks.models import Neuron
-# from helmholtz.notebooks.models import Protocol
 from helmholtz.notebooks.models import Epoch
 
 # overriding
@@ -29,7 +26,8 @@ class EventAdmin( GuardedModelAdmin ) :
         'text',
         'date',
         'type',
-        'color'
+        'color',
+        'measurement',
     ]
 
 class EpochAdmin( GuardedModelAdmin ) :

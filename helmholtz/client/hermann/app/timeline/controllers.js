@@ -4,6 +4,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          'eventServices',
                                          'epochServices',
                                          'DeviceItemService',
+                                         'measurementService',
                                          'hermann.experiments',
                                          'CellTypeService',
                                          'DeviceTypeService',
@@ -12,7 +13,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          ]);
 
 mod_tlv.controller('timeLineVisualController',
-function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems) {
+function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, measurements) {
     $scope.$route = $route;
 
     $scope.idExp = 0;

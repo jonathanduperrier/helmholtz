@@ -4,3 +4,5 @@
 4- Create default animal (cat) and preparation (INVIVO INTRACELLULAR by default)
 5- Create "default" setup (and place)
 6- Create type "default" in /device/type table
+7- Create "parameters" in /measurements/parameter (Descent, Researcher)
+8- Create "Unit" (Order/Integer) and (mOhm/float)

@@ -4,7 +4,7 @@ from datetime import datetime
 from helmholtz.experiments.models import Experiment
 from helmholtz.devices.models import Item
 from helmholtz.neuralstructures.models import Cell
-
+from helmholtz.measurements.models import Measurement
 
 class Timeline(models.Model):
     """.""" 
@@ -43,7 +43,8 @@ class Event(models.Model):
     date = models.DateTimeField( auto_now=False, auto_now_add=False )
     type = models.CharField( max_length=50, null=False, blank=False )
     color = models.CharField( max_length=7, null=False, blank=False )
-    
+    measurement = models.ForeignKey(Measurement, null=True, blank=True)
+
     def __unicode__(self):
         return unicode(self.date)
 
