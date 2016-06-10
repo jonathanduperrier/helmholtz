@@ -222,6 +222,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].events.objects[key2].vPlacement + $scope.margin_bottom_timeline;
                                     }
                                 });
+                                $scope.TLExp.objects[key].measurements = measurements.get(function(value3, key3){
+                                });
                             }
                         );
 
@@ -251,7 +253,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                         $scope.TLExp.objects[key].height = $scope.TLExp.objects[key].epochs.objects[key2].vPlacement + $scope.margin_bottom_timeline;
                                     }
                                 });
-                                    $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
+                                $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
                                 });
                                 angular.forEach($scope.TLExp.objects, function(value, key) {
                                   var current_timeline_height = $( "#timeline_"+value.id ).height();
@@ -280,7 +282,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     );
 
     //show dialog add event
-    $scope.showDlgEvent = function( timeline, event ){
+    $scope.showDlgEvent = function( timeline, event, measurements ){
         text_event = "";
         // if we are creating an event, we initialize it here
         var tln = timeline.name.split(' ');
@@ -354,16 +356,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     };
 
     //create event: display it in the timaline and insert it in the database
-    $scope.manageEvent = function( timeline, event, edition ){
+    $scope.manageEvent = function( timeline, event, edition, measurements ){
         angular.element(window).spin();
         //hide reset start hour of experiment
         angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
         if(timeline.name == "5 Electrode"){
-
           angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(epc, k) {
             if($scope.TLExp.objects[timeline.key].epochs.objects[k].resource_uri == event.depend){
-              //event.text = epc.type + " - " + epc.text + " - " + event.date.format('yyyy/mm/dd HH:MM');
               event.text = epc.text;
             }
           });
