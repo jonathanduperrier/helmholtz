@@ -104,7 +104,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 'epoch': 'Generic'
             },
             '5 Electrode': {
-                'event': 'Hollow',
+                'event': 'Descent',
                 'epoch': 'Hollow'
             },
             '6 Neuron': {
@@ -142,9 +142,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         '4 Environment': [
             'Generic'
         ],
-        '5 Electrode': [
+        '5 Electrode epoch': [
             'Hollow',
             'Multi',
+        ],
+        '5 Electrode event': [
+            'Descent',
+            'Researcher',
         ],
         '6 Neuron': [
             'Generic'
@@ -329,6 +333,21 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
             var title_event = "Event "+tln[1]+"      |||      "+startDate.format('dd/mm/yyyy HH:MM')+"      |||       "+diff_day+" / "+diff_hour+":"+diff_minute;
         }
+
+        /*if(timeline.name == "5 Electrode"){
+            angular.forEach($scope.TLExp.objects[timeline.key].measurements.objects, function(data){
+                if(data.resource_uri == event.measurements){
+                    
+                    epoch.label = data.descent+data.hemisphere+data.craniotomy;
+                    epoch.text = data.descent+data.hemisphere+data.craniotomy;
+                    epoch.descent = data.descent;
+                    epoch.resistence = data.resistence;
+                    epoch.zero = data.zero;
+                    epoch.hemisphere = data.hemisphere;
+                    epoch.craniotomy = data.craniotomy;
+                }
+            });
+        }*/
         // set dependencies
         //define controller in terms of timeline.name
         ModalService.showModal({
@@ -930,7 +949,7 @@ mod_tlv.controller('ManageEventController_5', [
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
-    $scope.list_selection = config_choices[timeline_name];
+    $scope.list_selection = config_choices[timeline_name]+" event";
     $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
@@ -1302,7 +1321,7 @@ mod_tlv.controller('ManageEpochController_5', [
 
     $scope.epoch = epoch;
     $scope.title = title;
-    $scope.list_selection = config_choices[timeline_name];
+    $scope.list_selection = config_choices[timeline_name]+" epoch";
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;

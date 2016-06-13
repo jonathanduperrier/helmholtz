@@ -17,6 +17,7 @@ from helmholtz.measurements.models import Measurement
 from helmholtz.experiments.api.resources import ExperimentResource
 from helmholtz.devices.api.resources import ItemResource
 from helmholtz.neuralstructures.api.resources import CellResource
+from helmholtz.measurements.api.resources import MeasurementResource
 
 # Resources
 
