@@ -75,6 +75,18 @@ measurementService.factory('measurements', ['$resource',
     });
   }]);
 
+var measurementParametersService = angular.module('measurementParameterService', ['ngResource']);
+
+measurementParametersService.factory('measurementsParameters', ['$resource',
+  function($resource){
+    return $resource( base_url + 'measurements/parameter/:id', {}, {
+      get: {method:'GET', params:{format:'json'}, isArray:false},
+      put: {method:'PUT', params:{format:'json'}, headers:{ 'Content-Type':'application/json' }},
+      post: { method: 'POST', params:{ format:'json' }, headers:{ 'Content-Type':'application/json' } },
+      del: { method: 'DELETE', params:{ format:'json' }, headers:{ 'Content-Type':'application/json' } }
+    });
+  }]);
+
 var SupplierService = angular.module('SupplierService', ['ngResource']);
 
 SupplierService.factory('SupplierService', ['$resource',

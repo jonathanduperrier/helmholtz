@@ -5,6 +5,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          'epochServices',
                                          'DeviceItemService',
                                          'measurementService',
+                                         'measurementParameterService',
                                          'hermann.experiments',
                                          'CellTypeService',
                                          'DeviceTypeService',
@@ -13,7 +14,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          ]);
 
 mod_tlv.controller('timeLineVisualController',
-function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, measurements) {
+function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, measurements, measurementsParameters) {
     $scope.$route = $route;
 
     $scope.idExp = 0;
@@ -228,6 +229,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 });
                                 $scope.TLExp.objects[key].measurements = measurements.get(function(value3, key3){
                                 });
+                                $scope.TLExp.objects[key].measurementsParams = measurementsParameters.get(function(value4, key4){
+                                });
                             }
                         );
 
@@ -286,7 +289,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     );
 
     //show dialog add event
-    $scope.showDlgEvent = function( timeline, event, measurements ){
+    $scope.showDlgEvent = function( timeline, event ){
         text_event = "";
         // if we are creating an event, we initialize it here
         var tln = timeline.name.split(' ');
@@ -334,20 +337,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var title_event = "Event "+tln[1]+"      |||      "+startDate.format('dd/mm/yyyy HH:MM')+"      |||       "+diff_day+" / "+diff_hour+":"+diff_minute;
         }
 
-        /*if(timeline.name == "5 Electrode"){
-            angular.forEach($scope.TLExp.objects[timeline.key].measurements.objects, function(data){
-                if(data.resource_uri == event.measurements){
-                    
-                    epoch.label = data.descent+data.hemisphere+data.craniotomy;
-                    epoch.text = data.descent+data.hemisphere+data.craniotomy;
-                    epoch.descent = data.descent;
-                    epoch.resistence = data.resistence;
-                    epoch.zero = data.zero;
-                    epoch.hemisphere = data.hemisphere;
-                    epoch.craniotomy = data.craniotomy;
-                }
-            });
-        }*/
         // set dependencies
         //define controller in terms of timeline.name
         ModalService.showModal({
@@ -368,7 +357,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(result.del_evt == true){
                     $scope.showConfirmRemoveEvent(result.event);
                 } else{
-                    $scope.manageEvent( timeline, result.event, edition );
+                    $scope.manageEvent( timeline, result.event, edition, measurements );
                 }
             });
         });
@@ -387,19 +376,53 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
           });
         }
-        // if event.id is null: POST
+
         if(edition == false){
-            events.post(event, function(data){
-                $scope.TLExp.objects[timeline.key].events.objects.push(event);
-                $scope.TLExp.objects[timeline.key].height = event.vPlacement + $scope.margin_bottom_timeline;
-                $scope.stopSpin();
-            });
+                if(timeline.name == "5 Electrode"){
+                    angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams, function(epc, k) {
+                        if(epc.label = event.type){
+                            type_value = epc.type;
+                            parameter = epc.resource_uri;
+                            unit = epc.unit;
+                        }
+                    });
+
+                    new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
+                    measurement = {
+                        parameter: parameter,
+                        object: "/devices/item/1",
+                        timestamp: new_date,
+                    }
+
+                    if(type_value == "S") {
+                        measurement.string_value = event.value;
+                        measurement.unit = unit;
+                    } else if (type_value == "I") {
+                        measurement.integer_value = event.value;
+                        measurement.unit = unit;
+                    };
+                }
+
+                measurements.post(measurement, function(data){
+                    $scope.postEvent(timeline, event, "electrode", measurements);
+                });
+            } else {
+                $scope.postEvent(timeline, event, "normal", measurements);
+            }
         } else {
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
             events.put({id:event.id}, angular.toJson(event), function(){
                 $scope.stopSpin();
             });
         }
+    };
+
+    $scope.postEvent = function(timeline, event, specific_event, measurements){
+        events.post(event, function(data){
+            $scope.TLExp.objects[timeline.key].events.objects.push(event);
+            $scope.TLExp.objects[timeline.key].height = event.vPlacement + $scope.margin_bottom_timeline;
+            $scope.stopSpin();
+        });
     };
 
     $scope.showConfirmRemoveEvent = function(event) {
@@ -441,6 +464,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 timeline : "/notebooks/timeline/" + timeline.id,
                 start : dateStartEpoch,
                 dateFormat : dateStartEpoch.format('dd/mm/yyyy HH:MM'),
+                //value : ,
                 end : null,
                 //type : $scope.config_defaults[$scope.experiment.type][timeline.name]['epoch'],
                 text : "",
@@ -949,7 +973,7 @@ mod_tlv.controller('ManageEventController_5', [
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
-    $scope.list_selection = config_choices[timeline_name]+" event";
+    $scope.list_selection = config_choices[timeline_name+" event"];
     $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
@@ -1321,7 +1345,7 @@ mod_tlv.controller('ManageEpochController_5', [
 
     $scope.epoch = epoch;
     $scope.title = title;
-    $scope.list_selection = config_choices[timeline_name]+" epoch";
+    $scope.list_selection = config_choices[timeline_name+" epoch"];
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
