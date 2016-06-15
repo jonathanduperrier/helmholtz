@@ -378,31 +378,29 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         }
 
         if(edition == false){
-                if(timeline.name == "5 Electrode"){
-                    angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams, function(epc, k) {
-                        if(epc.label = event.type){
-                            type_value = epc.type;
-                            parameter = epc.resource_uri;
-                            unit = epc.unit;
-                        }
-                    });
-
-                    new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
-                    measurement = {
-                        parameter: parameter,
-                        object: "/devices/item/1",
-                        timestamp: new_date,
+            if(timeline.name == "5 Electrode"){
+                angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams, function(epc, k) {
+                    if(epc.label = event.type){
+                        type_value = epc.type;
+                        parameter = epc.resource_uri;
+                        unit = epc.unit;
                     }
+                });
 
-                    if(type_value == "S") {
-                        measurement.string_value = event.value;
-                        measurement.unit = unit;
-                    } else if (type_value == "I") {
-                        measurement.integer_value = event.value;
-                        measurement.unit = unit;
-                    };
+                new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
+                measurement = {
+                    parameter: parameter,
+                    object: "/devices/item/1",
+                    timestamp: new_date,
                 }
 
+                if(type_value == "S") {
+                    measurement.string_value = event.value;
+                    measurement.unit = unit;
+                } else if (type_value == "I") {
+                    measurement.integer_value = event.value;
+                    measurement.unit = unit;
+                };
                 measurements.post(measurement, function(data){
                     $scope.postEvent(timeline, event, "electrode", measurements);
                 });
