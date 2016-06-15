@@ -355,7 +355,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then( function(result) {
                 if(result.del_evt == true){
-                    $scope.showConfirmRemoveEvent(result.event);
+                    if(timeline.name == "5 Electrode"){
+                        $scope.showConfirmRemoveEvent(result.event, measurements);
+                    } else {
+                        $scope.showConfirmRemoveEvent(result.event, "");
+                    }
                 } else{
                     $scope.manageEvent( timeline, result.event, edition, measurements );
                 }
@@ -398,7 +402,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 } else if (type_value == "I") {
                     measurement.integer_value = event.value;
                     measurement.unit = unit;
-                };
+                }
                 measurements.post(measurement, function(data){
                     $scope.postEvent(timeline, event, "electrode", measurements);
                 });
@@ -408,6 +412,36 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         } else {
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
             events.put({id:event.id}, angular.toJson(event), function(){
+                if(timeline.name == "5 Electrode"){
+                    measurement = {
+                        parameter: parameter,
+                        object: "/devices/item/1",
+                        timestamp: new_date,
+                    }
+                    if(type_value == "S") {
+                        measurement.string_value = event.value;
+                        measurement.unit = unit;
+                    } else if (type_value == "I") {
+                        measurement.integer_value = event.value;
+                        measurement.unit = unit;
+                    }
+
+
+                  id_measurement_array = event.item.split('/');
+                  id_measurement = id_measurement_array[3];
+                  measurement.put({id:id_measurement}, angular.toJson(measurement), function(){
+                    angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
+                      if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
+                        $scope.TLExp.objects[timeline.key].events.objects[key].parameter = measurement.parameter;
+                        $scope.TLExp.objects[timeline.key].events.objects[key].object = measurement.object;
+                        $scope.TLExp.objects[timeline.key].events.objects[key].timestamp = measurement.timestamp;
+                        $scope.TLExp.objects[timeline.key].events.objects[key].string_value = measurement.string_value;
+                        $scope.TLExp.objects[timeline.key].events.objects[key].integer_value = measurement.integer_value;
+                        $scope.TLExp.objects[timeline.key].events.objects[key].unit = measurement.unit;
+                      }
+                    });
+                  });
+                }
                 $scope.stopSpin();
             });
         }
@@ -434,7 +468,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         });
     };
 
-    $scope.showConfirmRemoveEvent = function(event) {
+    $scope.showConfirmRemoveEvent = function(event, measurements) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_event.tpl.html',
             controller: "ModalController"
@@ -442,15 +476,19 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEvent(event);
+                    $scope.removeEvent(event, measurements);
                 }
             });
         });
     };
 
-    $scope.removeEvent = function(event){
+    $scope.removeEvent = function(event, measurements){
         angular.element('#event_' + event.id).remove();
         events.del({id:event.id});
+        if(measurements != ""){
+          measurements.del({id:measurements.id});
+        }
+
     };
 
     //show dialog add epoch
