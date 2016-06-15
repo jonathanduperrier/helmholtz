@@ -379,21 +379,19 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
         if(edition == false){
             if(timeline.name == "5 Electrode"){
-                angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams, function(epc, k) {
+                angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams.objects, function(epc, k) {
                     if(epc.label = event.type){
                         type_value = epc.type;
                         parameter = epc.resource_uri;
                         unit = epc.unit;
                     }
                 });
-
                 new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
                 measurement = {
                     parameter: parameter,
                     object: "/devices/item/1",
                     timestamp: new_date,
                 }
-
                 if(type_value == "S") {
                     measurement.string_value = event.value;
                     measurement.unit = unit;
@@ -417,8 +415,21 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     $scope.postEvent = function(timeline, event, specific_event, measurements){
         events.post(event, function(data){
+            event.id = data.id;
             $scope.TLExp.objects[timeline.key].events.objects.push(event);
             $scope.TLExp.objects[timeline.key].height = event.vPlacement + $scope.margin_bottom_timeline;
+            angular.forEach($scope.TLExp.objects, function(value, key) {
+                if(specific_event == "electrode"){
+                    if(value2.measurement != null){
+                      id_measurement_array = value2.measurement.split('/');
+                      id_measurement = id_measurement_array[3];                      
+                      var measurement_r = measurements.get({id: id_measurement},function(value3, key3){
+                        value2.item = value3.resource_uri;
+                        events.put({id:value2.id}, angular.toJson(value2));
+                      });
+                    }
+                }
+            });
             $scope.stopSpin();
         });
     };
