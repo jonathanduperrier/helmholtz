@@ -393,8 +393,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
                 measurement = {
                     parameter: parameter,
-                    object: "/devices/item/1",
+                    //object: "/devices/item/1",
                     timestamp: new_date,
+                    content_type: "34",
                 }
                 if(type_value == "S") {
                     measurement.string_value = event.value;
@@ -415,8 +416,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(timeline.name == "5 Electrode"){
                     measurement = {
                         parameter: parameter,
-                        object: "/devices/item/1",
+                        //object: "/devices/item/1",
                         timestamp: new_date,
+                        content_type: "34",
                     }
                     if(type_value == "S") {
                         measurement.string_value = event.value;
@@ -429,7 +431,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
                   id_measurement_array = event.item.split('/');
                   id_measurement = id_measurement_array[3];
-                  measurement.put({id:id_measurement}, angular.toJson(measurement), function(){
+                  measurements.put({id:id_measurement}, angular.toJson(measurement), function(){
                     angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
                       if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
                         $scope.TLExp.objects[timeline.key].events.objects[key].parameter = measurement.parameter;
@@ -453,16 +455,18 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             $scope.TLExp.objects[timeline.key].events.objects.push(event);
             $scope.TLExp.objects[timeline.key].height = event.vPlacement + $scope.margin_bottom_timeline;
             angular.forEach($scope.TLExp.objects, function(value, key) {
-                if(specific_event == "electrode"){
-                    if(value2.measurement != null){
-                      id_measurement_array = value2.measurement.split('/');
-                      id_measurement = id_measurement_array[3];                      
-                      var measurement_r = measurements.get({id: id_measurement},function(value3, key3){
-                        value2.item = value3.resource_uri;
-                        events.put({id:value2.id}, angular.toJson(value2));
-                      });
+                angular.forEach(value.epochs.objects, function(value2, key2) {
+                    if(specific_event == "electrode"){
+                        if(value2.measurement != null){
+                          id_measurement_array = value2.measurement.split('/');
+                          id_measurement = id_measurement_array[3];                      
+                          var measurement_r = measurements.get({id: id_measurement},function(value3, key3){
+                            value2.item = value3.resource_uri;
+                            events.put({id:value2.id}, angular.toJson(value2));
+                          });
+                        }
                     }
-                }
+                });
             });
             $scope.stopSpin();
         });
