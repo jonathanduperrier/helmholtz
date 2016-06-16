@@ -295,12 +295,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         var tln = timeline.name.split(' ');
         if( event == null ){
             // ADD
-            var evtdepend = null;
+            var epcdepend = null;
             dateStartExp = $scope.experiment.start.valueOf();
             dateEvent = new Date();
             angular.forEach( timeline.epochs.objects, function(epc, k) {
                 if(epc.end == null){
-                  evtdepend = epc.resource_uri;
+                  epcdepend = epc.resource_uri;
                   text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
                 }
               }
@@ -314,7 +314,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 //type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
                 color : "#FFFFFF",
                 vPlacement : (((new Date(dateEvent)/1e3|0) - (new Date(dateStartExp)/1e3|0)) / $scope.scale_coef),
-                depend : evtdepend,
+                depend : epcdepend,
             };
             // template add
             edition = false;
@@ -492,16 +492,15 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         if(measurements != ""){
           measurements.del({id:measurements.id});
         }
-
     };
 
     //show dialog add epoch
     $scope.showDlgEpoch = function(timeline, epoch){
         var tln = timeline.name.split(' ');
-        var evtdepend = null;
+        var epcdepend = null;
         angular.forEach( timeline.epochs.objects, function(epc, k) {
             if(epc.end == null){
-              evtdepend = epc.resource_uri;
+              epcdepend = epc.resource_uri;
             }
           }
         );
@@ -567,7 +566,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         }
         //define controller in terms of timeline.name
         var continueDisplayModal = false;
-        if((evtdepend != null) && (edition == false)){
+        if((epcdepend != null) && (edition == false)){
           bootbox.confirm("An epoch is still running now! Do you want to continue ?",
             function(result){
               if(result == true){
