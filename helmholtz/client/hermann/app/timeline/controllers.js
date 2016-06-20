@@ -293,16 +293,22 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         text_event = "";
         // if we are creating an event, we initialize it here
         var tln = timeline.name.split(' ');
+        var stop_show_dlg = 0;
+        if((timeline.name == "5 Electrode") && (timeline.epochs.objects.length<=0)){
+            stop_show_dlg = 1;
+        }
         if( event == null ){
             // ADD
             var epcdepend = null;
             dateStartExp = $scope.experiment.start.valueOf();
             dateEvent = new Date();
             angular.forEach( timeline.epochs.objects, function(epc, k) {
-                if(epc.end == null){
-                  epcdepend = epc.resource_uri;
-                  text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
-                }
+                //if(epc.timeline == timeline.resource_uri){
+                    if(epc.end == null){
+                      epcdepend = epc.resource_uri;
+                      text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
+                    }
+                //}
               }
             );
             event = {
@@ -337,34 +343,36 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             var title_event = "Event "+tln[1]+"      |||      "+startDate.format('dd/mm/yyyy HH:MM')+"      |||       "+diff_day+" / "+diff_hour+":"+diff_minute;
         }
 
-        // set dependencies
-        //define controller in terms of timeline.name
-        ModalService.showModal({
-            templateUrl: "timeline/modal_dlg_event_"+tln[0]+".tpl.html",
-            controller: "ManageEventController_"+tln[0],
-            inputs: {
-                title: title_event,
-                config_defaults: $scope.config_defaults,
-                config_choices: $scope.config_choices,
-                timeline_name: timeline.name,
-                edition: edition,
-                event: event,
-                list_epoch: timeline.epochs.objects,
-            }
-        }).then(function(modal) {
-            modal.element.modal();
-            modal.close.then( function(result) {
-                if(result.del_evt == true){
-                    if(timeline.name == "5 Electrode"){
-                        $scope.showConfirmRemoveEvent(result.event, measurements);
-                    } else {
-                        $scope.showConfirmRemoveEvent(result.event, "");
-                    }
-                } else{
-                    $scope.manageEvent( timeline, result.event, edition, measurements );
+        if(stop_show_dlg == 0){
+            ModalService.showModal({
+                templateUrl: "timeline/modal_dlg_event_"+tln[0]+".tpl.html",
+                controller: "ManageEventController_"+tln[0],
+                inputs: {
+                    title: title_event,
+                    config_defaults: $scope.config_defaults,
+                    config_choices: $scope.config_choices,
+                    timeline_name: timeline.name,
+                    edition: edition,
+                    event: event,
+                    list_epoch: timeline.epochs.objects,
                 }
+            }).then(function(modal) {
+                modal.element.modal();
+                modal.close.then( function(result) {
+                    if(result.del_evt == true){
+                        if(timeline.name == "5 Electrode"){
+                            $scope.showConfirmRemoveEvent(result.event, measurements);
+                        } else {
+                            $scope.showConfirmRemoveEvent(result.event, "");
+                        }
+                    } else{
+                        $scope.manageEvent( timeline, result.event, edition, measurements );
+                    }
+                });
             });
-        });
+        } else {
+            bootbox.alert("Please create an electrode before create an event !");
+        }
     };
 
     //create event: display it in the timaline and insert it in the database
@@ -1034,6 +1042,8 @@ mod_tlv.controller('ManageEventController_5', [
             $scope.msgAlert = "Text field is required";
         } else */if(($scope.event.type == "") || ($scope.event.type == null)){
             $scope.msgAlert = "Type field is required";
+        } else if((event.depend == "") || (event.depend == null)) {
+            $scope.msgAlert = "Depend field is required";
         } else {
             $scope.close();
         }
