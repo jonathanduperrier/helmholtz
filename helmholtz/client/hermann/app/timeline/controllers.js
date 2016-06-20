@@ -303,12 +303,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             dateStartExp = $scope.experiment.start.valueOf();
             dateEvent = new Date();
             angular.forEach( timeline.epochs.objects, function(epc, k) {
-                //if(epc.timeline == timeline.resource_uri){
-                    if(epc.end == null){
-                      epcdepend = epc.resource_uri;
-                      text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
-                    }
-                //}
+                if(epc.end == null){
+                  epcdepend = epc.resource_uri;
+                  text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
+                }
               }
             );
             event = {
