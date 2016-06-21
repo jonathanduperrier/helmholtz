@@ -375,6 +375,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     //create event: display it in the timaline and insert it in the database
     $scope.manageEvent = function( timeline, event, edition, measurements ){
+        var epoch_item_id = "";
         angular.element(window).spin();
         //hide reset start hour of experiment
         angular.element(".resetstarthour").remove();
@@ -383,6 +384,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(epc, k) {
             if($scope.TLExp.objects[timeline.key].epochs.objects[k].resource_uri == event.depend){
               event.text = epc.text;
+              epoch_item_array = epc.item.split('/');
+              epoch_item_id = epoch_item_array[3];
             }
           });
         }
@@ -399,9 +402,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
                 measurement = {
                     parameter: parameter,
-                    //object: "/devices/item/1",
                     timestamp: new_date,
-                    content_type: "34",
+                    content_type: "item",
+                    object_id: epoch_item_id,
                 }
                 if(type_value == "S") {
                     measurement.string_value = event.value;
@@ -422,9 +425,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(timeline.name == "5 Electrode"){
                     measurement = {
                         parameter: parameter,
-                        //object: "/devices/item/1",
                         timestamp: new_date,
-                        content_type: "34",
+                        content_type: "item",
+                        object_id: epoch_item_id,
                     }
                     if(type_value == "S") {
                         measurement.string_value = event.value;
