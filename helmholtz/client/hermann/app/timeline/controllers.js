@@ -16,6 +16,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
 mod_tlv.controller('timeLineVisualController',
 function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, measurements, measurementsParameters) {
     $scope.$route = $route;
+    $scope.id_content_type_item = "34";
 
     $scope.idExp = 0;
     $scope.dateStartExp = "";
@@ -403,7 +404,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 measurement = {
                     parameter: parameter,
                     timestamp: new_date,
-                    content_type: "item",
+                    object: "/devices/item/" + epoch_item_id,
                     object_id: epoch_item_id,
                 }
                 if(type_value == "S") {
@@ -426,7 +427,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     measurement = {
                         parameter: parameter,
                         timestamp: new_date,
-                        content_type: "item",
+                        object: "/devices/item/" + epoch_item_id,
                         object_id: epoch_item_id,
                     }
                     if(type_value == "S") {
@@ -1043,9 +1044,9 @@ mod_tlv.controller('ManageEventController_5', [
             $scope.msgAlert = "Text field is required";
         } else */if(($scope.event.type == "") || ($scope.event.type == null)){
             $scope.msgAlert = "Type field is required";
-        } else if((event.depend == "") || (event.depend == null)) {
+        } /*else if((event.depend == "") || (event.depend == null)) {
             $scope.msgAlert = "Depend field is required";
-        } else {
+        } */else {
             $scope.close();
         }
     };
