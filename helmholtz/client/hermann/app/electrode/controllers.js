@@ -7,28 +7,25 @@ var mod_exp = angular.module( 'hermann.electrode', [
     'ui.bootstrap',
     'angularModalService',
     'mod_tlv',
-    'electrodeServices'
+    'electrodeServices',
+    'DeviceItemService'
     ]);
 
 mod_exp.controller('ListElectrode', [
-  '$scope', '$rootScope', 'electrode' ,'ModalService', 'timeLine', 'Experiment',
-  function($scope, $rootScope, electrode, ModalService, timeLine, Experiment) {
+  '$scope', '$rootScope', 'electrode', 'DeviceItems' ,'ModalService', 'timeLine', 'Experiment',
+  function($scope, $rootScope, electrode, DeviceItems, ModalService, timeLine, Experiment) {
     $rootScope.page_title = "Electrode";
   	$scope.electrode = electrode.get({}, function(data){
       $scope.electrode.objects.forEach( function( elec ){
         var $type = elec.type.split('/');
-        elec.type = $type[3];
-        var $manufacturer = elec.manufacturer.split('/');
-        elec.manufacturer = $manufacturer[3];
-        //get timeline
-        var $timeline = elec.timeline.split('/');
-        var $idTimeline = parseInt($timeline[3]);
-        elec.timeline = timeLine.get({id:$idTimeline}, function(data){
-          var $exp = data.experiment;
-          //get experiment
-          var $experiment = $exp.split('/');
-          var $idExperiment = $experiment[2];
-          elec.experiment = Experiment.get({id:$idExperiment});
+        var $item = elec.item.split('/');
+
+        elec.items = DeviceItems.get({id: $item[3]},function(value, key){
+          elec.descent = value.descent;
+          elec.resistence = value.resistence;
+          elec.zero = value.zero;
+          elec.hemisphere = value.hemisphere;
+          elec.craniotomy = value.craniotomy;
         });
       });
     });
@@ -41,23 +38,18 @@ mod_exp.controller('ListElectrode', [
   }
 ]);
 
-mod_exp.controller('DetailElectrode', ['$scope', '$rootScope', '$routeParams', 'timeLine', 'electrode', 'Experiment',
-function($scope, $rootScope, $routeParams, timeLine, electrode, Experiment){
+mod_exp.controller('DetailElectrode', ['$scope', '$rootScope', '$routeParams', 'timeLine', 'electrode', 'Experiment', 'DeviceItems',
+function($scope, $rootScope, $routeParams, timeLine, electrode, Experiment, DeviceItems){
     $rootScope.page_title = "Electrode";
     $scope.elec = electrode.get( {id: $routeParams.eID}, function(data){
-        var $type = $scope.elec.type.split('/');
-        $scope.elec.type = $type[3];
-        var $manufacturer = $scope.elec.manufacturer.split('/');
-        $scope.elec.manufacturer = $manufacturer[3];
-        //get timeline
-        var $timeline = $scope.elec.timeline.split('/');
-        var $idTimeline = parseInt($timeline[3]);
-        $scope.elec.timeline = timeLine.get({id:$idTimeline}, function(data){
-          var $exp = data.experiment;
-          //get experiment
-          var $experiment = $exp.split('/');
-          var $idExperiment = $experiment[2];
-          $scope.elec.experiment = Experiment.get({id:$idExperiment});
+        var $item = $scope.elec.objects[0].item.split('/');
+        $scope.elec = $scope.elec.objects[0];
+        $scope.elec.items = DeviceItems.get({id: $item[3]},function(value, key){
+          $scope.elec.descent = value.descent;
+          $scope.elec.resistence = value.resistence;
+          $scope.elec.zero = value.zero;
+          $scope.elec.hemisphere = value.hemisphere;
+          $scope.elec.craniotomy = value.craniotomy;
         });
     });
   }

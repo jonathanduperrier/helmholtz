@@ -16,21 +16,10 @@ mod_exp.controller('ListNeuron', [
     $rootScope.page_title = "Cells";
   	$scope.neuron = neuron.get({}, function(data){
       $scope.neuron.objects.forEach( function( neur ){
-        var $type = neur.type.split('/');
-        var $idType = $type[3];
-        neur.type = CellType.get({id:$idType});
-        var $electrode = neur.electrode.split('/');
+        var $electrode = neur.depend.split('/');
         var $idElectrode = $electrode[3];
-        neur.electrode = electrode.get({id:$idElectrode});
-        //get timeline
-        var $timeline = neur.timeline.split('/');
-        var $idTimeline = parseInt($timeline[3]);
-        neur.timeline = timeLine.get({id:$idTimeline}, function(data){
-          var $exp = data.experiment;
-          //get experiment
-          var $experiment = $exp.split('/');
-          var $idExperiment = $experiment[2];
-          neur.experiment = Experiment.get({id:$idExperiment});
+        neur.electrode = electrode.get({id:$idElectrode}, function(data){
+          neur.parent = data.objects[0].text;
         });
       });
     });
@@ -46,22 +35,15 @@ mod_exp.controller('ListNeuron', [
 mod_exp.controller('DetailNeuron', ['$scope', '$rootScope', '$routeParams', 'timeLine', 'electrode' ,'neuron', 'Experiment', 'CellType',
 function($scope, $rootScope, $routeParams, timeLine, electrode, neuron, Experiment, CellType){
     $rootScope.page_title = "Cells";
-    $scope.neur = neuron.get( {id: $routeParams.eID}, function(data){
-        var $type = $scope.neur.type.split('/');
-        var $idType = $type[3];
-        $scope.neur.type = CellType.get({id:$idType});
-        var $electrode = $scope.neur.electrode.split('/');
+    $scope.neur = neuron.get( {id: $routeParams.eID}, function(neur){
+        var $electrode = neur.objects[0].depend.split('/');
         var $idElectrode = $electrode[3];
-        $scope.neur.electrode = electrode.get({id:$idElectrode});
-        //get timeline
-        var $timeline = $scope.neur.timeline.split('/');
-        var $idTimeline = parseInt($timeline[3]);
-        $scope.neur.timeline = timeLine.get({id:$idTimeline}, function(data){
-          var $exp = data.experiment;
-          //get experiment
-          var $experiment = $exp.split('/');
-          var $idExperiment = $experiment[2];
-          $scope.neur.experiment = Experiment.get({id:$idExperiment});
+        neur.start = neur.objects[0].start;
+        neur.end = neur.objects[0].end;
+        neur.text = neur.objects[0].text;
+        neur.type = neur.objects[0].type;
+        neur.electrode = electrode.get({id:$idElectrode}, function(data){
+          neur.parent = data.objects[0].text;
         });
     });
 }]);

@@ -16,7 +16,7 @@ mod_exp.controller('ListProtocol', [
     $rootScope.page_title = "Protocol";
   	$scope.protocol = protocol.get({}, function(data){
       $scope.protocol.objects.forEach( function( prot ){
-        var $neur = prot.neuron.split('/');
+        var $neur = prot.depend.split('/');
         var $idNeur = $neur[3];
         prot.neuron = neuron.get({id:$idNeur});
 

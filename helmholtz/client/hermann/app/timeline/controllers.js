@@ -392,7 +392,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         }
 
         if(edition == false){
-            if(timeline.name == "5 Electrode"){
+            /*if(timeline.name == "5 Electrode"){
                 angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams.objects, function(epc, k) {
                     if(epc.label = event.type){
                         type_value = epc.type;
@@ -417,13 +417,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 measurements.post(measurement, function(data){
                     $scope.postEvent(timeline, event, "electrode", measurements);
                 });
-            } else {
+            } else {*/
                 $scope.postEvent(timeline, event, "normal", measurements);
-            }
+            //}
         } else {
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
             events.put({id:event.id}, angular.toJson(event), function(){
-                if(timeline.name == "5 Electrode"){
+                /*if(timeline.name == "5 Electrode"){
                     measurement = {
                         parameter: parameter,
                         timestamp: new_date,
@@ -453,7 +453,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                       }
                     });
                   });
-                }
+                }*/
                 $scope.stopSpin();
             });
         }
