@@ -38,19 +38,25 @@ ENV EMAIL_PASSWORD "omjm qhyv ztxg qlmk"
 RUN python manage.py validate
 RUN python manage.py collectstatic --noinput
 RUN python manage.py syncdb --noinput --settings=brainscales_db.settings
+
 RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('brainscales', 'brainscales@example.com', 'pwd_brainscales_5f6f3d')" | python manage.py shell
+
+RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('jo', 'brainscales@example.com', 'toto')" | python manage.py shell
 
 RUN sleep 30
 
-#insert
-#RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO \"preparations_animal\" (identifier, nickname, weight, sex, birth, sacrifice) VALUES (\"dd\", \"dd\", 10, \"M\", now(), now()); "
+#insert animal
+RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO preparations_animal (identifier, nickname, weight, sex, birth, sacrifice) VALUES ('dd', 'dd', 10, 'M', now(), now()); "
 
-##RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO \"preparations_animal\" (nickname, weight, sex, birth, sacrifice) VALUES ( \"default\", 10, \"M\", now(), now()); "
+#insert preparation
+RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO preparations_preparation (animal_id, type, protocol) VALUES (1, 'in vivo intra', 'default'); "
 
+#insert people_organization (place)
+RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO people_organization (diminutive, name, is_data_provider) VALUES ('jd', 'jdkk666', true);"
 
-#RUN psql --command "INSERT INTO \"preparations_preparation\" (animal, type, protocol) VALUES (\"/preparations/animal/1\", \"in vivo intracellular\", \"default\"); "
+#insert setup
+RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO devices_setup (label, place_id) VALUES ('jd', 1);"
 
-#RUN psql --command "INSERT INTO \"devices_setup\" (label) VALUES (\"default\")"
 #####
 
 RUN unset PYTHONPATH
