@@ -57,6 +57,9 @@ RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO peop
 #insert setup
 RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO devices_setup (label, place_id) VALUES ('jd', 1);"
 
+#insert researcher
+RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO people_researcher (user_id, phone, website, street_address, postal_code, town, country) VALUES (2, '+33648965412', 'www.gkdldk.dl', '7 rue dkldldldl', '52233', 'ddqsdqsd', 'france');"
+
 #####
 
 RUN unset PYTHONPATH
