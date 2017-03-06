@@ -46,19 +46,19 @@ RUN echo "from django.contrib.auth.models import User; User.objects.create_super
 RUN sleep 30
 
 #insert animal
-RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO preparations_animal (identifier, nickname, weight, sex, birth, sacrifice) VALUES ('dd', 'dd', 10, 'M', now(), now()); "
+RUN psql -h 172.17.0.3 -U brainscales brainscales_db --command "INSERT INTO preparations_animal (identifier, nickname, weight, sex, birth, sacrifice) VALUES ('dd', 'dd', 10, 'M', now(), now()); "
 
 #insert preparation
-RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO preparations_preparation (animal_id, type, protocol) VALUES (1, 'in vivo intra', 'default'); "
+RUN psql -h 172.17.0.3 -U brainscales brainscales_db --command "INSERT INTO preparations_preparation (animal_id, type, protocol) VALUES (1, 'in vivo intra', 'default'); "
 
 #insert people_organization (place)
-RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO people_organization (diminutive, name, is_data_provider) VALUES ('jd', 'jdkk666', true);"
+RUN psql -h 172.17.0.3 -U brainscales brainscales_db --command "INSERT INTO people_organization (diminutive, name, is_data_provider) VALUES ('jd', 'jdkk666', true);"
 
 #insert setup
-RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO devices_setup (label, place_id) VALUES ('jd', 1);"
+RUN psql -h 172.17.0.3 -U brainscales brainscales_db --command "INSERT INTO devices_setup (label, place_id) VALUES ('jd', 1);"
 
 #insert researcher
-RUN psql -h 172.17.0.2 -U brainscales brainscales_db --command "INSERT INTO people_researcher (user_id, phone, website, street_address, postal_code, town, country) VALUES (2, '+33648965412', 'www.gkdldk.dl', '7 rue dkldldldl', '52233', 'ddqsdqsd', 'france');"
+RUN psql -h 172.17.0.3 -U brainscales brainscales_db --command "INSERT INTO people_researcher (user_id, phone, website, street_address, postal_code, town, country) VALUES (2, '+33648965412', 'www.gkdldk.dl', '7 rue dkldldldl', '52233', 'ddqsdqsd', 'france');"
 
 #####
 
