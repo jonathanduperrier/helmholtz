@@ -651,7 +651,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                   craniotomy : epoch.craniotomy,
               }
               DeviceItems.post(DeviceItem, function(data){
-                $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
+                DeviceItems.get({timeline__id: timeline.resource_uri}, function(data){
+                  angular.forEach(data.objects, function(value, key){
+                    if((value.craniotomy.toString() == epoch.craniotomy) && (value.descent.toString() == epoch.descent) && (value.hemisphere == epoch.hemisphere) && (value.label == epoch.label) && (value.resistence.toString() == epoch.resistence) && (value.zero.toString() == epoch.zero)){
+                      epoch.item = value.resource_uri;
+                      $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
+                    }
+                  });
+                });
                 //$scope.stopSpin();
               });
             } else {
@@ -697,7 +704,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 }
                 $scope.stopSpin();
             });
-
         }
     };
 
