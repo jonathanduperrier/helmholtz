@@ -652,10 +652,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               }
               DeviceItems.post(DeviceItem, function(data){
                 DeviceItems.get({timeline__id: timeline.resource_uri}, function(data){
-                    //if((value.craniotomy.toString() == epoch.craniotomy) && (value.descent.toString() == epoch.descent) && (value.hemisphere == epoch.hemisphere) && (value.label == epoch.label) && (value.resistence.toString() == epoch.resistence) && (value.zero.toString() == epoch.zero)){
-                    epoch.item = data.objects[data.objects.length-1].resource_uri;
-                    $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
-                   // }
+                  epoch.item = data.objects[data.objects.length-1].resource_uri;
+                  $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
                 });
                 //$scope.stopSpin();
               });
