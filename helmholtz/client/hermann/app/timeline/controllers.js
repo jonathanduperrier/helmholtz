@@ -652,12 +652,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               }
               DeviceItems.post(DeviceItem, function(data){
                 DeviceItems.get({timeline__id: timeline.resource_uri}, function(data){
-                  angular.forEach(data.objects, function(value, key){
-                    if((value.craniotomy.toString() == epoch.craniotomy) && (value.descent.toString() == epoch.descent) && (value.hemisphere == epoch.hemisphere) && (value.label == epoch.label) && (value.resistence.toString() == epoch.resistence) && (value.zero.toString() == epoch.zero)){
-                      epoch.item = value.resource_uri;
-                      $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
-                    }
-                  });
+                    //if((value.craniotomy.toString() == epoch.craniotomy) && (value.descent.toString() == epoch.descent) && (value.hemisphere == epoch.hemisphere) && (value.label == epoch.label) && (value.resistence.toString() == epoch.resistence) && (value.zero.toString() == epoch.zero)){
+                    epoch.item = data.objects[data.objects.length-1].resource_uri;
+                    $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
+                   // }
                 });
                 //$scope.stopSpin();
               });
@@ -751,8 +749,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     $scope.removeEpoch = function(epoch, DeviceItems){
         angular.element('#epoch_' + epoch.id).remove();
         epochs.del({id:epoch.id});
-        if(DeviceItems != ""){
-          DeviceItems.del({id:DeviceItems.id});
+        if((DeviceItems != "") && (epoch.item != null)){
+          id_item_array = epoch.item.split('/');
+          id_item = parseInt(id_item_array[3]);
+          DeviceItems.del({id:id_item});
         }
     };
 
