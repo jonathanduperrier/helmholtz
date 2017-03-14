@@ -3,6 +3,8 @@ from django.db import models
 from datetime import datetime
 from helmholtz.experiments.models import Experiment
 from helmholtz.devices.models import Item
+from helmholtz.recordings.models import Block
+from helmholtz.recordings.models import Recording
 from helmholtz.neuralstructures.models import Cell
 from helmholtz.measurements.models import Measurement
 
@@ -31,6 +33,7 @@ class Epoch(models.Model):
     color = models.CharField( max_length=7, null=True, blank=True )
     depend = models.ForeignKey('self', on_delete=models.SET_DEFAULT, default=None, null=True, blank=True )
     item = models.ForeignKey(Item, null=True, blank=True)
+    rec_blocks = models.ForeignKey(Block, null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.start)
@@ -44,6 +47,7 @@ class Event(models.Model):
     type = models.CharField( max_length=50, null=False, blank=False )
     color = models.CharField( max_length=7, null=False, blank=False )
     measurement = models.ForeignKey(Measurement, null=True, blank=True)
+    rec_recording = models.ForeignKey(Recording, null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.date)

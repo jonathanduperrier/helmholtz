@@ -28,6 +28,7 @@ class EventAdmin( GuardedModelAdmin ) :
         'type',
         'color',
         'measurement',
+        'rec_recording',
     ]
 
 class EpochAdmin( GuardedModelAdmin ) :
@@ -40,6 +41,7 @@ class EpochAdmin( GuardedModelAdmin ) :
         'color',
         'depend',
         'item',
+        'rec_blocks',
     ]
 
 # class ElectrodeAdmin(GuardedModelAdmin) :

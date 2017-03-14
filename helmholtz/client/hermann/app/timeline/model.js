@@ -63,6 +63,30 @@ DeviceItemService.factory('DeviceItems', ['$resource',
     });
   }]);
 
+var RecordingBlockService = angular.module('RecordingBlockService', ['ngResource']);
+
+RecordingBlockService.factory('RecordingBlocks', ['$resource',
+  function($resource){
+    return $resource( base_url + 'recordings/block/:id', {}, {
+      get: {method:'GET', params:{format:'json'}, isArray:false},
+      put: {method:'PUT', params:{format:'json'}, headers:{ 'Content-Type':'application/json' }},
+      post: { method: 'POST', params:{ format:'json' }, headers:{ 'Content-Type':'application/json' } },
+      del: { method: 'DELETE', params:{ format:'json' }, headers:{ 'Content-Type':'application/json' } }
+    });
+  }]);
+
+var RecordingAnimalService = angular.module('RecordingAnimalService', ['ngResource']);
+
+RecordingAnimalService.factory('RecordingAnimals', ['$resource',
+  function($resource){
+    return $resource( base_url + 'recordings/recording/:id', {}, {
+      get: {method:'GET', params:{format:'json'}, isArray:false},
+      put: {method:'PUT', params:{format:'json'}, headers:{ 'Content-Type':'application/json' }},
+      post: { method: 'POST', params:{ format:'json' }, headers:{ 'Content-Type':'application/json' } },
+      del: { method: 'DELETE', params:{ format:'json' }, headers:{ 'Content-Type':'application/json' } }
+    });
+  }]);
+
 var measurementService = angular.module('measurementService', ['ngResource']);
 
 measurementService.factory('measurements', ['$resource',

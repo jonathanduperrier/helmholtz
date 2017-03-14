@@ -21,7 +21,7 @@
 			<span class="timeline_name">{{tl.name}}</span>
 
 			<div class="btn-group btn-group-xs btnAddEvtEpoch">
-				<button ng-click="showDlgEpoch(tl, null)" class="btn btn-default" ng-if='dateEndExp == ""'>
+				<button ng-click="showDlgEpoch(tl, null)" class="btn btn-default" ng-if='dateEndExp == "" && tl.name != "7 Protocol"'>
 					<span class="glyphicon glyphicon-resize-vertical"></span>
 				</button>
 			</div>
