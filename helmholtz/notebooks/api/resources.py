@@ -11,11 +11,15 @@ from helmholtz.notebooks.models import Event
 from helmholtz.notebooks.models import Epoch
 
 from helmholtz.devices.models import Item
+from helmholtz.recordings.models import Block
+from helmholtz.recordings.models import Recording
 from helmholtz.neuralstructures.models import Cell
 from helmholtz.measurements.models import Measurement
 
 from helmholtz.experiments.api.resources import ExperimentResource
 from helmholtz.devices.api.resources import ItemResource
+from helmholtz.recordings.api.resources import BlockResource
+from helmholtz.recordings.api.resources import RecordingResource
 from helmholtz.neuralstructures.api.resources import CellResource
 from helmholtz.measurements.api.resources import MeasurementResource
 
@@ -47,6 +51,7 @@ class EpochResource( ModelResource ) :
     timeline = fields.ForeignKey( TimelineResource, attribute='timeline' )
     depend = fields.ForeignKey( 'self', attribute='depend', null=True )
     item = fields.ForeignKey( ItemResource, attribute='item', null=True )
+    rec_blocks = fields.ForeignKey( BlockResource, attribute='rec_blocks', null=True )
 
     class Meta:
         queryset = Epoch.objects.all()
@@ -56,6 +61,7 @@ class EpochResource( ModelResource ) :
                 'timeline': ALL_WITH_RELATIONS,
                 'depend': ALL_WITH_RELATIONS,
                 'item' : ALL_WITH_RELATIONS,
+                'rec_blocks' : ALL_WITH_RELATIONS,
                 'start': ALL,
                 'text': ALL,
                 'end': ALL,
@@ -73,7 +79,8 @@ class EventResource( ModelResource ) :
     timeline = fields.ForeignKey(TimelineResource, attribute='timeline' ) #resource_name of TimelineRessource
     depend = fields.ForeignKey( EpochResource, attribute='depend', null=True )
     measurement = fields.ForeignKey( Measurement, attribute='measurement', null=True )
-
+    rec_recording = fields.ForeignKey( RecordingResource, attribute='rec_recording', null=True )
+    
     class Meta:
         queryset = Event.objects.all()
         resource_name = 'event'
@@ -82,10 +89,11 @@ class EventResource( ModelResource ) :
             'timeline': ALL_WITH_RELATIONS,
             'depend': ALL_WITH_RELATIONS,
             'measurement': ALL_WITH_RELATIONS,
+            'rec_recording': ALL_WITH_RELATIONS,
             'text': ALL,
             'date': ALL,
             'type': ALL,
-            'color': ALL
+            'color': ALL,
         }
         allowed_methods = [ 'get', 'post', 'put', 'delete', 'patch' ]
         always_return_data = True

@@ -4,6 +4,8 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          'eventServices',
                                          'epochServices',
                                          'DeviceItemService',
+                                         'RecordingBlockService',
+                                         'RecordingAnimalService',
                                          'measurementService',
                                          'measurementParameterService',
                                          'hermann.experiments',
@@ -14,7 +16,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          ]);
 
 mod_tlv.controller('timeLineVisualController',
-function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, measurements, measurementsParameters) {
+function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, RecordingBlocks, RecordingAnimals, measurements, measurementsParameters) {
     $scope.$route = $route;
     $scope.id_content_type_item = "34";
 
@@ -263,6 +265,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 });
                                 $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
                                 });
+                                $scope.TLExp.objects[key].RecordingBlocks = RecordingBlocks.get({timeline__id: $scope.TLExp.objects[key].id}, function(){});
+                                $scope.TLExp.objects[key].RecordingAnimals = RecordingAnimals.get({timeline__id: $scope.TLExp.objects[key].id}, function(){});
                                 angular.forEach($scope.TLExp.objects, function(value, key) {
                                   var current_timeline_height = $( "#timeline_"+value.id ).height();
                                   angular.forEach(value.epochs.objects, function(value2, key2) {
@@ -580,16 +584,16 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           bootbox.confirm("An epoch is still running now! Do you want to continue ?",
             function(result){
               if(result == true){
-                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems);
+                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks);
               }
             }
           );
         } else {
-          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems);
+          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks);
         }
     };
 
-    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems){
+    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks){
       if(timeline.name == "5 Electrode"){
         angular.forEach($scope.TLExp.objects[timeline.key].DeviceItems.objects, function(data){
           if(data.resource_uri == epoch.item){
@@ -601,6 +605,16 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             epoch.hemisphere = data.hemisphere;
             epoch.craniotomy = data.craniotomy;
           }
+        });
+      }
+      if(timeline.name == "6 Neuron"){
+        angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(data){
+            if(data.resource_uri == epoch.rec_blocks){
+                epoch.name = data.name;
+                epoch.start = data.start;
+                epoch.end = data.end;
+                epoch.notes = data.notes;
+            }
         });
       }
 
@@ -657,6 +671,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 });
                 //$scope.stopSpin();
               });
+            } else if(timeline.name == "6 Neuron") {
+
+            } else if(timeline.name == "7 Protocol") {
+
             } else {
               //post epoch
               $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
