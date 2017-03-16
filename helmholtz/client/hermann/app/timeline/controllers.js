@@ -171,7 +171,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         '7 Protocol': {
             timeline: '6 Neuron',
             timeline_key: null,
-            option_epochs: [] // {text:<parent.epoch.text>,resource_uri:<parent.epoch.uri>,closed}, {}
+            option_block: [] // {text:<parent.epoch.text>,resource_uri:<parent.epoch.uri>,closed}, {}
         },
     }
 
@@ -344,6 +344,43 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               diff_minute = "0"+diff_minute;
             }
             var title_event = "Event "+tln[1]+"      |||      "+startDate.format('dd/mm/yyyy HH:MM')+"      |||       "+diff_day+" / "+diff_hour+":"+diff_minute;
+            
+            if(timeline.name == "7 Protocol"){
+                // // if(tln[0] == "7"){
+                //     angular.forEach( $scope.TLExp.objects[ $scope.depend_choices[timeline.name].timeline_key ].epochs.objects,
+                //         function(epc, k) {
+                //             opt = {
+                //                 text: epc.text,
+                //                 resource_uri: "/notebooks/epoch/"+epc.id,
+                //                 closed: epc.end==null ? false : true // if the epoch end date is null, it is an open epoch
+                //             }
+                //             $scope.depend_choices[timeline.name].option_epochs.push(opt)
+                //         }
+                //     );
+                //     $scope.config_choices = $scope.depend_choices;
+                // // }
+
+
+                angular.forEach($scope.TLExp.objects[timeline.key].RecordingAnimals.objects, function(data){
+                    if(data.resource_uri == event.rec_recording){
+
+                        angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
+                            if(block.resource_uri == data.block){
+                                opt = {
+                                    name: block.name,
+                                    resource_uri: block.resource_uri,
+                                }
+                                $scope.depend_choices[timeline.name].option_block.push(opt)
+                            }
+                        });
+
+                        event.block = data.block;
+                        event.name = data.name;
+                        event.date = data.rec_datetime;
+                        $scope.config_choices = $scope.depend_choices;
+                    }
+                });
+            }
         }
 
         if(stop_show_dlg == 0){
@@ -1151,7 +1188,7 @@ mod_tlv.controller('ManageEventController_7', [
     $scope.event = event;
     $scope.event.date = new Date(event.date).format("yyyy/mm/dd HH:MM");
     $scope.title = title;
-    $scope.list_selection = config_choices[timeline_name];
+    $scope.list_blocks = config_choices[timeline_name];
     $scope.depend_selection = list_epoch;
     $scope.edition = edition;
     $scope.del_evt = false;
