@@ -416,10 +416,23 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
           });
         }
-
         if(edition == false){
             if(timeline.name == "7 Protocol"){
-
+                event.text = event.block + event.name;
+                event.date = event.rec_datetime;
+                event.type = "Generic";
+                event.color = "#cccccc"
+                RecordingAnimal = {
+                    block: event.block,
+                    name: event.name,
+                    rec_datetime: event.rec_datetime,
+                }
+                RecordingAnimals.post(RecordingAnimal, function(data){
+                    RecordingAnimals.get({timeline__id: timeline.resource_uri}, function(data){
+                        event.rec_recording = data.objects[data.objects.length-1].resource_uri;
+                        $scope.postEvent(timeline, event, "protocol", measurements);
+                    });
+                });
             } else {
                 $scope.postEvent(timeline, event, "normal", measurements);
             }
@@ -427,7 +440,21 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
             events.put({id:event.id}, angular.toJson(event), function(){
                 if(timeline.name == "7 Protocol"){
-                    
+                    RecordingAnimal = {
+                        block: event.block,
+                        name: event.name,
+                        rec_datetime: event.rec_datetime,
+                    }
+                    id_rec_array = event.rec_recording.split('/');
+                    id_rec = id_rec_array[3];
+                    RecordingAnimals.put({id:id_rec}, angular.toJson(RecordingAnimal), function(){
+                        angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
+                            if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
+                                $scope.TLExp.objects[timeline.key].events.objects[key].text = event.name;
+                                $scope.TLExp.objects[timeline.key].events.objects[key].date = event.rec_datetime;
+                            }
+                        });
+                    });
                 }
                 $scope.stopSpin();
             });
