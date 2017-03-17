@@ -418,68 +418,17 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         }
 
         if(edition == false){
-            /*if(timeline.name == "5 Electrode"){
-                angular.forEach( $scope.TLExp.objects[timeline.key].measurementsParams.objects, function(epc, k) {
-                    if(epc.label = event.type){
-                        type_value = epc.type;
-                        parameter = epc.resource_uri;
-                        unit = epc.unit;
-                    }
-                });
-                new_date = new Date(event.date).format("yyyy/mm/dd HH:MM");
-                measurement = {
-                    parameter: parameter,
-                    timestamp: new_date,
-                    object: "/devices/item/" + epoch_item_id,
-                    object_id: epoch_item_id,
-                }
-                if(type_value == "S") {
-                    measurement.string_value = event.value;
-                    measurement.unit = unit;
-                } else if (type_value == "I") {
-                    measurement.integer_value = event.value;
-                    measurement.unit = unit;
-                }
-                measurements.post(measurement, function(data){
-                    $scope.postEvent(timeline, event, "electrode", measurements);
-                });
-            } else {*/
+            if(timeline.name == "7 Protocol"){
+
+            } else {
                 $scope.postEvent(timeline, event, "normal", measurements);
-            //}
+            }
         } else {
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
             events.put({id:event.id}, angular.toJson(event), function(){
-                /*if(timeline.name == "5 Electrode"){
-                    measurement = {
-                        parameter: parameter,
-                        timestamp: new_date,
-                        object: "/devices/item/" + epoch_item_id,
-                        object_id: epoch_item_id,
-                    }
-                    if(type_value == "S") {
-                        measurement.string_value = event.value;
-                        measurement.unit = unit;
-                    } else if (type_value == "I") {
-                        measurement.integer_value = event.value;
-                        measurement.unit = unit;
-                    }
-
-
-                  id_measurement_array = event.item.split('/');
-                  id_measurement = id_measurement_array[3];
-                  measurements.put({id:id_measurement}, angular.toJson(measurement), function(){
-                    angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
-                      if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
-                        $scope.TLExp.objects[timeline.key].events.objects[key].parameter = measurement.parameter;
-                        $scope.TLExp.objects[timeline.key].events.objects[key].object = measurement.object;
-                        $scope.TLExp.objects[timeline.key].events.objects[key].timestamp = measurement.timestamp;
-                        $scope.TLExp.objects[timeline.key].events.objects[key].string_value = measurement.string_value;
-                        $scope.TLExp.objects[timeline.key].events.objects[key].integer_value = measurement.integer_value;
-                        $scope.TLExp.objects[timeline.key].events.objects[key].unit = measurement.unit;
-                      }
-                    });
-                  });
-                }*/
+                if(timeline.name == "7 Protocol"){
+                    
+                }
                 $scope.stopSpin();
             });
         }
@@ -694,9 +643,20 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 //$scope.stopSpin();
               });
             } else if(timeline.name == "6 Neuron") {
-
-            } else if(timeline.name == "7 Protocol") {
-
+                RecordingBlock = {
+                    experiment: "/experiments/experiment/"+$scope.experiment.id,
+                    name: epoch.name,
+                    start:epoch.start,
+                    end:epoch.end,
+                    notes:epoch.notes,
+                }
+                epoch.text = epoch.name + "\n" + epoch.notes;
+                RecordingBlocks.post(RecordingBlock, function(data){
+                    RecordingBlocks.get({timeline__id: timeline.resource_uri}, function(data){
+                        epoch.rec_blocks = data.objects[data.objects.length-1].resource_uri;
+                        $scope.postEpoch(epoch, timeline, "neuron", RecordingBlocks);
+                    });
+                });
             } else {
               //post epoch
               $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
