@@ -299,8 +299,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         // if we are creating an event, we initialize it here
         var tln = timeline.name.split(' ');
         var stop_show_dlg = 0;
-        if((timeline.name == "5 Electrode") && (timeline.epochs.objects.length<=0)){
+        var cat_name_evt = "";
+        if(((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron")) && (timeline.epochs.objects.length<=0)){
             stop_show_dlg = 1;
+            if(timeline.name == "5 Electrode"){
+                cat_name_evt = "electrode"
+            } else if (timeline.name == "6 Neuron"){
+                cat_name_evt = "neuron"
+            }
         }
         if( event == null ){
             // ADD
@@ -390,13 +396,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         } else {
                             $scope.showConfirmRemoveEvent(result.event, "");
                         }
-                    } else{
+                    } else {
                         $scope.manageEvent( timeline, result.event, edition, measurements );
                     }
                 });
             });
         } else {
-            bootbox.alert("Please create an electrode before create an event !");
+            bootbox.alert("Please create an "+cat_name_evt+" before create an event !");
         }
     };
 
@@ -632,9 +638,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           modal.close.then(function(result) {
               if(result.del_epoch == true){
                   if(timeline.name == "5 Electrode"){
-                    $scope.showConfirmRemoveEpoch(result.epoch, DeviceItems);
+                    $scope.showConfirmRemoveEpoch(result.epoch, DeviceItems, "");
+                  } else if(timeline.name == "6 Neuron") {
+                    $scope.showConfirmRemoveEpoch(result.epoch, "", RecordingBlocks);
                   } else {
-                    $scope.showConfirmRemoveEpoch(result.epoch, "");
+                    $scope.showConfirmRemoveEpoch(result.epoch, "", "");
                   }
               } else {
                   $scope.manageEpoch( timeline, result.epoch, edition, DeviceItems );
@@ -671,7 +679,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               });
             } else if(timeline.name == "6 Neuron") {
                 RecordingBlock = {
-                    experiment: "/experiments/experiment/"+$scope.experiment.id,
+                    experiment: "/experiment/"+$scope.experiment.id,
                     name: epoch.name,
                     start:epoch.start,
                     end:epoch.end,
@@ -727,7 +735,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 }
                 if(timeline.name == "6 Neuron"){
                     RecordingBlock = {
-                        experiment: "/experiments/experiment/"+$scope.experiment.id,
+                        experiment: "/experiment/"+$scope.experiment.id,
                         name: epoch.name,
                         start:epoch.start,
                         end:epoch.end,
@@ -781,7 +789,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
       });
     };
 
-    $scope.showConfirmRemoveEpoch = function(epoch, DeviceItems) {
+    $scope.showConfirmRemoveEpoch = function(epoch, DeviceItems, RecordingBlocks) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_epoch.tpl.html',
             controller: "ModalController"
@@ -789,19 +797,24 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEpoch(epoch, DeviceItems);
+                    $scope.removeEpoch(epoch, DeviceItems, RecordingBlocks);
                 }
             });
         });
     };
 
-    $scope.removeEpoch = function(epoch, DeviceItems){
+    $scope.removeEpoch = function(epoch, DeviceItems, RecordingBlocks){
         angular.element('#epoch_' + epoch.id).remove();
         epochs.del({id:epoch.id});
         if((DeviceItems != "") && (epoch.item != null)){
           id_item_array = epoch.item.split('/');
           id_item = parseInt(id_item_array[3]);
           DeviceItems.del({id:id_item});
+        }
+        if((RecordingBlocks != "") && (epoch.rec_blocks != null)){
+          id_rec_block_array = epoch.rec_blocks.split('/');
+          id_rec_block = parseInt(id_rec_block_array[3]);
+          RecordingBlocks.del({id:id_rec_block});
         }
     };
 
@@ -1526,10 +1539,10 @@ mod_tlv.controller('ManageEpochController_6', [
     $scope.del_epoch = false;
 
     $scope.beforeClose = function() {
-        if($scope.epoch.text == ""){
-            $scope.msgAlert = "Text field is required";
-        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
-            $scope.msgAlert = "Type field is required";
+        if($scope.epoch.name == ""){
+            $scope.msgAlert = "Name field is required";
+        } else if($scope.epoch.notes == ""){
+            $scope.msgAlert = "Notes field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
         } else {
