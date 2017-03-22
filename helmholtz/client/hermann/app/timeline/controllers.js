@@ -436,9 +436,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         }
         if(edition == false){
             if(timeline.name == "7 Protocol"){
-                event.text = event.block + event.name;
+                angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
+                    if(v.resource_uri == event.block){
+                        event.type = v.name;
+                    }
+                });
                 event.rec_datetime = event.date;
-                event.type = "Generic";
+                //event.type = event.block;
+                event.text = event.name;
                 event.color = "#cccccc"
                 RecordingAnimal = {
                     block: event.block,
@@ -697,12 +702,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             } else if(timeline.name == "6 Neuron") {
                 RecordingBlock = {
                     experiment: "/experiment/"+$scope.experiment.id,
-                    name: epoch.name,
-                    start:epoch.start,
-                    end:epoch.end,
-                    notes:epoch.notes,
+                    name : epoch.name,
+                    start : epoch.start,
+                    end : epoch.end,
+                    notes : epoch.notes,
                 }
-                epoch.text = epoch.name + "\n" + epoch.notes;
+                epoch.type = epoch.name;
+                epoch.text = epoch.notes;
                 RecordingBlocks.post(RecordingBlock, function(data){
                     RecordingBlocks.get({timeline__id: timeline.resource_uri}, function(data){
                         epoch.rec_blocks = data.objects[data.objects.length-1].resource_uri;
@@ -753,10 +759,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 if(timeline.name == "6 Neuron"){
                     RecordingBlock = {
                         experiment: "/experiment/"+$scope.experiment.id,
-                        name: epoch.name,
-                        start:epoch.start,
-                        end:epoch.end,
-                        notes:epoch.notes,
+                        name : epoch.name,
+                        start : epoch.start,
+                        end : epoch.end,
+                        notes : epoch.notes,
                     }
                     epoch.text = epoch.name + "\n" + epoch.notes;
                     
