@@ -334,6 +334,17 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             // template add
             edition = false;
             var title_event = "Event "+tln[1];
+            if(timeline.name == "7 Protocol"){
+                $scope.depend_choices[timeline.name].option_block = [];
+                angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
+                    opt = {
+                        name: block.name,
+                        resource_uri: block.resource_uri,
+                    }
+                    $scope.depend_choices[timeline.name].option_block.push(opt);
+                });
+                $scope.config_choices = $scope.depend_choices;
+            }
         } else {
             // EDIT
             edition = true;
@@ -361,10 +372,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     name: block.name,
                                     resource_uri: block.resource_uri,
                                 }
-                                $scope.depend_choices[timeline.name].option_block.push(opt)
+                                $scope.depend_choices[timeline.name].option_block.push(opt);
                             }
                         });
-
                         event.block = data.block;
                         event.name = data.name;
                         event.date = data.rec_datetime;
@@ -392,9 +402,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 modal.close.then( function(result) {
                     if(result.del_evt == true){
                         if(timeline.name == "5 Electrode"){
-                            $scope.showConfirmRemoveEvent(result.event, measurements);
+                            $scope.showConfirmRemoveEvent(result.event, measurements, "");
+                        } else if(timeline.name == "7 Protocol"){
+                            $scope.showConfirmRemoveEvent(result.event, "", RecordingAnimals);
                         } else {
-                            $scope.showConfirmRemoveEvent(result.event, "");
+                            $scope.showConfirmRemoveEvent(result.event, "", "");
                         }
                     } else {
                         $scope.manageEvent( timeline, result.event, edition, measurements );
@@ -425,7 +437,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         if(edition == false){
             if(timeline.name == "7 Protocol"){
                 event.text = event.block + event.name;
-                event.date = event.rec_datetime;
+                event.rec_datetime = event.date;
                 event.type = "Generic";
                 event.color = "#cccccc"
                 RecordingAnimal = {
@@ -490,7 +502,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         });
     };
 
-    $scope.showConfirmRemoveEvent = function(event, measurements) {
+    $scope.showConfirmRemoveEvent = function(event, measurements, RecordingAnimals) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_event.tpl.html',
             controller: "ModalController"
@@ -498,17 +510,22 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEvent(event, measurements);
+                    $scope.removeEvent(event, measurements, RecordingAnimals);
                 }
             });
         });
     };
 
-    $scope.removeEvent = function(event, measurements){
+    $scope.removeEvent = function(event, measurements, RecordingAnimals){
         angular.element('#event_' + event.id).remove();
         events.del({id:event.id});
         if(measurements != ""){
           measurements.del({id:measurements.id});
+        }
+        if((RecordingAnimals != "") && (event.rec_recording != null)){
+            id_rec_recording_array = event.rec_recording.split('/');
+            id_rec_recording = parseInt(id_rec_recording_array[3]);
+            RecordingAnimals.del({id:id_rec_recording});
         }
     };
 
@@ -1204,10 +1221,10 @@ mod_tlv.controller('ManageEventController_7', [
 
     $scope.beforeClose = function() {
         event.date = new Date($scope.event.date);
-        if($scope.event.text == ""){
-            $scope.msgAlert = "Text field is required";
-        } else if(($scope.event.type == "") || ($scope.event.type == null)){
-            $scope.msgAlert = "Type field is required";
+        if($scope.event.name == ""){
+            $scope.msgAlert = "Name field is required";
+        } else if(($scope.event.block == "") || ($scope.event.block == null)){
+            $scope.msgAlert = "Depend block is required";
         } else {
             $scope.close();
         }
