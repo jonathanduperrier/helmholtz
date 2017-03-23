@@ -377,7 +377,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         });
                         event.block = data.block;
                         event.name = data.name;
-                        event.date = data.rec_datetime;
+                        event.date = event.rec_datetime = data.rec_datetime;
                         $scope.config_choices = $scope.depend_choices;
                     }
                 });
@@ -442,9 +442,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     }
                 });
                 event.rec_datetime = event.date;
-                //event.type = event.block;
                 event.text = event.name;
-                event.color = "#cccccc"
+                event.color = "#cccccc";
                 RecordingAnimal = {
                     block: event.block,
                     name: event.name,
@@ -461,6 +460,16 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
         } else {
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
+            if(timeline.name == "7 Protocol"){
+                angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
+                    if(v.resource_uri == event.block){
+                        event.type = v.name;
+                    }
+                });
+                event.rec_datetime = event.date;
+                event.text = event.name;
+                event.color = "#cccccc";
+            }
             events.put({id:event.id}, angular.toJson(event), function(){
                 if(timeline.name == "7 Protocol"){
                     RecordingAnimal = {
@@ -475,6 +484,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                             if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
                                 $scope.TLExp.objects[timeline.key].events.objects[key].text = event.name;
                                 $scope.TLExp.objects[timeline.key].events.objects[key].date = event.rec_datetime;
+
+                                $scope.TLExp.objects[timeline.key].events.objects[key].block = event.block;
+                                $scope.TLExp.objects[timeline.key].events.objects[key].name = event.name;
+                                $scope.TLExp.objects[timeline.key].events.objects[key].rec_datetime = event.rec_datetime;
+
+                                $scope.TLExp.objects[timeline.key].RecordingAnimals.objects[key].block = event.block;
+                                $scope.TLExp.objects[timeline.key].RecordingAnimals.objects[key].name = event.name;
+                                $scope.TLExp.objects[timeline.key].RecordingAnimals.objects[key].rec_datetime = event.rec_datetime;
                             }
                         });
                     });
@@ -720,8 +737,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
             }
         } else {
-            epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
-            epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
+            if(timeline.name == "5 Electrode"){
+                epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
+                epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
+            } else if(timeline.name == "6 Neuron"){
+                epoch.type = epoch.name;
+                epoch.text = epoch.notes;
+            }
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
                     epoch.epoch_height = ((new Date(epoch.end)/1e3|0) - (new Date(epoch.start)/1e3|0)) / $scope.scale_coef;
@@ -763,19 +785,22 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         start : epoch.start,
                         end : epoch.end,
                         notes : epoch.notes,
-                    }
-                    epoch.text = epoch.name + "\n" + epoch.notes;
-                    
+                    }                    
                     id_block_array = epoch.rec_blocks.split('/');
                     id_block = id_block_array[3];
                     RecordingBlocks.put({id:id_block}, angular.toJson(RecordingBlock), function(){
                         angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
                             if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
-                                $scope.TLExp.objects[timeline.key].epochs.objects[key].text = RecordingBlocks.name + "\n" + RecordingBlocks.notes;
-                                $scope.TLExp.objects[timeline.key].epochs.objects[key].name = RecordingBlocks.name;
-                                $scope.TLExp.objects[timeline.key].epochs.objects[key].start = RecordingBlocks.start;
-                                $scope.TLExp.objects[timeline.key].epochs.objects[key].end = RecordingBlocks.end;
-                                $scope.TLExp.objects[timeline.key].epochs.objects[key].notes = RecordingBlocks.notes;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].text = RecordingBlock.notes;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].type = RecordingBlock.name;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].start = RecordingBlock.start;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].end = RecordingBlock.end;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].notes = RecordingBlock.notes;
+
+                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].name = RecordingBlock.name;
+                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].start = RecordingBlock.start;
+                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].end = RecordingBlock.end;
+                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].notes = RecordingBlock.notes;
                             }
                         });
                     });
