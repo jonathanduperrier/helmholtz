@@ -75,9 +75,9 @@ RecordingBlockService.factory('RecordingBlocks', ['$resource',
     });
   }]);
 
-var RecordingAnimalService = angular.module('RecordingAnimalService', ['ngResource']);
+var RecordingRecordingService = angular.module('RecordingRecordingService', ['ngResource']);
 
-RecordingAnimalService.factory('RecordingAnimals', ['$resource',
+RecordingRecordingService.factory('RecordingRecordings', ['$resource',
   function($resource){
     return $resource( base_url + 'recordings/recording/:id', {}, {
       get: {method:'GET', params:{format:'json'}, isArray:false},

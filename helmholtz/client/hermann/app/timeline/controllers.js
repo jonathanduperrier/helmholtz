@@ -5,7 +5,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          'epochServices',
                                          'DeviceItemService',
                                          'RecordingBlockService',
-                                         'RecordingAnimalService',
+                                         'RecordingRecordingService',
                                          'measurementService',
                                          'measurementParameterService',
                                          'hermann.experiments',
@@ -16,7 +16,7 @@ var mod_tlv = angular.module('mod_tlv', ['ui.bootstrap',
                                          ]);
 
 mod_tlv.controller('timeLineVisualController',
-function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, RecordingBlocks, RecordingAnimals, measurements, measurementsParameters) {
+function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, events, epochs, CellType, DeviceType, $routeParams, Experiment, $route, DeviceItems, RecordingBlocks, RecordingRecordings, measurements, measurementsParameters) {
     $scope.$route = $route;
     $scope.id_content_type_item = "34";
 
@@ -266,7 +266,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 $scope.TLExp.objects[key].DeviceItems = DeviceItems.get({timeline__id: $scope.TLExp.objects[key].id},function(value3, key3){
                                 });
                                 $scope.TLExp.objects[key].RecordingBlocks = RecordingBlocks.get({timeline__id: $scope.TLExp.objects[key].id}, function(){});
-                                $scope.TLExp.objects[key].RecordingAnimals = RecordingAnimals.get({timeline__id: $scope.TLExp.objects[key].id}, function(){});
+                                $scope.TLExp.objects[key].RecordingRecordings = RecordingRecordings.get({timeline__id: $scope.TLExp.objects[key].id}, function(){});
                                 angular.forEach($scope.TLExp.objects, function(value, key) {
                                   var current_timeline_height = $( "#timeline_"+value.id ).height();
                                   angular.forEach(value.epochs.objects, function(value2, key2) {
@@ -364,7 +364,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             
             if(timeline.name == "7 Protocol"){
                 $scope.depend_choices[timeline.name].option_block = [];
-                angular.forEach($scope.TLExp.objects[timeline.key].RecordingAnimals.objects, function(data){
+                angular.forEach($scope.TLExp.objects[timeline.key].RecordingRecordings.objects, function(data){
                     if(data.resource_uri == event.rec_recording){
                         angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
                             if(block.resource_uri == data.block){
@@ -404,7 +404,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         if(timeline.name == "5 Electrode"){
                             $scope.showConfirmRemoveEvent(result.event, measurements, "");
                         } else if(timeline.name == "7 Protocol"){
-                            $scope.showConfirmRemoveEvent(result.event, "", RecordingAnimals);
+                            $scope.showConfirmRemoveEvent(result.event, "", RecordingRecordings);
                         } else {
                             $scope.showConfirmRemoveEvent(result.event, "", "");
                         }
@@ -444,13 +444,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 event.rec_datetime = event.date;
                 event.text = event.name;
                 event.color = "#cccccc";
-                RecordingAnimal = {
+                RecordingRecording = {
                     block: event.block,
                     name: event.name,
                     rec_datetime: event.rec_datetime,
                 }
-                RecordingAnimals.post(RecordingAnimal, function(data){
-                    RecordingAnimals.get({timeline__id: timeline.resource_uri}, function(data){
+                RecordingRecordings.post(RecordingRecording, function(data){
+                    RecordingRecordings.get({timeline__id: timeline.resource_uri}, function(data){
                         event.rec_recording = data.objects[data.objects.length-1].resource_uri;
                         $scope.postEvent(timeline, event, "protocol", measurements);
                     });
@@ -472,14 +472,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
             events.put({id:event.id}, angular.toJson(event), function(){
                 if(timeline.name == "7 Protocol"){
-                    RecordingAnimal = {
+                    RecordingRecording = {
                         block: event.block,
                         name: event.name,
                         rec_datetime: event.rec_datetime,
                     }
                     id_rec_array = event.rec_recording.split('/');
                     id_rec = id_rec_array[3];
-                    RecordingAnimals.put({id:id_rec}, angular.toJson(RecordingAnimal), function(){
+                    RecordingRecordings.put({id:id_rec}, angular.toJson(RecordingRecording), function(){
                         angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
                             if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
                                 $scope.TLExp.objects[timeline.key].events.objects[key].text = event.name;
@@ -489,9 +489,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 $scope.TLExp.objects[timeline.key].events.objects[key].name = event.name;
                                 $scope.TLExp.objects[timeline.key].events.objects[key].rec_datetime = event.rec_datetime;
 
-                                $scope.TLExp.objects[timeline.key].RecordingAnimals.objects[key].block = event.block;
-                                $scope.TLExp.objects[timeline.key].RecordingAnimals.objects[key].name = event.name;
-                                $scope.TLExp.objects[timeline.key].RecordingAnimals.objects[key].rec_datetime = event.rec_datetime;
+                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].block = event.block;
+                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].name = event.name;
+                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].rec_datetime = event.rec_datetime;
                             }
                         });
                     });
@@ -524,7 +524,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         });
     };
 
-    $scope.showConfirmRemoveEvent = function(event, measurements, RecordingAnimals) {
+    $scope.showConfirmRemoveEvent = function(event, measurements, RecordingRecordings) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_event.tpl.html',
             controller: "ModalController"
@@ -532,22 +532,22 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEvent(event, measurements, RecordingAnimals);
+                    $scope.removeEvent(event, measurements, RecordingRecordings);
                 }
             });
         });
     };
 
-    $scope.removeEvent = function(event, measurements, RecordingAnimals){
+    $scope.removeEvent = function(event, measurements, RecordingRecordings){
         angular.element('#event_' + event.id).remove();
         events.del({id:event.id});
         if(measurements != ""){
           measurements.del({id:measurements.id});
         }
-        if((RecordingAnimals != "") && (event.rec_recording != null)){
+        if((RecordingRecordings != "") && (event.rec_recording != null)){
             id_rec_recording_array = event.rec_recording.split('/');
             id_rec_recording = parseInt(id_rec_recording_array[3]);
-            RecordingAnimals.del({id:id_rec_recording});
+            RecordingRecordings.del({id:id_rec_recording});
         }
     };
 
