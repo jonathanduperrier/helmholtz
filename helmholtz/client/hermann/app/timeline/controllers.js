@@ -1585,7 +1585,11 @@ mod_tlv.controller('ManageEpochController_6', [
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
-
+    epoch.start = new Date(epoch.start).format("yyyy/mm/dd HH:MM");
+    if(epoch.end != null){
+        epoch.end = new Date(epoch.end).format("yyyy/mm/dd HH:MM");
+    }
+    
     $scope.beforeClose = function() {
         if($scope.epoch.name == ""){
             $scope.msgAlert = "Name field is required";
