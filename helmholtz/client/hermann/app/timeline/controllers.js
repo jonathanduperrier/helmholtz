@@ -333,7 +333,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             };
             // template add
             edition = false;
-            var title_event = "Event "+tln[1];
+            if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron") || (timeline.name == "7 Protocol")){
+                var title_event = tln[1];
+            } else {
+                var title_event = "Event "+tln[1];
+            }
+            
             if(timeline.name == "7 Protocol"){
                 $scope.depend_choices[timeline.name].option_block = [];
                 angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
@@ -580,7 +585,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 depend : null,
             }
             edition = false;
-            var title_epoch = "Epoch "+tln[1];
+            if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron") || (timeline.name == "7 Protocol")){
+                var title_epoch = tln[1];
+            } else {
+                var title_epoch = "Epoch "+tln[1];
+            }
+            
         } else {
           // EDIT
           edition = true;
@@ -596,13 +606,15 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           if(diff_minute <= 9){
             diff_minute = "0"+diff_minute;
           }
-
-          var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
-
+          if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron") || (timeline.name == "7 Protocol")){
+            var title_epoch = tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
+          } else {
+            var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
+          }
             angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
-              if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
-                epoch = $scope.TLExp.objects[timeline.key].epochs.objects[key];
-              }
+                    if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
+                    epoch = $scope.TLExp.objects[timeline.key].epochs.objects[key];
+                }
             });
         }
 
@@ -614,6 +626,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 function(epc, k) {
                     opt = {
                         text: epc.text,
+                        date_end: epc.end,
                         resource_uri: "/notebooks/epoch/"+epc.id,
                         closed: epc.end==null ? false : true // if the epoch end date is null, it is an open epoch
                     }
@@ -1585,6 +1598,8 @@ mod_tlv.controller('ManageEpochController_6', [
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
+
+    epoch.name = new Date(epoch.start).format('yyyymmdd HH:MM');
     epoch.start = new Date(epoch.start).format("yyyy/mm/dd HH:MM");
     if(epoch.end != null){
         epoch.end = new Date(epoch.end).format("yyyy/mm/dd HH:MM");
@@ -1597,6 +1612,14 @@ mod_tlv.controller('ManageEpochController_6', [
             $scope.msgAlert = "Notes field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
+        // } else if($scope.epoch.depend != null) {
+        //     angular.forEach( $scope.depend_selection.option_epochs, function(value, key) {
+        //         if(value.resource_uri == $scope.epoch.depend){
+        //             if (value.date_end == null){
+        //                 $scope.msgAlert = "The choosen electrode is closed";
+        //             }
+        //         }
+        //     });
         } else {
             $scope.close();
         }
