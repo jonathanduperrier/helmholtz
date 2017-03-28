@@ -339,17 +339,17 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 var title_event = "Event "+tln[1];
             }
             
-            if(timeline.name == "7 Protocol"){
-                $scope.depend_choices[timeline.name].option_block = [];
-                angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
-                    opt = {
-                        name: block.name,
-                        resource_uri: block.resource_uri,
-                    }
-                    $scope.depend_choices[timeline.name].option_block.push(opt);
-                });
-                $scope.config_choices = $scope.depend_choices;
-            }
+            // if(timeline.name == "7 Protocol"){
+            //     $scope.depend_choices[timeline.name].option_block = [];
+            //     angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
+            //         opt = {
+            //             name: block.name,
+            //             resource_uri: block.resource_uri,
+            //         }
+            //         $scope.depend_choices[timeline.name].option_block.push(opt);
+            //     });
+            //     $scope.config_choices = $scope.depend_choices;
+            // }
         } else {
             // EDIT
             edition = true;
@@ -367,26 +367,26 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
             var title_event = "Event "+tln[1]+"      |||      "+startDate.format('dd/mm/yyyy HH:MM')+"      |||       "+diff_day+" / "+diff_hour+":"+diff_minute;
             
-            if(timeline.name == "7 Protocol"){
-                $scope.depend_choices[timeline.name].option_block = [];
-                angular.forEach($scope.TLExp.objects[timeline.key].RecordingRecordings.objects, function(data){
-                    if(data.resource_uri == event.rec_recording){
-                        angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
-                            if(block.resource_uri == data.block){
-                                opt = {
-                                    name: block.name,
-                                    resource_uri: block.resource_uri,
-                                }
-                                $scope.depend_choices[timeline.name].option_block.push(opt);
-                            }
-                        });
-                        event.block = data.block;
-                        event.name = data.name;
-                        event.date = event.rec_datetime = data.rec_datetime;
-                        $scope.config_choices = $scope.depend_choices;
-                    }
-                });
-            }
+            // if(timeline.name == "7 Protocol"){
+            //     $scope.depend_choices[timeline.name].option_block = [];
+            //     angular.forEach($scope.TLExp.objects[timeline.key].RecordingRecordings.objects, function(data){
+            //         if(data.resource_uri == event.rec_recording){
+            //             angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
+            //                 if(block.resource_uri == data.block){
+            //                     opt = {
+            //                         name: block.name,
+            //                         resource_uri: block.resource_uri,
+            //                     }
+            //                     $scope.depend_choices[timeline.name].option_block.push(opt);
+            //                 }
+            //             });
+            //             event.block = data.block;
+            //             event.name = data.name;
+            //             event.date = event.rec_datetime = data.rec_datetime;
+            //             $scope.config_choices = $scope.depend_choices;
+            //         }
+            //     });
+            // }
         }
 
         if(stop_show_dlg == 0){
@@ -408,8 +408,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     if(result.del_evt == true){
                         if(timeline.name == "5 Electrode"){
                             $scope.showConfirmRemoveEvent(result.event, measurements, "");
-                        } else if(timeline.name == "7 Protocol"){
-                            $scope.showConfirmRemoveEvent(result.event, "", RecordingRecordings);
+                        // } else if(timeline.name == "7 Protocol"){
+                        //     $scope.showConfirmRemoveEvent(result.event, "", RecordingRecordings);
                         } else {
                             $scope.showConfirmRemoveEvent(result.event, "", "");
                         }
@@ -440,67 +440,67 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           });
         }
         if(edition == false){
-            if(timeline.name == "7 Protocol"){
-                angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
-                    if(v.resource_uri == event.block){
-                        event.type = v.name;
-                    }
-                });
-                event.rec_datetime = event.date;
-                event.text = event.name;
-                event.color = "#cccccc";
-                RecordingRecording = {
-                    block: event.block,
-                    name: event.name,
-                    rec_datetime: event.rec_datetime,
-                }
-                RecordingRecordings.post(RecordingRecording, function(data){
-                    RecordingRecordings.get({timeline__id: timeline.resource_uri}, function(data){
-                        event.rec_recording = data.objects[data.objects.length-1].resource_uri;
-                        $scope.postEvent(timeline, event, "protocol", measurements);
-                    });
-                });
-            } else {
+            // if(timeline.name == "7 Protocol"){
+            //     angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
+            //         if(v.resource_uri == event.block){
+            //             event.type = v.name;
+            //         }
+            //     });
+            //     event.rec_datetime = event.date;
+            //     event.text = event.name;
+            //     event.color = "#cccccc";
+            //     RecordingRecording = {
+            //         block: event.block,
+            //         name: event.name,
+            //         rec_datetime: event.rec_datetime,
+            //     }
+            //     RecordingRecordings.post(RecordingRecording, function(data){
+            //         RecordingRecordings.get({timeline__id: timeline.resource_uri}, function(data){
+            //             event.rec_recording = data.objects[data.objects.length-1].resource_uri;
+            //             $scope.postEvent(timeline, event, "protocol", measurements);
+            //         });
+            //     });
+            // } else {
                 $scope.postEvent(timeline, event, "normal", measurements);
-            }
+            //}
         } else {
             event.vPlacement = (((new Date(event.date.valueOf())/1e3|0) - (new Date($scope.experiment.start.valueOf())/1e3|0)) / $scope.scale_coef);
-            if(timeline.name == "7 Protocol"){
-                angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
-                    if(v.resource_uri == event.block){
-                        event.type = v.name;
-                    }
-                });
-                event.rec_datetime = event.date;
-                event.text = event.name;
-                event.color = "#cccccc";
-            }
+            // if(timeline.name == "7 Protocol"){
+            //     angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
+            //         if(v.resource_uri == event.block){
+            //             event.type = v.name;
+            //         }
+            //     });
+            //     event.rec_datetime = event.date;
+            //     event.text = event.name;
+            //     event.color = "#cccccc";
+            // }
             events.put({id:event.id}, angular.toJson(event), function(){
-                if(timeline.name == "7 Protocol"){
-                    RecordingRecording = {
-                        block: event.block,
-                        name: event.name,
-                        rec_datetime: event.rec_datetime,
-                    }
-                    id_rec_array = event.rec_recording.split('/');
-                    id_rec = id_rec_array[3];
-                    RecordingRecordings.put({id:id_rec}, angular.toJson(RecordingRecording), function(){
-                        angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
-                            if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
-                                $scope.TLExp.objects[timeline.key].events.objects[key].text = event.name;
-                                $scope.TLExp.objects[timeline.key].events.objects[key].date = event.rec_datetime;
+                // if(timeline.name == "7 Protocol"){
+                //     RecordingRecording = {
+                //         block: event.block,
+                //         name: event.name,
+                //         rec_datetime: event.rec_datetime,
+                //     }
+                //     id_rec_array = event.rec_recording.split('/');
+                //     id_rec = id_rec_array[3];
+                //     RecordingRecordings.put({id:id_rec}, angular.toJson(RecordingRecording), function(){
+                //         angular.forEach( $scope.TLExp.objects[timeline.key].events.objects, function(value, key) {
+                //             if($scope.TLExp.objects[timeline.key].events.objects[key].id == event.id){
+                //                 $scope.TLExp.objects[timeline.key].events.objects[key].text = event.name;
+                //                 $scope.TLExp.objects[timeline.key].events.objects[key].date = event.rec_datetime;
 
-                                $scope.TLExp.objects[timeline.key].events.objects[key].block = event.block;
-                                $scope.TLExp.objects[timeline.key].events.objects[key].name = event.name;
-                                $scope.TLExp.objects[timeline.key].events.objects[key].rec_datetime = event.rec_datetime;
+                //                 $scope.TLExp.objects[timeline.key].events.objects[key].block = event.block;
+                //                 $scope.TLExp.objects[timeline.key].events.objects[key].name = event.name;
+                //                 $scope.TLExp.objects[timeline.key].events.objects[key].rec_datetime = event.rec_datetime;
 
-                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].block = event.block;
-                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].name = event.name;
-                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].rec_datetime = event.rec_datetime;
-                            }
-                        });
-                    });
-                }
+                //                 $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].block = event.block;
+                //                 $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].name = event.name;
+                //                 $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].rec_datetime = event.rec_datetime;
+                //             }
+                //         });
+                //     });
+                // }
                 $scope.stopSpin();
             });
         }
@@ -640,16 +640,16 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           bootbox.confirm("An epoch is still running now! Do you want to continue ?",
             function(result){
               if(result == true){
-                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks);
+                $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings);
               }
             }
           );
         } else {
-          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks);
+          $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings);
         }
     };
 
-    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks){
+    $scope.displayDlgEpoch = function(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings){
       if(timeline.name == "5 Electrode"){
         angular.forEach($scope.TLExp.objects[timeline.key].DeviceItems.objects, function(data){
           if(data.resource_uri == epoch.item){
@@ -673,6 +673,26 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             }
         });
       }
+      if(timeline.name == "7 Protocol"){
+            $scope.depend_choices[timeline.name].option_block = [];
+            angular.forEach($scope.TLExp.objects[timeline.key].RecordingRecordings.objects, function(data){
+                if(data.resource_uri == event.rec_recording){
+                    angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
+                        if(block.resource_uri == data.block){
+                            opt = {
+                                name: block.name,
+                                resource_uri: block.resource_uri,
+                            }
+                            $scope.depend_choices[timeline.name].option_block.push(opt);
+                        }
+                    });
+                    event.block = data.block;
+                    event.name = data.name;
+                    event.date = event.rec_datetime = data.rec_datetime;
+                    $scope.config_choices = $scope.depend_choices;
+                }
+            });
+      }
 
       ModalService.showModal({
           templateUrl: "timeline/modal_dlg_epoch_"+tln[0]+".tpl.html",
@@ -693,6 +713,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     $scope.showConfirmRemoveEpoch(result.epoch, DeviceItems, "");
                   } else if(timeline.name == "6 Neuron") {
                     $scope.showConfirmRemoveEpoch(result.epoch, "", RecordingBlocks);
+                  } else if(timeline.name == "7 Protocol") {
+                    $scope.showConfirmRemoveEvent(result.event, "", RecordingRecordings);
                   } else {
                     $scope.showConfirmRemoveEpoch(result.epoch, "", "");
                   }
@@ -745,6 +767,26 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         $scope.postEpoch(epoch, timeline, "neuron", RecordingBlocks);
                     });
                 });
+            } else if(timeline.name == "7 Protocol") {
+                angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
+                    if(v.resource_uri == event.block){
+                        event.type = v.name;
+                    }
+                });
+                event.rec_datetime = event.date;
+                event.text = event.name;
+                event.color = "#cccccc";
+                RecordingRecording = {
+                    block: event.block,
+                    name: event.name,
+                    rec_datetime: event.rec_datetime,
+                }
+                RecordingRecordings.post(RecordingRecording, function(data){
+                    RecordingRecordings.get({timeline__id: timeline.resource_uri}, function(data){
+                        event.rec_recording = data.objects[data.objects.length-1].resource_uri;
+                        $scope.postEpoch(timeline, event, "protocol", measurements);
+                    });
+                });
             } else {
               //post epoch
               $scope.postEpoch(epoch, timeline, "normal", DeviceItems);
@@ -756,6 +798,14 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             } else if(timeline.name == "6 Neuron"){
                 epoch.type = epoch.name;
                 epoch.text = epoch.notes;
+            } else if(timeline.name == "7 Protocol"){
+                angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
+                    if(v.resource_uri == event.block){
+                        epoch.type = v.name;
+                    }
+                });
+                epoch.rec_datetime = event.date;
+                epoch.text = event.name;
             }
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
@@ -814,6 +864,31 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].start = RecordingBlock.start;
                                 $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].end = RecordingBlock.end;
                                 $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].notes = RecordingBlock.notes;
+                            }
+                        });
+                    });
+                }
+                if(timeline.name == "7 Protocol"){
+                    RecordingRecording = {
+                        block: epoch.block,
+                        name: epoch.name,
+                        rec_datetime: epoch.rec_datetime,
+                    }
+                    id_rec_array = epoch.rec_recording.split('/');
+                    id_rec = id_rec_array[3];
+                    RecordingRecordings.put({id:id_rec}, angular.toJson(RecordingRecording), function(){
+                        angular.forEach( $scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
+                            if($scope.TLExp.objects[timeline.key].epochs.objects[key].id == epoch.id){
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].text = epoch.name;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].date = epoch.rec_datetime;
+
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].block = epoch.block;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].name = epoch.name;
+                                $scope.TLExp.objects[timeline.key].epochs.objects[key].rec_datetime = epoch.rec_datetime;
+
+                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].block = epoch.block;
+                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].name = epoch.name;
+                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].rec_datetime = epoch.rec_datetime;
                             }
                         });
                     });
@@ -1612,14 +1687,6 @@ mod_tlv.controller('ManageEpochController_6', [
             $scope.msgAlert = "Notes field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
-        // } else if($scope.epoch.depend != null) {
-        //     angular.forEach( $scope.depend_selection.option_epochs, function(value, key) {
-        //         if(value.resource_uri == $scope.epoch.depend){
-        //             if (value.date_end == null){
-        //                 $scope.msgAlert = "The choosen electrode is closed";
-        //             }
-        //         }
-        //     });
         } else {
             $scope.close();
         }
@@ -1666,18 +1733,29 @@ mod_tlv.controller('ManageEpochController_7', [
 
     $scope.epoch = epoch;
     $scope.title = title;
-    $scope.list_selection = config_choices[timeline_name];
+    $scope.list_blocks = config_choices[timeline_name];
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
 
+    // $scope.beforeClose = function() {
+    //     if($scope.epoch.text == ""){
+    //         $scope.msgAlert = "Text field is required";
+    //     } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
+    //         $scope.msgAlert = "Type field is required";
+    //     } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
+    //         $scope.msgAlert = "Parent field is required";
+    //     } else {
+    //         $scope.close();
+    //     }
+    // };
+
     $scope.beforeClose = function() {
-        if($scope.epoch.text == ""){
-            $scope.msgAlert = "Text field is required";
-        } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
-            $scope.msgAlert = "Type field is required";
-        } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
-            $scope.msgAlert = "Parent field is required";
+        event.date = new Date($scope.event.date);
+        if($scope.event.name == ""){
+            $scope.msgAlert = "Name field is required";
+        } else if(($scope.event.block == "") || ($scope.event.block == null)){
+            $scope.msgAlert = "Depend block is required";
         } else {
             $scope.close();
         }

@@ -52,6 +52,7 @@ class EpochResource( ModelResource ) :
     depend = fields.ForeignKey( 'self', attribute='depend', null=True )
     item = fields.ForeignKey( ItemResource, attribute='item', null=True )
     rec_blocks = fields.ForeignKey( BlockResource, attribute='rec_blocks', null=True )
+    rec_recording = fields.ForeignKey( RecordingResource, attribute='rec_recording', null=True )
 
     class Meta:
         queryset = Epoch.objects.all()
@@ -62,6 +63,7 @@ class EpochResource( ModelResource ) :
                 'depend': ALL_WITH_RELATIONS,
                 'item' : ALL_WITH_RELATIONS,
                 'rec_blocks' : ALL_WITH_RELATIONS,
+                'rec_recording': ALL_WITH_RELATIONS,
                 'start': ALL,
                 'text': ALL,
                 'end': ALL,
@@ -79,7 +81,6 @@ class EventResource( ModelResource ) :
     timeline = fields.ForeignKey(TimelineResource, attribute='timeline' ) #resource_name of TimelineRessource
     depend = fields.ForeignKey( EpochResource, attribute='depend', null=True )
     measurement = fields.ForeignKey( Measurement, attribute='measurement', null=True )
-    rec_recording = fields.ForeignKey( RecordingResource, attribute='rec_recording', null=True )
     
     class Meta:
         queryset = Event.objects.all()
@@ -89,7 +90,6 @@ class EventResource( ModelResource ) :
             'timeline': ALL_WITH_RELATIONS,
             'depend': ALL_WITH_RELATIONS,
             'measurement': ALL_WITH_RELATIONS,
-            'rec_recording': ALL_WITH_RELATIONS,
             'text': ALL,
             'date': ALL,
             'type': ALL,

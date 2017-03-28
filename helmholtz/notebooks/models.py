@@ -34,6 +34,7 @@ class Epoch(models.Model):
     depend = models.ForeignKey('self', on_delete=models.SET_DEFAULT, default=None, null=True, blank=True )
     item = models.ForeignKey(Item, null=True, blank=True)
     rec_blocks = models.ForeignKey(Block, null=True, blank=True)
+    rec_recording = models.ForeignKey(Recording, null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.start)
@@ -47,7 +48,6 @@ class Event(models.Model):
     type = models.CharField( max_length=50, null=False, blank=False )
     color = models.CharField( max_length=7, null=False, blank=False )
     measurement = models.ForeignKey(Measurement, null=True, blank=True)
-    rec_recording = models.ForeignKey(Recording, null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.date)

@@ -7,28 +7,51 @@
 				      </div>
 				      <div class="modal-body">
 						<form class="form-horizontal" role="form">
-						  <div class="form-group">
-						    <label for="text" class="col-sm-2 control-label">Quantity/Speed </label>
-						    <div class="col-sm-10">
-						      <input type="text" class="form-control" id="text" name="text" placeholder="name ..." ng-model="epoch.text">
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="type" class="col-sm-2 control-label">Type </label>
-						    <div class="col-sm-10">
-						    	<select class="form-control" id="type" name="type" placeholder="type ..." ng-model="epoch.type">
-						    		<option ng-repeat="l in list_selection" ng-selected="{{l==epoch.type}}" value="{{l}}">{{l}}</option>
+							<div class="form-group" ng-if="list_blocks!=undefined">
+								<label for="block" class="col-sm-2 control-label">Neuron </label>
+								<div class="col-sm-10">
+									<select class="form-control" id="block" name="block" placeholder="block ..." ng-model="epoch.block">
+										<option ng-repeat="l in list_blocks.option_block" value="{{l.resource_uri}}">{{l.name}}</option>
 								</select>
-						    </div>
-						  </div>
-						  <div class="form-group" ng-if="depend_selection!=undefined">
-						    <label for="type" class="col-sm-2 control-label">Parent </label>
-						    <div class="col-sm-10">
-						    	<select class="form-control" id="type" name="type" placeholder="type ..." ng-model="epoch.depend">
-						    		<option ng-repeat="l in depend_selection.option_epochs" value="{{l.resource_uri}}">{{l.text}}</option>
-								</select>
-						    </div>
-						  </div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">Name </label>
+								<div class="col-sm-10">
+										<input type="text" class="form-control" id="name" name="name" placeholder="name ..." ng-model="epoch.name">
+								</div>
+							</div>
+							<div class="form-group" ng-if="edition==true">
+								<label for="rec_datetime" class="col-sm-2 control-label">Date</label>
+								<div class='col-sm-10'>
+									<div class='col-sm-4'>
+										<div class="form-group">
+											<div class='input-group date' id='datetimepicker'>
+												<input type='text' class="form-control" id="rec_datetime" name="rec_datetime" value="{{epoch.rec_datetime}}" ng-model="event.rec_datetime" readonly/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+									&nbsp;
+								</div>
+								<script type="text/javascript">
+									$('.date').datetimepicker({
+												language:  'fr',
+												weekStart: 1,
+												todayBtn:  1,
+										autoclose: 1,
+										todayHighlight: 1,
+										startView: 2,
+										minView: 0,
+										maxView: 1,
+										format: 'yyyy/mm/dd hh:ii',
+										forceParse: true,
+										initialDate: new Date(event.date)
+										});
+								</script>
+							</div>
 						</form>
 						<span style="color:red;">{{msgAlert}}</span>
 				      </div>
