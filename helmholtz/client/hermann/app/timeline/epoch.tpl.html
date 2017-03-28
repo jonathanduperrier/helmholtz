@@ -1,4 +1,13 @@
-	<div ng-repeat="epc in tl.epochs.objects" class="epoch" id="epoch_{{epc.id}}" style="top:{{35+epc.vPlacement}}px; background-color:{{epc.color}}; border:1px solid black; height:{{epc.epoch_height}}px; z-index:1;" ng-class="{'epoch_open' : epc.end == null, 'epoch_close' : epc.end != null}"   ng-click="showDlgEpoch(tl, epc)" on-finish-render >
+	<div  ng-if="tl.name != '7 Protocol'" ng-repeat="epc in tl.epochs.objects" class="epoch" id="epoch_{{epc.id}}" style="top:{{35+epc.vPlacement}}px; background-color:{{epc.color}}; border:1px solid black; height:{{epc.epoch_height}}px; z-index:1;" ng-class="{'epoch_open' : epc.end == null, 'epoch_close' : epc.end != null}"   ng-click="showDlgEpoch(tl, epc)" on-finish-render >
+		<div class="dateTypeEvent">
+			{{epc.type}}
+		</div>
+		<div  ng-if="tl.name != '6 Neuron'" class="textEvent">
+			{{epc.text}}
+		</div>
+	</div>
+
+	<div  ng-if="tl.name == '7 Protocol'" ng-repeat="epc in tl.epochs.objects" class="epoch" id="epoch_{{epc.id}}" style="top:{{35+epc.vPlacement}}px; background-color:{{epc.color}}; border:1px solid black; height:{{epc.epoch_height}}px; z-index:1; width:145px;" ng-class="{'epoch_open' : epc.end == null, 'epoch_close' : epc.end != null}"   ng-click="showDlgEpoch(tl, epc)" on-finish-render >
 		<div class="dateTypeEvent">
 			{{epc.type}}
 		</div>

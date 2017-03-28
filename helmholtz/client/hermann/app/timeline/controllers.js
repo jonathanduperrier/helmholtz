@@ -407,11 +407,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 modal.close.then( function(result) {
                     if(result.del_evt == true){
                         if(timeline.name == "5 Electrode"){
-                            $scope.showConfirmRemoveEvent(result.event, measurements, "");
-                        // } else if(timeline.name == "7 Protocol"){
-                        //     $scope.showConfirmRemoveEvent(result.event, "", RecordingRecordings);
+                            $scope.showConfirmRemoveEvent(result.event, measurements);
                         } else {
-                            $scope.showConfirmRemoveEvent(result.event, "", "");
+                            $scope.showConfirmRemoveEvent(result.event, "");
                         }
                     } else {
                         $scope.manageEvent( timeline, result.event, edition, measurements );
@@ -529,7 +527,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         });
     };
 
-    $scope.showConfirmRemoveEvent = function(event, measurements, RecordingRecordings) {
+    $scope.showConfirmRemoveEvent = function(event, measurements) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_event.tpl.html',
             controller: "ModalController"
@@ -537,22 +535,17 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEvent(event, measurements, RecordingRecordings);
+                    $scope.removeEvent(event, measurements);
                 }
             });
         });
     };
 
-    $scope.removeEvent = function(event, measurements, RecordingRecordings){
+    $scope.removeEvent = function(event, measurements){
         angular.element('#event_' + event.id).remove();
         events.del({id:event.id});
         if(measurements != ""){
           measurements.del({id:measurements.id});
-        }
-        if((RecordingRecordings != "") && (event.rec_recording != null)){
-            id_rec_recording_array = event.rec_recording.split('/');
-            id_rec_recording = parseInt(id_rec_recording_array[3]);
-            RecordingRecordings.del({id:id_rec_recording});
         }
     };
 
@@ -590,7 +583,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             } else {
                 var title_epoch = "Epoch "+tln[1];
             }
-            
         } else {
           // EDIT
           edition = true;
@@ -640,6 +632,20 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           bootbox.confirm("An epoch is still running now! Do you want to continue ?",
             function(result){
               if(result == true){
+                //close precedent epoch
+                date_end = new Date()
+                depend_epoch = {
+                    end: date_end,
+                }
+                id_epoch_depend_array = epcdepend.split('/');
+                id_epoch_depend = id_epoch_depend_array[3];
+                angular.forEach($scope.TLExp.objects[timeline.key].epochs.objects, function(value, key) {
+                    if(value.id=id_epoch_depend){
+                        value.end = date_end;
+                    }
+                });
+                
+                epochs.put({id:id_epoch_depend}, angular.toJson(depend_epoch));
                 $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings);
               }
             }
@@ -674,9 +680,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         });
       }
       if(timeline.name == "7 Protocol"){
+          if(edition == true){
             $scope.depend_choices[timeline.name].option_block = [];
             angular.forEach($scope.TLExp.objects[timeline.key].RecordingRecordings.objects, function(data){
-                if(data.resource_uri == event.rec_recording){
+                if(data.resource_uri == epoch.rec_recording){
                     angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
                         if(block.resource_uri == data.block){
                             opt = {
@@ -686,12 +693,23 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                             $scope.depend_choices[timeline.name].option_block.push(opt);
                         }
                     });
-                    event.block = data.block;
-                    event.name = data.name;
-                    event.date = event.rec_datetime = data.rec_datetime;
+                    epoch.block = data.block;
+                    epoch.name = data.name;
+                    epoch.date = epoch.rec_datetime = data.rec_datetime;
                     $scope.config_choices = $scope.depend_choices;
                 }
             });
+          } else {
+            $scope.depend_choices[timeline.name].option_block = [];
+            angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
+                opt = {
+                    name: block.name,
+                    resource_uri: block.resource_uri,
+                }
+                $scope.depend_choices[timeline.name].option_block.push(opt);
+            });
+            $scope.config_choices = $scope.depend_choices;
+          }
       }
 
       ModalService.showModal({
@@ -710,13 +728,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           modal.close.then(function(result) {
               if(result.del_epoch == true){
                   if(timeline.name == "5 Electrode"){
-                    $scope.showConfirmRemoveEpoch(result.epoch, DeviceItems, "");
+                    $scope.showConfirmRemoveEpoch(result.epoch, DeviceItems, "", "");
                   } else if(timeline.name == "6 Neuron") {
-                    $scope.showConfirmRemoveEpoch(result.epoch, "", RecordingBlocks);
+                    $scope.showConfirmRemoveEpoch(result.epoch, "", RecordingBlocks, "");
                   } else if(timeline.name == "7 Protocol") {
-                    $scope.showConfirmRemoveEvent(result.event, "", RecordingRecordings);
+                    $scope.showConfirmRemoveEpoch(result.epoch, "", "",RecordingRecordings);
                   } else {
-                    $scope.showConfirmRemoveEpoch(result.epoch, "", "");
+                    $scope.showConfirmRemoveEpoch(result.epoch, "", "", "");
                   }
               } else {
                   $scope.manageEpoch( timeline, result.epoch, edition, DeviceItems );
@@ -769,22 +787,22 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 });
             } else if(timeline.name == "7 Protocol") {
                 angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
-                    if(v.resource_uri == event.block){
-                        event.type = v.name;
+                    if(v.resource_uri == epoch.block){
+                        epoch.type = v.name;
                     }
                 });
-                event.rec_datetime = event.date;
-                event.text = event.name;
-                event.color = "#cccccc";
+                epoch.rec_datetime = epoch.start;
+                epoch.text = epoch.name;
+                //epoch.color = "#cccccc";
                 RecordingRecording = {
-                    block: event.block,
-                    name: event.name,
-                    rec_datetime: event.rec_datetime,
+                    block: epoch.block,
+                    name: epoch.name,
+                    rec_datetime: epoch.rec_datetime,
                 }
                 RecordingRecordings.post(RecordingRecording, function(data){
                     RecordingRecordings.get({timeline__id: timeline.resource_uri}, function(data){
-                        event.rec_recording = data.objects[data.objects.length-1].resource_uri;
-                        $scope.postEpoch(timeline, event, "protocol", measurements);
+                        epoch.rec_recording = data.objects[data.objects.length-1].resource_uri;
+                        $scope.postEpoch(epoch, timeline, "protocol", RecordingRecordings);
                     });
                 });
             } else {
@@ -800,12 +818,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 epoch.text = epoch.notes;
             } else if(timeline.name == "7 Protocol"){
                 angular.forEach( $scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(v, k) {
-                    if(v.resource_uri == event.block){
+                    if(v.resource_uri == epoch.block){
                         epoch.type = v.name;
                     }
                 });
-                epoch.rec_datetime = event.date;
-                epoch.text = event.name;
+                epoch.rec_datetime = epoch.start;
+                epoch.text = epoch.name;
             }
             epochs.put({id:epoch.id}, angular.toJson(epoch), function(){
                 if(epoch.end != null){
@@ -925,7 +943,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
       });
     };
 
-    $scope.showConfirmRemoveEpoch = function(epoch, DeviceItems, RecordingBlocks) {
+    $scope.showConfirmRemoveEpoch = function(epoch, DeviceItems, RecordingBlocks, RecordingRecordings) {
         ModalService.showModal({
             templateUrl: 'timeline/modal_confirm_remove_epoch.tpl.html',
             controller: "ModalController"
@@ -933,13 +951,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             modal.element.modal();
             modal.close.then(function(result) {
                 if (result=="Yes") {
-                    $scope.removeEpoch(epoch, DeviceItems, RecordingBlocks);
+                    $scope.removeEpoch(epoch, DeviceItems, RecordingBlocks, RecordingRecordings);
                 }
             });
         });
     };
 
-    $scope.removeEpoch = function(epoch, DeviceItems, RecordingBlocks){
+    $scope.removeEpoch = function(epoch, DeviceItems, RecordingBlocks, RecordingRecordings){
         angular.element('#epoch_' + epoch.id).remove();
         epochs.del({id:epoch.id});
         if((DeviceItems != "") && (epoch.item != null)){
@@ -951,6 +969,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           id_rec_block_array = epoch.rec_blocks.split('/');
           id_rec_block = parseInt(id_rec_block_array[3]);
           RecordingBlocks.del({id:id_rec_block});
+        }
+        if((RecordingRecordings != "") && (epoch.rec_recording != null)){
+            id_rec_recording_array = epoch.rec_recording.split('/');
+            id_rec_recording = parseInt(id_rec_recording_array[3]);
+            RecordingRecordings.del({id:id_rec_recording});
         }
     };
 
@@ -1343,7 +1366,7 @@ mod_tlv.controller('ManageEventController_7', [
         if($scope.event.name == ""){
             $scope.msgAlert = "Name field is required";
         } else if(($scope.event.block == "") || ($scope.event.block == null)){
-            $scope.msgAlert = "Depend block is required";
+            $scope.msgAlert = "Depend Neuron is required";
         } else {
             $scope.close();
         }
@@ -1751,11 +1774,11 @@ mod_tlv.controller('ManageEpochController_7', [
     // };
 
     $scope.beforeClose = function() {
-        event.date = new Date($scope.event.date);
-        if($scope.event.name == ""){
+        epoch.date = new Date($scope.epoch.date);
+        if(($scope.epoch.name == "") || ($scope.epoch.name == null)){
             $scope.msgAlert = "Name field is required";
-        } else if(($scope.event.block == "") || ($scope.event.block == null)){
-            $scope.msgAlert = "Depend block is required";
+        } else if(($scope.epoch.block == "") || ($scope.epoch.block == null)){
+            $scope.msgAlert = "Depend Neuron is required";
         } else {
             $scope.close();
         }
