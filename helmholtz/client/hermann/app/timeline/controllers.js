@@ -633,7 +633,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             function(result){
               if(result == true){
                 //close precedent epoch
-                date_end = new Date()
+                date_end = new Date();
                 depend_epoch = {
                     end: date_end,
                 }
@@ -644,7 +644,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         value.end = date_end;
                     }
                 });
-                
                 epochs.put({id:id_epoch_depend}, angular.toJson(depend_epoch));
                 $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings);
               }
@@ -750,6 +749,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
           if(edition == false){
+            // if(epoch.start != null){
+            //     epoch.start = new Date(epoch.start);
+            // }
+            // if(epoch.end != null){
+            //     epoch.end = new Date(epoch.end);
+            // }
             if(timeline.name == "5 Electrode"){
               epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
