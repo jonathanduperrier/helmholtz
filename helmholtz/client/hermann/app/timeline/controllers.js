@@ -598,6 +598,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                             opt = {
                                 name: block.name,
                                 resource_uri: block.resource_uri,
+                                date_end: block.end,
                             }
                             $scope.depend_choices[timeline.name].option_block.push(opt);
                         }
@@ -614,6 +615,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 opt = {
                     name: block.name,
                     resource_uri: block.resource_uri,
+                    date_end: block.end,
                 }
                 $scope.depend_choices[timeline.name].option_block.push(opt);
             });
@@ -1697,6 +1699,18 @@ mod_tlv.controller('ManageEpochController_7', [
             $scope.msgAlert = "Name field is required";
         } else if(($scope.epoch.block == "") || ($scope.epoch.block == null)){
             $scope.msgAlert = "Depend Neuron is required";
+        } else if(($scope.epoch.block != null) && ($scope.edition == false)) {
+            var valid_depend = false;
+            angular.forEach( $scope.depend_selection.option_block, function(value, key) {
+                if((value.resource_uri == $scope.epoch.block) && (value.date_end == null)){
+                    valid_depend = true;
+                }
+            });
+            if(valid_depend == false){
+                $scope.msgAlert = "The choosen neuron is closed";
+            } else {
+                $scope.close();
+            }
         } else {
             $scope.close();
         }
