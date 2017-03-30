@@ -748,13 +748,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         angular.element(window).spin();
         angular.element(".resetstarthour").remove();
         $rootScope.spin = 1;
+          if(epoch.start != null){
+            epoch.start = new Date(epoch.start);
+          }
+          if(epoch.end != null){
+            epoch.end = new Date(epoch.end);
+          }
           if(edition == false){
-            // if(epoch.start != null){
-            //     epoch.start = new Date(epoch.start);
-            // }
-            // if(epoch.end != null){
-            //     epoch.end = new Date(epoch.end);
-            // }
             if(timeline.name == "5 Electrode"){
               epoch.label = epoch.descent+epoch.hemisphere+epoch.craniotomy;
               epoch.text = epoch.descent+epoch.hemisphere+epoch.craniotomy;
@@ -882,11 +882,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 $scope.TLExp.objects[timeline.key].epochs.objects[key].start = RecordingBlock.start;
                                 $scope.TLExp.objects[timeline.key].epochs.objects[key].end = RecordingBlock.end;
                                 $scope.TLExp.objects[timeline.key].epochs.objects[key].notes = RecordingBlock.notes;
-
-                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].name = RecordingBlock.name;
-                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].start = RecordingBlock.start;
-                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].end = RecordingBlock.end;
-                                $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].notes = RecordingBlock.notes;
+                                if($scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key] != null){
+                                    $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].name = RecordingBlock.name;
+                                    $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].start = RecordingBlock.start;
+                                    $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].end = RecordingBlock.end;
+                                    $scope.TLExp.objects[timeline.key].RecordingBlocks.objects[key].notes = RecordingBlock.notes;
+                                }
                             }
                         });
                     });
@@ -908,10 +909,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 $scope.TLExp.objects[timeline.key].epochs.objects[key].block = epoch.block;
                                 $scope.TLExp.objects[timeline.key].epochs.objects[key].name = epoch.name;
                                 $scope.TLExp.objects[timeline.key].epochs.objects[key].rec_datetime = epoch.rec_datetime;
-
-                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].block = epoch.block;
-                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].name = epoch.name;
-                                $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].rec_datetime = epoch.rec_datetime;
+                                if($scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key] != null){
+                                    $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].block = epoch.block;
+                                    $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].name = epoch.name;
+                                    $scope.TLExp.objects[timeline.key].RecordingRecordings.objects[key].rec_datetime = epoch.rec_datetime;
+                                }
                             }
                         });
                     });
@@ -1701,8 +1703,9 @@ mod_tlv.controller('ManageEpochController_6', [
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
-
-    epoch.name = new Date(epoch.start).format('yyyymmdd HH:MM');
+    if($scope.edition == false){
+        epoch.name = new Date(epoch.start).format('yyyymmdd HH:MM');
+    }
     epoch.start = new Date(epoch.start).format("yyyy/mm/dd HH:MM");
     if(epoch.end != null){
         epoch.end = new Date(epoch.end).format("yyyy/mm/dd HH:MM");
@@ -1715,6 +1718,18 @@ mod_tlv.controller('ManageEpochController_6', [
             $scope.msgAlert = "Notes field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
+        } else if(($scope.epoch.depend != null) && ($scope.edition == false)) {
+            var valid_depend = false;
+            angular.forEach( $scope.depend_selection.option_epochs, function(value, key) {
+                if((value.resource_uri == $scope.epoch.depend) && (value.date_end == null)){
+                    valid_depend = true;
+                }
+            });
+            if(valid_depend == false){
+                $scope.msgAlert = "The choosen electrode is closed";
+            } else {
+                $scope.close();
+            }
         } else {
             $scope.close();
         }
@@ -1765,18 +1780,6 @@ mod_tlv.controller('ManageEpochController_7', [
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
-
-    // $scope.beforeClose = function() {
-    //     if($scope.epoch.text == ""){
-    //         $scope.msgAlert = "Text field is required";
-    //     } else if(($scope.epoch.type == "") || ($scope.epoch.type == null)){
-    //         $scope.msgAlert = "Type field is required";
-    //     } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
-    //         $scope.msgAlert = "Parent field is required";
-    //     } else {
-    //         $scope.close();
-    //     }
-    // };
 
     $scope.beforeClose = function() {
         epoch.date = new Date($scope.epoch.date);
