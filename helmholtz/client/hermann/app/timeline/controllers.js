@@ -594,14 +594,12 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             angular.forEach($scope.TLExp.objects[timeline.key].RecordingRecordings.objects, function(data){
                 if(data.resource_uri == epoch.rec_recording){
                     angular.forEach($scope.TLExp.objects[timeline.key].RecordingBlocks.objects, function(block, k){
-                        if(block.resource_uri == data.block){
-                            opt = {
-                                name: block.name,
-                                resource_uri: block.resource_uri,
-                                date_end: block.end,
-                            }
-                            $scope.depend_choices[timeline.name].option_block.push(opt);
+                        opt = {
+                            name: block.name,
+                            resource_uri: block.resource_uri,
+                            date_end: block.end,
                         }
+                        $scope.depend_choices[timeline.name].option_block.push(opt);
                     });
                     epoch.block = data.block;
                     epoch.name = data.name;
@@ -681,6 +679,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
               }
               DeviceItems.post(DeviceItem, function(data){
                 DeviceItems.get({timeline__id: timeline.resource_uri}, function(data){
+                  $scope.TLExp.objects[timeline.key].DeviceItems.objects.push(data.objects[data.objects.length-1]);
                   epoch.item = data.objects[data.objects.length-1].resource_uri;
                   $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
                 });
@@ -698,6 +697,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 epoch.text = epoch.notes;
                 RecordingBlocks.post(RecordingBlock, function(data){
                     RecordingBlocks.get({timeline__id: timeline.resource_uri}, function(data){
+                        $scope.TLExp.objects[timeline.key].RecordingBlocks.objects.push(data.objects[data.objects.length-1]);
                         epoch.rec_blocks = data.objects[data.objects.length-1].resource_uri;
                         $scope.postEpoch(epoch, timeline, "neuron", RecordingBlocks);
                     });
@@ -718,6 +718,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 }
                 RecordingRecordings.post(RecordingRecording, function(data){
                     RecordingRecordings.get({timeline__id: timeline.resource_uri}, function(data){
+                        $scope.TLExp.objects[timeline.key].RecordingRecordings.objects.push(data.objects[data.objects.length-1]);
                         epoch.rec_recording = data.objects[data.objects.length-1].resource_uri;
                         $scope.postEpoch(epoch, timeline, "protocol", RecordingRecordings);
                     });
