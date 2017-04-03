@@ -782,6 +782,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         $scope.TLExp.objects[timeline.key].epochs.objects[key].craniotomy = DeviceItem.craniotomy;
                       }
                     });
+                    $scope.$route.reload();
+                    $scope.stopSpin();
                   });
                 }
                 if(timeline.name == "6 Neuron"){
@@ -810,6 +812,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 }
                             }
                         });
+                        $scope.$route.reload();
+                        $scope.stopSpin();
                     });
                 }
                 if(timeline.name == "7 Protocol"){
@@ -836,6 +840,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 }
                             }
                         });
+                        $scope.$route.reload();
+                        $scope.stopSpin();
                     });
                 }
                 $scope.stopSpin();
