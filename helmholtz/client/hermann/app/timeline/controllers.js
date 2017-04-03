@@ -607,7 +607,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     epoch.block = data.block;
                     epoch.name = data.name;
                     epoch.date = epoch.rec_datetime = data.rec_datetime;
-                    //$scope.config_choices = $scope.depend_choices;
                 }
             });
           } else {
@@ -620,7 +619,6 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 }
                 $scope.depend_choices[timeline.name].option_block.push(opt);
             });
-            //$scope.config_choices = $scope.depend_choices;
           }
       }
 
