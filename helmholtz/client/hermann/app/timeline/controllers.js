@@ -234,6 +234,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                 });
                                 $scope.TLExp.objects[key].measurementsParams = measurementsParameters.get(function(value4, key4){
                                 });
+                                // $scope.stopSpin();
                             }
                         );
 
@@ -275,9 +276,11 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                                     }
                                   });
                                 });
+                                // $scope.stopSpin();
                             }
                         );
                     });
+                    $scope.stopSpin();
                 }
             );
 
@@ -604,7 +607,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     epoch.block = data.block;
                     epoch.name = data.name;
                     epoch.date = epoch.rec_datetime = data.rec_datetime;
-                    $scope.config_choices = $scope.depend_choices;
+                    //$scope.config_choices = $scope.depend_choices;
                 }
             });
           } else {
@@ -617,7 +620,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 }
                 $scope.depend_choices[timeline.name].option_block.push(opt);
             });
-            $scope.config_choices = $scope.depend_choices;
+            //$scope.config_choices = $scope.depend_choices;
           }
       }
 
@@ -682,6 +685,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                   $scope.TLExp.objects[timeline.key].DeviceItems.objects.push(data.objects[data.objects.length-1]);
                   epoch.item = data.objects[data.objects.length-1].resource_uri;
                   $scope.postEpoch(epoch, timeline, "electrode", DeviceItems);
+                  $scope.$route.reload();
+                  $scope.stopSpin();
                 });
                 //$scope.stopSpin();
               });
@@ -700,6 +705,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         $scope.TLExp.objects[timeline.key].RecordingBlocks.objects.push(data.objects[data.objects.length-1]);
                         epoch.rec_blocks = data.objects[data.objects.length-1].resource_uri;
                         $scope.postEpoch(epoch, timeline, "neuron", RecordingBlocks);
+                        $scope.$route.reload();
+                        $scope.stopSpin();
                     });
                 });
             } else if(timeline.name == "7 Protocol") {
@@ -721,6 +728,8 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                         $scope.TLExp.objects[timeline.key].RecordingRecordings.objects.push(data.objects[data.objects.length-1]);
                         epoch.rec_recording = data.objects[data.objects.length-1].resource_uri;
                         $scope.postEpoch(epoch, timeline, "protocol", RecordingRecordings);
+                        $scope.$route.reload();
+                        $scope.stopSpin();
                     });
                 });
             } else {
@@ -884,16 +893,22 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           id_item_array = epoch.item.split('/');
           id_item = parseInt(id_item_array[3]);
           DeviceItems.del({id:id_item});
+          $scope.$route.reload();
+          $scope.stopSpin();
         }
         if((RecordingBlocks != "") && (epoch.rec_blocks != null)){
           id_rec_block_array = epoch.rec_blocks.split('/');
           id_rec_block = parseInt(id_rec_block_array[3]);
           RecordingBlocks.del({id:id_rec_block});
+          $scope.$route.reload();
+          $scope.stopSpin();
         }
         if((RecordingRecordings != "") && (epoch.rec_recording != null)){
             id_rec_recording_array = epoch.rec_recording.split('/');
             id_rec_recording = parseInt(id_rec_recording_array[3]);
             RecordingRecordings.del({id:id_rec_recording});
+            $scope.$route.reload();
+            $scope.stopSpin();
         }
     };
 
@@ -1566,6 +1581,18 @@ mod_tlv.controller('ManageEpochController_5', [
             $scope.msgAlert = "Type field is required";
         } else if(($scope.epoch.depend == null) && ((timeline_name == "6 Neuron") || (timeline_name == "7 Protocol"))) {
             $scope.msgAlert = "Parent field is required";
+
+        } else if(($scope.epoch.descent == "") || ($scope.epoch.descent == null) || isNaN(parseInt($scope.epoch.descent))) {		
+            $scope.msgAlert = "Descents field is required as integer";		
+        } else if(($scope.epoch.resistence == "") || ($scope.epoch.resistence == null) || isNaN(parseInt($scope.epoch.resistence))) {		
+            $scope.msgAlert = "Resistance field is required as integer";		
+        } else if(($scope.epoch.zero == "") || ($scope.epoch.zero == null) || isNaN(parseInt($scope.epoch.zero))) {		
+            $scope.msgAlert = "Zero set-point field is required as integer";		
+        } else if(($scope.epoch.hemisphere == "") || ($scope.epoch.hemisphere == null)) {		
+            $scope.msgAlert = "Hemisphere field is required";		
+        } else if(($scope.epoch.craniotomy == "") || ($scope.epoch.craniotomy == null)) {		
+            $scope.msgAlert = "Craniotomy field is required";	
+
         } else {
             $scope.close();
         }
@@ -1693,6 +1720,13 @@ mod_tlv.controller('ManageEpochController_7', [
     $scope.depend_selection = depend_choices[timeline_name];
     $scope.edition = edition;
     $scope.del_epoch = false;
+		
+    if(epoch.rec_datetime != null){
+        epoch.rec_datetime = new Date(epoch.rec_datetime).format("yyyy/mm/dd HH:MM");		
+    }		
+    if(epoch.end != null){		
+        epoch.end = new Date(epoch.end).format("yyyy/mm/dd HH:MM");		
+    }
 
     $scope.beforeClose = function() {
         epoch.date = new Date($scope.epoch.date);
