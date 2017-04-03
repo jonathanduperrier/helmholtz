@@ -7,11 +7,11 @@
 				      </div>
 				      <div class="modal-body">
 						<form class="form-horizontal" role="form">
-							<div class="form-group" ng-if="list_blocks!=undefined">
+							<div class="form-group" ng-if="depend_selection!=undefined">
 								<label for="block" class="col-sm-2 control-label">Neuron </label>
 								<div class="col-sm-10">
 									<select class="form-control" id="block" name="block" placeholder="block ..." ng-model="epoch.block">
-										<option ng-repeat="l in list_blocks.option_block" value="{{l.resource_uri}}" ng-selected="{{l.resource_uri==epoch.block}}">{{l.name}}</option>
+										<option ng-repeat="l in depend_selection.option_block" value="{{l.resource_uri}}" ng-selected="{{l.resource_uri==epoch.block}}">{{l.name}}</option>
                   </select>
 								</div>
 							</div>
@@ -23,18 +23,13 @@
 							</div>
 							<div class="form-group" ng-if="edition==true">
 								<label for="rec_datetime" class="col-sm-2 control-label">Date</label>
-								<div class='col-sm-10'>
-									<div class='col-sm-4'>
-										<div class="form-group">
-											<div class='input-group date' id='datetimepicker'>
-												<input type='text' class="form-control" id="rec_datetime" name="rec_datetime" ng-model="epoch.rec_datetime" readonly/>
-												<span class="input-group-addon">
-													<span class="glyphicon glyphicon-calendar"></span>
-												</span>
-											</div>
-										</div>
+								<div class='col-sm-4'>
+									<div class='input-group date' id='datetimepicker'>
+										<input type='text' class="form-control" id="rec_datetime" name="rec_datetime" ng-model="epoch.rec_datetime" readonly/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
 									</div>
-									&nbsp;
 								</div>
 								<script type="text/javascript">
 									$('.date').datetimepicker({
