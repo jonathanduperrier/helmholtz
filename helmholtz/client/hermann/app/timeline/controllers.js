@@ -465,6 +465,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     //show dialog add epoch
     $scope.showDlgEpoch = function(timeline, epoch){
         var tln = timeline.name.split(' ');
+        
         var epcdepend = null;
         angular.forEach( timeline.epochs.objects, function(epc, k) {
             if(epc.end == null){
@@ -491,8 +492,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 depend : null,
             }
             edition = false;
-            if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron") || (timeline.name == "7 Protocol")){
+            if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron")){
                 var title_epoch = tln[1];
+            } else if(timeline.name == "7 Protocol") {
+                var title_epoch = tln[1]+" presentation";
             } else {
                 var title_epoch = "Epoch "+tln[1];
             }
@@ -511,8 +514,10 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           if(diff_minute <= 9){
             diff_minute = "0"+diff_minute;
           }
-          if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron") || (timeline.name == "7 Protocol")){
+          if((timeline.name == "5 Electrode") || (timeline.name == "6 Neuron")){
             var title_epoch = tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
+          } else if(timeline.name == "7 Protocol") {
+            var title_epoch = tln[1]+" presentation - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
           } else {
             var title_epoch = "Epoch "+tln[1]+" - "+startDate.format('dd/mm/yyyy HH:MM')+" - "+diff_day+" / "+diff_hour+":"+diff_minute;
           }
