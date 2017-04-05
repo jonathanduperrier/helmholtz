@@ -19,15 +19,25 @@ mod_exp.controller('ListElectrode', [
       $scope.electrode.objects.forEach( function( elec ){
         var $type = elec.type.split('/');
         var $item = elec.item.split('/');
-
         elec.items = DeviceItems.get({id: $item[3]},function(value, key){
           elec.descent = value.descent;
           elec.resistence = value.resistence;
           elec.zero = value.zero;
           elec.hemisphere = value.hemisphere;
           elec.craniotomy = value.craniotomy;
+          //get timeline
+          var $timeline = elec.timeline.split('/');
+          var $idTimeline = parseInt($timeline[3]);
+          elec.timeline = timeLine.get({id:$idTimeline}, function(data){
+            var $exp = data.experiment;
+            //get experiment
+            var $experiment = $exp.split('/');
+            var $idExperiment = $experiment[2];
+            elec.experiment = Experiment.get({id:$idExperiment});
+          });
         });
       });
+
     });
     $scope.predicate = 'label';
     $scope.reverse = false;

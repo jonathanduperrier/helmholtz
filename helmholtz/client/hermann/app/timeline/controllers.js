@@ -547,8 +547,19 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
         //define controller in terms of timeline.name
         var continueDisplayModal = false;
         if((epcdepend != null) && (edition == false)){
-          bootbox.confirm("An epoch is still running now! Do you want to continue ?",
-            function(result){
+          bootbox.confirm({
+              message: "An epoch is still running now! Do you want to continue ?",
+              buttons: {
+                'cancel': {
+                    label: 'Cancel',
+                    className: 'btn-default pull-left'
+                },
+                'confirm': {
+                    label: 'Terminate and start a new one',
+                    className: 'btn-danger pull-right'
+                }
+          },
+          callback:function(result){
               if(result == true){
                 //close precedent epoch
                 date_end = new Date();
@@ -566,7 +577,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings);
               }
             }
-          );
+          });
         } else {
           $scope.displayDlgEpoch(title_epoch, timeline, edition, epoch, tln, DeviceItems, RecordingBlocks, RecordingRecordings);
         }

@@ -30,6 +30,17 @@ mod_exp.controller('ListNeuron', [
             neur.notes = data.notes;
           });
         }
+
+        //get timeline
+        var $timeline = neur.timeline.split('/');
+        var $idTimeline = parseInt($timeline[3]);
+        neur.timeline = timeLine.get({id:$idTimeline}, function(data){
+          var $exp = data.experiment;
+          //get experiment
+          var $experiment = $exp.split('/');
+          var $idExperiment = $experiment[2];
+          neur.experiment = Experiment.get({id:$idExperiment});
+        });
       });
     });
     $scope.predicate = 'label';
