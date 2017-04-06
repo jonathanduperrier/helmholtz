@@ -872,6 +872,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
     $scope.postEpoch = function(epoch, timeline, specific_epoch, DeviceItems){
       epochs.post(epoch, function(data){
           epoch.id = data.id;
+          epoch.resource_uri = data.resource_uri;
           $scope.TLExp.objects[timeline.key].epochs.objects.push(epoch);
           $scope.TLExp.objects[timeline.key].height = epoch.vPlacement + $scope.margin_bottom_timeline;
           angular.forEach($scope.TLExp.objects, function(value, key) {
