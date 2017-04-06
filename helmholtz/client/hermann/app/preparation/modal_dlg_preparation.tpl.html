@@ -8,40 +8,40 @@
 				      <div class="modal-body">
 				      	<form class="form-horizontal" role="form">
 
-						  <div class="form-group">
-						    <label for="animal" class="col-sm-2 control-label">Animal </label>
-						    <div class="col-sm-10">
-  						  	  <select class="form-control" id="animal" name="animal" ng-model="preparation.animal">
-						  	  	<option ng-repeat="animal in lstAnimals.objects" value="{{animal.resource_uri}}" ng-selected="{{prep.resource_uri == preparation}}">{{animal.identifier}}</option>
-						  	  </select>
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="type" class="col-sm-2 control-label">Type of preparation </label>
-						    <div class="col-sm-10">
-						      <select class="form-control" id="type" name="type" ng-model="preparation.type">
-						      	<option value="IN-VIVO-INTRA">in vivo intracellular</option>
-						      	<option value="IN-VIVO-EXTRA">in vivo extracellular</option>
-						      	<option value="IN-VIVO-VSD">in vivo VSD</option>
-						      	<option value="IN-VITRO-CULTURE">in vitro culture</option>
-						      	<option value="IN-VITRO-SLICE">in vitro slice</option>
-						      	<option value="IN-SILICO">in silico</option>
-						      </select>
-						    </div>
-						  </div>
-						  <div class="form-group">
-						    <label for="protocol" class="col-sm-2 control-label">Notes </label>
-						    <div class="col-sm-10">
-						      <input class="form-control" id="protocol" name="protocol" placeholder="details about preparation ..." ng-model="preparation.protocol">
-						    </div>
-						  </div>
-						</form>
-  				      </div>
+									<div class="form-group">
+										<label for="animal" class="col-sm-2 control-label">Animal </label>
+										<div class="col-sm-10">
+												<select class="form-control" id="animal" name="animal" ng-model="preparation.animal">
+												<option ng-repeat="animal in lstAnimals.objects" value="{{animal.resource_uri}}" ng-selected="{{animal.resource_uri == preparation.animal}}">{{animal.identifier}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="type" class="col-sm-2 control-label">Type of preparation </label>
+										<div class="col-sm-10">
+											<select class="form-control" id="type" name="type" ng-model="preparation.type">
+												<option value="IN-VIVO-INTRA">in vivo intracellular</option>
+												<option value="IN-VIVO-EXTRA">in vivo extracellular</option>
+												<option value="IN-VIVO-VSD">in vivo VSD</option>
+												<option value="IN-VITRO-CULTURE">in vitro culture</option>
+												<option value="IN-VITRO-SLICE">in vitro slice</option>
+												<option value="IN-SILICO">in silico</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="protocol" class="col-sm-2 control-label">Notes </label>
+										<div class="col-sm-10">
+											<input class="form-control" id="protocol" name="protocol" placeholder="details about preparation ..." ng-model="preparation.protocol">
+										</div>
+									</div>
+								</form>
+  				    </div>
 
-					  <div class="modal-footer">
-						<div class="col-md-12" style="text-align:left;">
-							<span style="color:red;">&nbsp{{msgAlert}}</span>
-						</div>
+							<div class="modal-footer">
+							<div class="col-md-12" style="text-align:left;">
+								<span style="color:red;">&nbsp{{msgAlert}}</span>
+							</div>
 				        <button type="button" ng-click="beforeClose()" class="btn btn-primary">OK</button>
 				        <button type="button" ng-click="delete()" class="btn btn-danger" ng-if="edition==true">Delete</button>
 					  </div>
