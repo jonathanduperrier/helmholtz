@@ -556,7 +556,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                 },
                 'confirm': {
                     label: 'Terminate and start a new one',
-                    className: 'btn-danger pull-right'
+                    className: 'btn-primary pull-right'
                 }
           },
           callback:function(result){
@@ -618,7 +618,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                             resource_uri: block.resource_uri,
                             date_end: block.end,
                         }
-                        $scope.depend_choices[timeline.name].option_block.push(opt);
+                        if($scope.experiment.resource_uri == block.experiment){
+                            $scope.depend_choices[timeline.name].option_block.push(opt);
+                        }
                     });
                     epoch.block = data.block;
                     epoch.name = data.name;
@@ -633,7 +635,9 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
                     resource_uri: block.resource_uri,
                     date_end: block.end,
                 }
-                $scope.depend_choices[timeline.name].option_block.push(opt);
+                if($scope.experiment.resource_uri == block.experiment){
+                    $scope.depend_choices[timeline.name].option_block.push(opt);
+                }
             });
           }
       }
@@ -946,11 +950,13 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
           modal.close.then(function(result) {
               if (result=="Yes") {
                 $scope.experiment.end = new Date();
+                $dateEndExp = $scope.experiment.end.format('dd/mm/yyyy - HH:MM');
                 $scope.jsonContentExp = angular.toJson($scope.experiment);
                 Experiment.put({id:$scope.experiment.id}, $scope.jsonContentExp, function(){
                     angular.element(".btnAddEvtEpoch button").remove();
                     angular.element(".glyphicon-stop").remove();
                     angular.element(".resetstarthour").remove();
+                    angular.element(".clock").remove();
                 });
               }
           });
