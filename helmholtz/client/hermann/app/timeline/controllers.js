@@ -298,7 +298,7 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
 
     //show dialog add event
     $scope.showDlgEvent = function( timeline, event ){
-        text_event = "";
+        //text_event = "";
         // if we are creating an event, we initialize it here
         var tln = timeline.name.split(' ');
         var stop_show_dlg = 0;
@@ -319,14 +319,15 @@ function ($scope, $rootScope, $compile, ModalService, $http, $q, timeLine, event
             angular.forEach( timeline.epochs.objects, function(epc, k) {
                 if(epc.end == null){
                   epcdepend = epc.resource_uri;
-                  text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
+                  //text_event = epc.type + " - " + epc.text + " - " + dateEvent.format('yyyy/mm/dd HH:MM');
                 }
               }
             );
             event = {
                 id : null,
                 timeline : "/notebooks/timeline/" + timeline.id,
-                text : text_event,
+                //text : text_event,
+                text : "",
                 date : dateEvent,
                 dateFormat : dateEvent.format('yyyy/mm/dd HH:MM'),
                 //type : $scope.config_defaults[$scope.experiment.type][timeline.name]['event'],
